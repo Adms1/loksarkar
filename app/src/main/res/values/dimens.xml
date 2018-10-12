@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="alerter_activity_horizontal_margin">18dp</dimen>
+    <dimen name="alerter_activity_vertical_margin">16dp</dimen>
+
+    <dimen name="alerter_padding_small">4dp</dimen>
+    <dimen name="alerter_padding_half">8dp</dimen>
+    <dimen name="alerter_padding_default">16dp</dimen>
+    <dimen name="alerter_alert_padding">30dp</dimen>
+    <dimen name="alerter_alert_negative_margin_top">-28dp</dimen>
+
+    <dimen name="alerter_progress_bar_size">2dp</dimen>
+
+    <!--Alerts-->
+    <dimen name="alerter_alert_min_height">64dp</dimen>
+    <dimen name="alerter_alert_max_height">84dp</dimen>
+    <dimen name="alerter_alert_icn_size">38dp</dimen>
+    <dimen name="alerter_alert_progress_size">32dp</dimen>
+
+    <!--Text sizes-->
+    <dimen name="alerter_text_small">14sp</dimen>
+    <dimen name="alerter_text_medium">18sp</dimen>
+    <dimen name="alerter_alert_view_padding_top">70dp</dimen>
+
+    <dimen name="corner_radius">2dp</dimen>
+    <dimen name="layer_padding">3dp</dimen>
+
+    <dimen name="radio_button_text_size">16sp</dimen>
+
+    <dimen name="otp_view_item_size">48dp</dimen>
+    <dimen name="otp_view_item_radius">5dp</dimen>
+    <dimen name="otp_view_item_spacing">5dp</dimen>
+    <dimen name="otp_view_item_line_width">2dp</dimen>
+    <dimen name="otp_view_cursor_width">2dp</dimen>
+
+    <dimen name="margin_tiny">4dp</dimen>
+    <dimen name="margin_small">8dp</dimen>
+    <dimen name="margin_medium">16dp</dimen>
+    <dimen name="margin_medium_large">24dp</dimen>
+    <dimen name="margin_large">32dp</dimen>
+    <dimen name="margin_large_extra">48dp</dimen>
+    <dimen name="margin_huge">64dp</dimen>
+
+    <dimen name="list_home_img_max">90dp</dimen>
+    <dimen name="list_home_img_min">60dp</dimen>
+    <dimen name="list_home_txt_pad">8dp</dimen>
+    <dimen name="list_home_title">17sp</dimen>
+    <dimen name="list_home_txt">13sp</dimen>
+    <dimen name="list_home_pub">9sp</dimen>
+    <dimen name="app_bar_height">180dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
+
+
+
+
+
+    <dimen name="evp_content_inset">16dp</dimen>
+    <dimen name="evp_content_inset_half">8dp</dimen>
+    <dimen name="evp_content_inset_less">1dp</dimen>
+    <dimen name="evp_content_inset_iconbuttons">2dp</dimen>
+
+    <dimen name="evp_text_size_small">10sp</dimen>
+
+    <dimen name="evp_button_size">48dp</dimen>
+    <dimen name="evp_text_size_medium">14sp</dimen>
+
+    <dimen name="evp_negative_inset_large">-8dp</dimen>
+    <dimen name="evp_negative_inset_small">-2dp</dimen>
+
+
+</resources>

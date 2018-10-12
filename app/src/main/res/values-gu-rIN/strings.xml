@@ -1,0 +1,254 @@
+<resources>
+    <string name="app_name">Lok Sarkar</string>
+
+    <string name="msg.alert_cleared">Alert Cleared</string>
+    <string name="msg.no_alert_showing">No Alert Showing</string>
+    <string name="loksabha">-- લોકસભા  --</string>
+
+    <string name="loksabha_txt">લોકસભા</string>
+
+    <string name="header_name">લોક સરકાર</string>
+
+    <string name="create_ac_txt">નવી સભ્યપદ નોંધણી કરો</string>
+
+    <string name="check_email_msg">Please check your email for credentials</string>
+
+    <string name="dialog_discarded">Dialog discarded</string>
+    <string name="discard_confirmation_title">Are you sure?</string>
+    <string name="discard_confirmation_message">Please confirm that you want to exit?</string>
+
+    <string name="choose_lang">Choose Language</string>
+
+    <string name="ok">ok</string>
+    <string name="cancel">Cancel</string>
+
+    <string name="gujarati1"><u>ગુજરાતી</u></string>
+    <string name="hindi1"><u>हिन्दी</u></string>
+    <string name="eng1"><u>ENGLISH</u></string>
+
+    <string name="home_menu">Home</string>
+    <string name="change_lang">Change Language</string>
+    <string name="register_now">REGISTER NOW</string>
+
+    <string name="disrtrict_panchayat">જિલ્લા પંચાયત</string>
+    <string name="taluka_panchayat">તાલુકા પંચાયત</string>
+    <!-- for gujarati-->
+    <string name="reg_type">રજીસ્ટ્રેશન પ્રકાર</string>
+    <string name="name">નામ *</string>
+    <string name="address">સરનામું *</string>
+    <string name="mobile_no">મોબાઇલ નંબર *</string>
+    <string name="email">ઈ-મેઈલ આઈ.ડી</string>
+    <string name="email_label">ઈ-મેઈલ આઈ.ડી *</string>
+
+    <string name="userid">યુઝર આઈડી</string>
+    <string name="password">પાસવર્ડ</string>
+
+    <string name="dob">જન્મ તારીખ *</string>
+    <string name="identifiction">ઓળખ પત્ર</string>
+    <string name="id_proof_num">ઓળખ પત્ર નંબર</string>
+    <string name="lok_sevak_code">લોકસેવક કોડ</string>
+
+    <string name="media_housename">મીડિયા ઘરનું નામ*</string>
+
+    <string name="website_link">વેબસાઇટ લિંક</string>
+    <string name="do_media_registartion">મીડિયા નોંધણી કરો</string>
+
+    <string name="category">શ્રેણી</string>
+
+
+    <string name="district">જીલ્લો / મહાનગર *</string>
+    <string name="assembly">વિધાનસભા *</string>
+    <string name="adhar_card">આધાર કાર્ડ</string>
+    <string name="election_card">ઇલેકશન કાર્ડ </string>
+    <string name="driving_card">ડ્રાઇવિંગ લાઈસન્સ </string>
+    <string name="passport_card">પાસપોર્ટ </string>
+    <string name="taluka_t">તાલુકા / શહેર</string>
+    <string name="ward_t">વોર્ડ</string>
+    <string name="taluka_panchyat">તાલુકા પંચાયત</string>
+    <string name="jilla_panchyat">જિલ્લા પંચાયત</string>
+    <string name="zone_t">ઝોન</string>
+    <!-- registation list screen-->
+
+    <string name="prachar_smiti">પ્રચાર સમિતિ</string>
+    <string name="lok_sevak">લોકસેવક</string>
+    <string name="reseach_team">રીસર્ચ ટીમ</string>
+    <string name="media">મીડિયા</string>
+    <string name="ngo">NGO</string>
+    <string name="nrg">NRG</string>
+    <string name="rti">RTI</string>
+    <string name="samajik_dharmik">સામાજીક-ધાર્મિક સંસ્થા</string>
+    <string name="vyavsaik_sanstha">વ્યવસાયિક સંસ્થા</string>
+    <string name="saishnik_sanstha">શૈક્ષણીક સંસ્થા</string>
+    <string name="aodhyogik_sanstha">ઓધૌગિક સંસ્થા</string>
+    <string name="vyavsaik_kaushly_sanstha">વ્યવસાયિક કૌશલય ધરાવતી સંસ્થા</string>
+    <string name="vakil">વકિલ</string>
+    <string name="udhyogpati">ઉદ્યોગપતિ</string>
+    <string name="doctors">ડોક્ટર્સ</string>
+    <string name="builders">બિલ્ડરર્સ</string>
+    <string name="khedut">ખેડૂત</string>
+
+    <string name="login">લૉગિન</string>
+
+    <string name="time_ago_now">Now</string>
+    <string name="time_ago_minute">Minute ago</string>
+    <string name="time_ago_minutes">Minutes ago</string>
+    <string name="time_ago_hour">Hour ago</string>
+    <string name="time_ago_hours">Hours ago</string>
+    <string name="time_ago_day">Day ago</string>
+    <string name="time_ago_days">Days ago</string>
+
+    <string name="logout_confrim_msg">Do you really want to logout?</string>
+
+
+    <!--registration Forum -->
+    <string name="prachar_samiti_reg">પ્રચાર સમિતિ રજીસ્ટ્રેશન</string>
+    <string name="lok_sevak_registration">લોકસેવક રજીસ્ટ્રેશન</string>
+    <string name="research_team_registration">રીસર્ચ ટીમ રજીસ્ટ્રેશન</string>
+    <string name="media_registration">મીડિયા રજીસ્ટ્રેશન</string>
+    <string name="ngo_reg">NGO(Non Governmental Organization) રજીસ્ટ્રેશન</string>
+    <string name="nrg_reg">NRG રજીસ્ટ્રેશન</string>
+    <string name="rti_reg">RTI રજીસ્ટ્રેશન</string>
+    <string name="social_reg">સામાજીક-ધાર્મિક સંસ્થા રજીસ્ટ્રેશન</string>
+    <string name="prof_reg">વ્યવસાયિક સંસ્થા રજીસ્ટ્રેશન</string>
+    <string name="educational_reg">શૈક્ષણીક સંસ્થા રજીસ્ટ્રેશન</string>
+    <string name="industrial_reg">ઓધૌગિક સંસ્થા રજીસ્ટ્રેશન</string>
+    <string name="prof_skill_reg">વ્યવસાયિક કૌશલય ધરાવતી સંસ્થા રજીસ્ટ્રેશન</string>
+    <string name="advocate_reg">વકિલ રજીસ્ટ્રેશન</string>
+    <string name="business_reg">ઉદ્યોગપતિ રજીસ્ટ્રેશન</string>
+    <string name="doctors_reg">ડોક્ટર્સ રજીસ્ટ્રેશન</string>
+    <string name="builders_reg">બિલ્ડરર્સ રજીસ્ટ્રેશન</string>
+    <string name="farmer_reg">ખેડૂત રજીસ્ટ્રેશન</string>
+
+
+    <string name="skip_step"><b><u>Skip this step</u></b></string>
+
+    <string-array name="registration_types">
+        <item>પ્રચાર સમિતિ રજીસ્ટ્રેશન</item>
+        <item>લોકસેવક રજીસ્ટ્રેશન</item>
+        <item>રીસર્ચ ટીમ રજીસ્ટ્રેશન</item>
+        <item>મીડિયા રજીસ્ટ્રેશન</item>
+        <item>NGO(Non Governmental Organization) રજીસ્ટ્રેશન</item>
+        <item>NRG રજીસ્ટ્રેશન</item>
+        <item>RTI રજીસ્ટ્રેશન</item>
+        <item>સામાજીક-ધાર્મિક સંસ્થા રજીસ્ટ્રેશન</item>
+        <item>વ્યવસાયિક સંસ્થા રજીસ્ટ્રેશનન</item>
+        <item>શૈક્ષણીક સંસ્થા રજીસ્ટ્રેશન</item>
+        <item>ઓધૌગિક સંસ્થા રજીસ્ટ્રેશન</item>
+        <item>વ્યવસાયિક કૌશલય ધરાવતી સંસ્થા રજીસ્ટ્રેશન</item>
+        <item>વકિલ રજીસ્ટ્રેશન</item>
+        <item>ઉદ્યોગપતિ રજીસ્ટ્રેશન</item>
+        <item>ડોક્ટર્સ રજીસ્ટ્રેશન</item>
+        <item>બિલ્ડરર્સ રજીસ્ટ્રેશન</item>
+        <item>ખેડૂત રજીસ્ટ્રેશન</item>
+    </string-array>
+
+
+    <string-array name="radio_buttons">
+        <item>આધાર કાર્ડ</item>
+        <item>ઇલેકશન કાર્ડ </item>
+        <item>ડ્રાઇવિંગ લાઈસન્સ</item>
+        <item>પાસપોર્ટ</item>
+    </string-array>
+
+    <string-array name="radio_buttons_usertype">
+        <item>Other</item>
+        <item>Volunteer</item>
+    </string-array>
+
+    <string-array name="radio_buttons_category">
+        <item>પ્રિન્ટ મીડિયા</item>
+        <item>ઇલેક્ટ્રોનિક મીડિયા</item>
+        <item>Digital Media</item>
+        <item>ફ્રીલાન્સર</item>
+        <item>અન્ય</item>
+    </string-array>
+    <string name="other">અન્ય</string>
+
+    <!-- Forum Hints -->
+    <string name="usertype_txt">Usertype</string>
+
+    <string name="name_hint">-- તમારું પૂરું નામ લખો --</string>
+    <string name="address_hint">-- તમારું સરનામું લખો --</string>
+    <string name="mob_no_hint">-- તમારો મોબાઇલ / સંપર્ક નંબર લખો --</string>
+    <string name="email_address_hint">-- તમારુ ઇ-મેઇલ એડ્રેસ લખો --</string>
+    <string name="dob_hint">-- જન્મ તારીખ લખો --</string>
+    <string name="identification_hint">-- તમારુ ઓળખ પત્ર નંબર લખો --</string>
+    <string name="fb_link_hint">-- Facebook Link દાખલ લખો --</string>
+    <string name="twitter_link_hint">-- Twitter Link દાખલ કરો --</string>
+    <string name="district_drop_down_hint">-- ફરિયાદિત જિલ્લા / મ્યુનિસિપલ કોર્પોરેશન પસંદ કરો --</string>
+    <string name="assembly_dropdown_hint">-- વિધાનસભા પસંદ કરો --</string>
+
+
+    <!-- complain forum text hints -->
+    <string name="compalainer_title_text">ફરિયાદીની વિગત</string>
+    <string name="complain_district_drop_down_hint">-- જિલ્લો / મહાનગર કક્ષા પસંદ કરો --</string>
+    <string name="complain_assembly_dropdown_hint"> -- ફરિયાદની વિધાનસભા પસંદ કરો --</string>
+    <string name="complain_detail_title">ફરિયાદની વિગત</string>
+    <string name="complain_class_title">ફરિયાદની શ્રેણી</string>
+    <string name="complain_class_drop_down_hint">--- ફરિયાદની શ્રેણી પસંદ કરો ---</string>
+    <string name="complain_level_title">ફરિયાદનું સ્તર</string>
+    <string name="complain_municipal"> જિલ્લા / મહાનગર કક્ષા </string>
+    <string name="complain_state"> રાજય કક્ષા </string>
+    <string name="complain_centeral"> કેન્દ્ર કક્ષા </string>
+    <string name="complain_district_title">ફરિયાદ નો જિલ્લો / મહાનગર કક્ષા</string>
+    <string name="complain_taluka_title">તાલુકા /શહેર</string>
+    <string name="complain_dept_title">વિભાગ</string>
+    <string name="complain_subdept_title">પેટા વિભાગ</string>
+    <string name="complain_district_dropdown_title">-- જિલ્લો / મહાનગર કક્ષા પસંદ કરો --</string>
+    <string name="complain_taluka_dropdown_title">-- તાલુકો/શહેર પસંદ કરો --</string>
+    <string name="complain_ward_dropdown_title">-- વિભાગ પસંદ કરો --</string>
+    <string name="complain_sub_ward_dropdown_titlle">-- પેટા વિભાગ પસંદ કરો --</string>
+    <string name="choose_file_txt">ઓળખ પત્ર અપલોડ કરો</string>
+
+    <string-array name="dashboard_menu">
+        <item>ફરિયાદ</item>
+        <item>સ્વયં સેવક રજીસ્ટ્રેશન</item>
+        <item>માહિતી</item>
+        <item>સુવિધા</item>
+        <item>લોક સરકાર બુલેટિન</item>
+        <item>લોક મત</item>
+        <item>લોક અભિપ્રાય</item>
+        <item>કોંગ્રેસ પાર્ટીમાં જોડાવા</item>
+    </string-array>
+
+    <!-- menu-->
+    <string name="home">હોમ</string>
+    <string name="about">લોક સરકાર</string>
+    <string name="registration">રજીસ્ટ્રેશન</string>
+    <string name="choose_language">ભાષા પસંદ કરો</string>
+    <string name="my_complaint_status">મારી ફરિયાદોની સ્થિતિ</string>
+    <string name="logout">લૉગ આઉટ</string>
+
+
+    <!--submenu-->
+    <string name="gujarati">ગુજરાતી</string>
+    <string name="hindi">हिन्दी</string>
+    <string name="eng">ENGLISH</string>
+
+    <string name="facility">સુવિધા</string>
+
+    <string name="alert_msg">Alert Msg</string>
+    <string name="internet_error">Internet Connection !</string>
+    <string name="internet_connection_error">Admin requires an internet connection.Make sure Wi-Fi or mobile networks are turned on, then try again.</string>
+    <string name="something_wrong">Something Wrong</string>
+    <string name="blank">Blank Filed Not Allowed</string>
+    <string name="false_msg">Record not found</string>
+    <string name="true_msg">Send Successfully</string>
+    <string name="thank_msg">Thank you</string>
+
+    <string name="social_media">સોશ્યિલ મીડિયા</string>
+    <string name="media_coverage">મીડિયા કવરેજ</string>
+    <string name="video">વિડિઓ</string>
+    <string name="media_reg">મીડિયા નોંધણી</string>
+
+    <string name="evp_submit">SUBMIT</string>
+    <string name="evp_retry">RETRY</string>
+
+
+
+    <string name="facebook">ફેસબુક</string>
+    <string name="twitter">ટ્વિટર</string>
+    <string name="youtube">યુ-ટ્યૂબ</string>
+    <string name="whatsapp">વહટ્સ અપ</string>
+
+</resources>

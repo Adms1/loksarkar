@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/dialog_language_bg"
+    tools:context=".activities.LocalizationAcitivity">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/image"
+        android:layout_width="@dimen/_150sdp"
+        android:layout_height="@dimen/_150sdp"
+        android:layout_marginTop="@dimen/_100sdp"
+        app:civ_border_color="@color/white"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/shaodw"
+
+        android:src="@drawable/round_logo"
+        app:layout_constraintBaseline_toBaselineOf="parent" />
+
+
+    <LinearLayout
+            android:id="@+id/ll_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/image"
+            android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/tv_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:layout_gravity="center"
+            android:text="Please select your language"
+            android:textAllCaps="true"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_toLeftOf="@+id/tv_hindi"
+            android:padding="@dimen/_10sdp"
+            android:textColor="@color/text_color_title" />
+
+        </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/flowlayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_below="@+id/ll_label"
+
+        android:layout_centerInParent="true">
+
+
+        <TextView
+            android:id="@+id/tv_gujarati"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="@string/gujarati1"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_toLeftOf="@+id/tv_hindi"
+            android:padding="@dimen/_10sdp"
+            android:textColor="@color/blue_normal" />
+
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@+id/tv_gujarati"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:background="@color/blue_normal"/>
+
+
+        <TextView
+            android:id="@+id/tv_hindi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="@string/hindi1"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="@dimen/_5sdp"
+            android:padding="@dimen/_10sdp"
+            android:textColor="@color/blue_normal" />
+
+        <View
+            android:id="@+id/view_2"
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@+id/tv_hindi"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:background="@color/blue_normal"/>
+
+        <TextView
+            android:id="@+id/tv_english"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="@string/eng1"
+            android:layout_marginLeft="@dimen/_5sdp"
+            android:layout_marginRight="@dimen/_5sdp"
+            android:layout_toRightOf="@+id/view_2"
+            android:padding="@dimen/_10sdp"
+            android:textColor="@color/blue_normal" />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/RL_skip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="@dimen/_20sdp"
+        android:visibility="gone"
+        android:padding="@dimen/_10sdp">
+
+
+        <TextView
+            android:id="@+id/tv_skip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/_5sdp"
+            android:textColor="@color/colorPrimary"
+            android:textSize="15sp"
+            android:text="@string/skip_step"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

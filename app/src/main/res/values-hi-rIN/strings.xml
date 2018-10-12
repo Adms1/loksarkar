@@ -1,0 +1,254 @@
+<resources>
+    <string name="app_name">Lok Sarkar</string>
+
+
+    <string name="msg.alert_cleared">Alert Cleared</string>
+    <string name="msg.no_alert_showing">No Alert Showing</string>
+
+    <string name="header_name">लोक सरकार</string>
+
+    <string name="create_ac_txt">एक नई सदस्यता पंजीकृत करें</string>
+
+    <string name="check_email_msg">Please check your email for credentials</string>
+
+    <string name="home_menu">Home</string>
+    <string name="change_lang">Change Language</string>
+    <string name="register_now">REGISTER NOW</string>
+
+    <string name="gujarati1"><u>ગુજરાતી</u></string>
+    <string name="hindi1"><u>हिन्दी</u></string>
+    <string name="eng1"><u>ENGLISH</u></string>
+
+    <string name="ok">ok</string>
+    <string name="cancel">Cancel</string>
+
+    <string name="dialog_discarded">Dialog discarded</string>s
+    <string name="discard_confirmation_title">Are you sure?</string>
+    <string name="discard_confirmation_message">Please confirm that you want to exit?</string>
+
+    <string name="reg_type">पंजीकरण प्रकार *</string>
+    <string name="name">नाम *</string>
+    <string name="address">पता *</string>
+    <string name="mobile_no">मोबाइल नंबर *</string>
+    <string name="email">ईमेल आईडी</string>
+    <string name="email_label">ईमेल आईडी *</string>
+
+
+    <string name="userid">यूज़र आईडी</string>
+    <string name="password">पासवर्ड</string>
+
+
+    <string name="time_ago_now">Now</string>
+    <string name="time_ago_minute">Minute ago</string>
+    <string name="time_ago_minutes">Minutes ago</string>
+    <string name="time_ago_hour">Hour ago</string>
+    <string name="time_ago_hours">Hours ago</string>
+    <string name="time_ago_day">Day ago</string>
+    <string name="time_ago_days">Days ago</string>
+
+    <string name="logout_confrim_msg">Do you really want to logout?</string>
+
+
+    <string name="dob">जन्म तिथि *</string>
+    <string name="identifiction">पहचान पत्र</string>
+    <string name="id_proof_num">पहचान पत्र नंबर</string>
+    <string name="district">जिला / महानगर *</string>
+    <string name="assembly">विधानसभा *</string>
+    <string name="adhar_card">आधार कार्ड</string>
+    <string name="election_card">चुनाव कार्ड </string>
+    <string name="driving_card">ड्राइविंग लाइसेंस </string>
+    <string name="passport_card">पासपोर्ट </string>
+    <string name="lok_sevak_code">लोकसेवक कोड</string>
+
+    <string name="usertype_txt">Usertype</string>
+
+    <string name="loksabha">-- लोकसभा --</string>
+    <string name="loksabha_txt">लोकसभा</string>
+    <string name="media_housename">मीडिया का घर का नाम *</string>
+    <string name="website_link">वेबसाइट की लिंक</string>
+    <string name="do_media_registartion">मीडिया पंजीकरण करें</string>
+
+    <string name="category">वर्ग</string>
+
+    <string name="choose_lang">Choose Language</string>
+
+    <string name="taluka_t">तालुका / शहर</string>
+    <string name="ward_t">परवरिश</string>
+    <string name="taluka_panchyat">तालुका पंचायत</string>
+    <string name="jilla_panchyat">जिला पंचायत</string>
+    <string name="zone_t">क्षेत्र</string>
+    <string name="disrtrict_panchayat">District Panchayat</string>
+    <string name="taluka_panchayat">Taluka Panchayat</string>
+    <!-- registration Forum-->
+    <string name="prachar_samiti_reg">प्रचार पंजीकरण</string>
+    <string name="lok_sevak_registration">लोक सेवा पंजीकरण</string>
+    <string name="research_team_registration">अनुसंधान पंजीकरण</string>
+    <string name="media_registration">मीडिया पंजीकरण</string>
+    <string name="ngo_reg">एनजीओ (गैर सरकारी संगठन) पंजीकरण</string>
+    <string name="nrg_reg">एनआरजी पंजीकरण</string>
+    <string name="rti_reg">आरटीआई पंजीकरण</string>
+    <string name="social_reg">सामाजिक-धार्मिक पंजीकरण</string>
+    <string name="prof_reg">વव्यावसायिक पंजीकरण</string>
+    <string name="educational_reg">शैक्षणिक पंजीकरण</string>
+    <string name="industrial_reg">औद्योगिक पंजीकरण</string>
+    <string name="prof_skill_reg">વव्यावसायिक कौशल पंजीकरण</string>
+    <string name="advocate_reg">वकील पंजीकरण</string>
+    <string name="business_reg">व्यवसायी पंजीकरण</string>
+    <string name="doctors_reg">डॉक्टर पंजीकरण</string>
+    <string name="builders_reg">बिल्डर्स पंजीकरण</string>
+    <string name="farmer_reg">किसान पंजीकरण</string>
+
+    <string name="skip_step"><b><u>Skip this step</u></b></string>
+
+    <string name="login">लॉग इन करें</string>
+
+    <!-- registation list screen-->
+
+    <string name="prachar_smiti">प्रचार</string>
+    <string name="lok_sevak">लोक सेवा</string>
+    <string name="reseach_team">अनुसंधान</string>
+    <string name="media">मीडिया</string>
+    <string name="ngo">एनजीओ (गैर सरकारी संगठन)</string>
+    <string name="nrg">एनआरजी</string>
+    <string name="rti">आरटीआई</string>
+    <string name="samajik_dharmik">सामाजिक-धार्मिक</string>
+    <string name="vyavsaik_sanstha">વव्यावसायिक</string>
+    <string name="saishnik_sanstha">शैक्षणिक </string>
+    <string name="aodhyogik_sanstha">औद्योगिक</string>
+    <string name="vyavsaik_kaushly_sanstha">વव्यावसायिक कौशल</string>
+    <string name="vakil">वकील</string>
+    <string name="udhyogpati">व्यवसायी</string>
+    <string name="doctors">डॉक्टर</string>
+    <string name="builders">बिल्डर्स</string>
+    <string name="khedut">किसान</string>
+
+
+    <string-array name="registration_types">
+        <item>प्रचार पंजीकरण</item>
+        <item>लोक सेवा पंजीकरण</item>
+        <item>अनुसंधान पंजीकरण</item>
+        <item>मीडिया पंजीकरण</item>
+        <item>एनजीओ (गैर सरकारी संगठन) पंजीकरण</item>
+        <item>एनआरजी पंजीकरण</item>
+        <item>आरटीआई पंजीकरण</item>
+        <item>सामाजिक-धार्मिक पंजीकरण</item>
+        <item>વव्यावसायिक पंजीकरण</item>
+        <item>शैक्षणिक पंजीकरण</item>
+        <item>औद्योगिक पंजीकरण</item>
+        <item>વव्यावसायिक कौशल पंजीकरण</item>
+        <item>वकील पंजीकरण</item>
+        <item>व्यवसायी पंजीकरण</item>
+        <item>डॉक्टर पंजीकरण</item>
+        <item>बिल्डर्स पंजीकरण</item>
+        <item>किसान पंजीकरण</item>
+    </string-array>
+
+
+    <string-array name="radio_buttons">
+        <item>आधार कार्ड</item>
+        <item>चुनाव कार्ड </item>
+        <item>ड्राइविंग लाइसेंस</item>
+        <item>पासपोर्ट</item>
+    </string-array>
+
+    <string-array name="radio_buttons_usertype">
+        <item>Other</item>
+        <item>Volunteer</item>
+    </string-array>
+
+    <string-array name="radio_buttons_category">
+        <item>प्रिंट मीडिया</item>
+        <item>इलेकट्रोनिक मीडिया</item>
+        <item>डिजिटल मीडिया</item>
+        <item>फ्रीलांसर</item>
+        <item>अन्य</item>
+    </string-array>
+    <string name="other">अन्य</string>
+
+    <!-- Form textHints -->
+    <string name="name_hint">-- कृपया नाम दर्ज करें --</string>
+    <string name="address_hint">-- कृपया पता दर्ज करें --</string>
+    <string name="mob_no_hint">-- कृपया मोबाइल नंबर दर्ज करें --</string>
+    <string name="email_address_hint">-- कृपया ईमेल आईडी दर्ज करें --</string>
+    <string name="dob_hint">-- जन्म तिथि दर्ज करें --</string>
+    <string name="identification_hint">-- कृपया पहचान पत्र नंबर दर्ज करें --</string>
+    <string name="fb_link_hint">-- Facebook Link दर्ज करें --</string>
+    <string name="twitter_link_hint">-- Twitter Link दर्ज करें --</string>
+    <string name="district_drop_down_hint">-- शिकायत जिल्ला / म्युनिसिपल कोर्पोरेशन चयन करें --</string>
+    <string name="assembly_dropdown_hint">-- विधानसभा चयन करें --</string>
+
+
+    <!-- dashboard menus-->
+    <string-array name="dashboard_menu">
+        <item>लोक शिकायत</item>
+        <item>लोक सरकार में पंजीकरण</item>
+        <item>उपयोगी विवरण</item>
+        <item>सुविधाएं</item>
+        <item>लोक सरकार बुलेटिन</item>
+        <item>लोगों की आवाज़</item>
+        <item>सुझाव</item>
+        <item>कांग्रेस पार्टी में जुड़े</item>
+    </string-array>
+
+    <string name="compalainer_title_text">Complaint Person Details</string>
+
+    <string name="complain_district_drop_down_hint">-- Select District / Municipal Corporation --</string>
+    <string name="complain_assembly_dropdown_hint"> -- Select Assembly --</string>
+    <string name="complain_detail_title">Complaint Details</string>
+    <string name="complain_class_title">Complaint Category</string>
+    <string name="complain_class_drop_down_hint">--- Select Complaint Category ---</string>
+    <string name="complain_level_title">Complaint Level*</string>
+    <string name="complain_municipal"> District / Metropolitan Level</string>
+    <string name="complain_state"> State Government Level</string>
+    <string name="complain_centeral"> Central Government Level </string>
+    <string name="complain_district_title">Complaint District / Metropolitan</string>
+    <string name="complain_taluka_title">Taluka / City *</string>
+    <string name="complain_dept_title">Department *</string>
+    <string name="complain_subdept_title">Sub-Department *</string>
+    <string name="complain_district_dropdown_title">-- Select District / Metropolitan --</string>
+    <string name="complain_taluka_dropdown_title">-- Select Taluko/City --</string>
+    <string name="complain_ward_dropdown_title">-- Select Department --</string>
+    <string name="complain_sub_ward_dropdown_titlle">-- Select Sub Department --</string>
+    <string name="choose_file_txt">Upload ID Proof</string>
+
+
+    <!-- menu-->
+    <string name="home">होम</string>
+    <string name="about">लोक सरकार</string>
+    <string name="registration">पंजीकरण</string>
+    <string name="choose_language">भाषा चुनें</string>
+    <string name="my_complaint_status">मेरी शिकायत की स्थिति</string>
+    <string name="logout">लोग आउट</string>
+
+
+    <!--submenu-->
+    <string name="gujarati">ગુજરાતી</string>
+    <string name="hindi">हिन्दी</string>
+    <string name="eng">ENGLISH</string>
+
+    <string name="facility">सुविधाएं</string>
+
+    <string name="alert_msg">Alert Msg</string>
+    <string name="internet_error">Internet Connection !</string>
+    <string name="internet_connection_error">Admin requires an internet connection.Make sure Wi-Fi or mobile networks are turned on, then try again.</string>
+    <string name="something_wrong">Something Wrong</string>
+    <string name="blank">Blank Filed Not Allowed</string>
+    <string name="false_msg">Record not found</string>
+    <string name="true_msg">Send Successfully</string>
+    <string name="thank_msg">Thank you</string>
+
+    <string name="social_media">सोशल मीडिया</string>
+    <string name="media_coverage">मीडिया कवरेज</string>
+    <string name="video">वीडियो</string>
+    <string name="media_reg">मीडिया पंजीकरण</string>
+
+
+    <string name="evp_submit">SUBMIT</string>
+    <string name="evp_retry">RETRY</string>
+
+
+    <string name="facebook">फेसबुक</string>
+    <string name="twitter">ट्विटर</string>
+    <string name="youtube">यूट्यूब</string>
+    <string name="whatsapp">व्हाट्स अप</string>
+</resources>

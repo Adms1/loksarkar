@@ -1,0 +1,268 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">Lok Sarkar</string>
+    <string name="header_name">Lok Sarkar</string>
+
+    <string name="no_internet_title">No Internet Connection</string>
+    <string name="no_internet_msg">Please check your network</string>
+
+    <string name="create_ac_txt">Register a new membership</string>
+
+    <string name="check_email_msg">Please check your email for credentials</string>
+
+    <string name="loksabha"> -- Loksabha -- </string>
+    <string name="loksabha_txt">Loksabha</string>
+    <string name="taluka_t">Taluka / City</string>
+    <string name="ward_t">Ward</string>
+    <string name="taluka_panchyat">Taluka Panchayat</string>
+    <string name="jilla_panchyat">District Panchayat</string>
+    <string name="zone_t">Zone</string>
+
+    <string name="disrtrict_panchayat">District Panchayat</string>
+    <string name="taluka_panchayat">Taluka Panchayat</string>
+
+    <!-- for english-->
+    <string name="usertype_txt">Usertype</string>
+    <string name="choose_lang">Choose Language</string>
+    <string name="reg_type">Registration Type *</string>
+    <string name="name">Name *</string>
+    <string name="address">Address *</string>
+    <string name="mobile_no">Mobile Number *</string>
+    <string name="userid">User ID</string>
+    <string name="password">Password</string>
+    <string name="website_link">Website link</string>
+    <string name="do_media_registartion">Media Registration</string>
+
+    <string name="media_housename">Media House Name*</string>
+
+    <string name="email">Email ID</string>
+
+    <string name="email_label">Email ID *</string>
+
+    <string name="dob">Date of Birth *</string>
+    <string name="identifiction">ID Proof Type</string>
+    <string name="id_proof_num">ID Proof Number</string>
+    <string name="lok_sevak_code">Loksevak Code</string>
+
+    <string name="district">District / Metropolis *</string>
+    <string name="assembly">Assembly *</string>
+    <string name="adhar_card">Aadhar Card</string>
+    <string name="election_card">Election Card</string>
+    <string name="driving_card">Driving License</string>
+    <string name="passport_card">Passport</string>
+
+    <string name="time_ago_now">Now</string>
+    <string name="time_ago_minute">Minute ago</string>
+    <string name="time_ago_minutes">Minutes ago</string>
+    <string name="time_ago_hour">Hour ago</string>
+    <string name="time_ago_hours">Hours ago</string>
+    <string name="time_ago_day">Day ago</string>
+    <string name="time_ago_days">Days ago</string>
+    <string name="category">Category</string>
+
+
+    <string name="logout_confrim_msg">Do you really want to logout?</string>
+
+    <string-array name="menu_array">
+        <item>Home</item>
+        <item>Change Language</item>
+    </string-array>
+
+    <string name="home_menu">Home</string>
+    <string name="change_lang">Change Language</string>
+
+    <string name="register_now">REGISTER NOW</string>
+
+
+    <string name="dialog_discarded">Dialog discarded</string>
+    <string name="discard_confirmation_title">Are you sure?</string>
+    <string name="discard_confirmation_message">Please confirm that you want to exit?</string>
+    <!-- registration -->
+    <string name="prachar_samiti_reg">Publicity Summit Registration</string>
+    <string name="lok_sevak_registration">Loksevak Summit Registration</string>
+    <string name="research_team_registration">Research Summit Registration</string>
+    <string name="media_registration">Media Summit  Registration</string>
+    <string name="ngo_reg">NGO(NonGovernmental Organization) Registration</string>
+    <string name="nrg_reg">NRG Registration</string>
+    <string name="rti_reg">RTI Registration</string>
+    <string name="social_reg">Social-Religious Registration</string>
+    <string name="prof_reg">Professional Registration</string>
+    <string name="educational_reg">Educational Summit Registration</string>
+    <string name="industrial_reg">Industrial Summit Registration</string>
+    <string name="prof_skill_reg">Professional skills Summit Registration</string>
+    <string name="advocate_reg">Advocate Registration</string>
+    <string name="business_reg">Bussiness Man Registration</string>
+    <string name="doctors_reg">Doctors Registration</string>
+    <string name="builders_reg">Builders Registration</string>
+    <string name="farmer_reg">Farmers Registration</string>
+
+    <string name="skip_step"><b><u>Skip this step</u></b></string>
+
+    <string-array name="registration_types">
+        <item>Publicity Summit Registration</item>
+        <item>Loksevak Summit Registration</item>
+        <item>Research Summit Registration</item>
+        <item>Media Summit  Registration</item>
+        <item>NGO(NonGovernmental Organization) Registration</item>
+        <item>NRG Registration</item>
+        <item>RTI Registration</item>
+        <item>Social-Religious Registration</item>
+        <item>Professional Registration</item>
+        <item>Educational Summit Registration</item>
+        <item>Industrial Summit Registration</item>
+        <item>Professional skills Summit Registration</item>
+        <item>Advocate Registration</item>
+        <item>Bussiness Man Registration</item>
+        <item>Doctors Registration</item>
+        <item>Builders Registration</item>
+        <item>Farmers Registration</item>
+    </string-array>
+
+    <string name="login">Login</string>
+
+
+    <!-- registation list screen-->
+    <string name="prachar_smiti">Publicity</string>
+    <string name="lok_sevak">Loksevak </string>
+    <string name="reseach_team">Research</string>
+    <string name="media">Media</string>
+    <string name="ngo">NGO</string>
+    <string name="nrg">NRG</string>
+    <string name="rti">RTI</string>
+    <string name="samajik_dharmik">Social-Religious</string>
+    <string name="vyavsaik_sanstha">Professional</string>
+    <string name="saishnik_sanstha">Educational</string>
+    <string name="aodhyogik_sanstha">Industrial</string>
+    <string name="vyavsaik_kaushly_sanstha">Professional skills</string>
+    <string name="vakil">Advocate</string>
+    <string name="udhyogpati">Bussiness Man</string>
+    <string name="doctors">Doctors</string>
+    <string name="builders">Builders</string>
+    <string name="khedut">Farmers</string>
+
+    <!-- dashboard menus-->
+    <string-array name="dashboard_menu">
+        <item>People Complaint</item>
+        <item>Join Lok sarkar</item>
+        <item>Useful Details</item>
+        <item>Information / facility</item>
+        <item>Lok Sarkar Bulletin</item>
+        <item>Voice of People</item>
+        <item>People's Suggestions</item>
+        <item>Join Congress Party</item>
+    </string-array>
+
+    <string-array name="radio_buttons">
+        <item>Aadhar Card</item>
+        <item>Election Card</item>
+        <item>Driving License</item>
+        <item>Passport</item>
+    </string-array>
+
+    <string-array name="radio_buttons_usertype">
+        <item>Other</item>
+        <item>Volunteer</item>
+    </string-array>
+
+    <string-array name="radio_buttons_category">
+        <item>Print Media</item>
+        <item>Electronic Media</item>
+        <item>Digital Media</item>
+        <item>Freelancer</item>
+        <item>Other</item>
+    </string-array>
+
+    <string name="other">Other</string>
+    <!-- Forum Hints -->
+
+
+    <string name="msg.alert_cleared" tools:ignore="ExtraTranslation">Alert Cleared</string>
+    <string name="msg.no_alert_showing" tools:ignore="ExtraTranslation">No Alert Showing</string>
+
+    <string name="name_hint">-- Please enter name --</string>
+    <string name="address_hint">-- Please enter address --</string>
+    <string name="mob_no_hint">-- Please enter mobile number --</string>
+    <string name="email_address_hint">-- Please enter email id --</string>
+    <string name="dob_hint">-- Please enter date of birth --</string>
+    <string name="identification_hint">-- Please enter ID proof number --</string>
+    <string name="fb_link_hint">-- Please enter facebook link  --</string>
+    <string name="twitter_link_hint">-- Please enter twitter link  --</string>
+    <string name="district_drop_down_hint">-- Select District / Municipal Corporation --</string>
+    <string name="assembly_txt" translatable="false">Assembly *</string>
+
+    <string name="assembly_dropdown_hint">-- Select Assembly --</string>
+
+
+    <string name="compalainer_title_text">Complaint Person Details</string>
+
+    <string name="complain_district_drop_down_hint">-- Select District / Municipal Corporation --</string>
+    <string name="complain_assembly_dropdown_hint"> -- Select Assembly --</string>
+    <string name="complain_detail_title">Complaint Details</string>
+    <string name="complain_class_title">Complaint Category</string>
+    <string name="complain_class_drop_down_hint">--- Select Complaint Category ---</string>
+    <string name="complain_level_title">Complaint Level*</string>
+    <string name="complain_municipal"> District / Metropolitan Level</string>
+    <string name="complain_state"> State Government Level</string>
+    <string name="complain_centeral"> Central Government Level </string>
+    <string name="complain_district_title">Complaint District / Metropolitan</string>
+    <string name="complain_taluka_title">Taluka / City *</string>
+    <string name="complain_dept_title">Complaint Department *</string>
+    <string name="complain_subdept_title">Complaint Sub-Department *</string>
+    <string name="complain_district_dropdown_title">-- Select District / Metropolitan --</string>
+    <string name="complain_taluka_dropdown_title">-- Select Taluko/City --</string>
+    <string name="complain_ward_dropdown_title">-- Select Complaint Department --</string>
+    <string name="complain_sub_ward_dropdown_titlle">-- Select Complaint Sub Department --</string>
+    <string name="choose_file_txt">Upload ID Proof</string>
+
+
+    <!-- menu-->
+    <string name="home">HOME</string>
+    <string name="about">ABOUT LOKSARKAR</string>
+    <string name="registration">REGISTRATION</string>
+    <string name="choose_language">CHOOSE LANGUAGE</string>
+    <string name="my_complaint_status">MY COMPLAIINTS STATUS</string>
+    <string name="logout">logout</string>
+
+
+    <!--submenu-->
+    <string name="gujarati">ગુજરાતી</string>
+    <string name="hindi">हिन्दी</string>
+    <string name="eng">ENGLISH</string>
+
+    <string name="gujarati1"><u>ગુજરાતી</u></string>
+    <string name="hindi1"><u>हिन्दी</u></string>
+    <string name="eng1"><u>ENGLISH</u></string>
+
+    <string name="facility">Information / facility</string>
+
+    <string name="ok">ok</string>
+    <string name="cancel">Cancel</string>
+
+    <string name="alert_msg">Alert Msg</string>
+    <string name="internet_error">Internet Connection !</string>
+    <string name="internet_connection_error">Admin requires an internet connection.Make sure Wi-Fi or mobile networks are turned on, then try again.</string>
+    <string name="something_wrong">Something Wrong</string>
+    <string name="blank">Blank Filed Not Allowed</string>
+    <string name="false_msg">Record not found</string>
+    <string name="true_msg">Send Successfully</string>
+    <string name="success_msg" tools:ignore="MissingTranslation">Success</string>
+    <string name="thank_msg">Thank you</string>
+
+    <string name="social_media">Social Media</string>
+    <string name="media_coverage">Media Coverage</string>
+    <string name="video">Video</string>
+    <string name="media_reg">Media registration</string>
+    <!-- Easy Video Player Stuff -->
+    <string name="evp_submit">SUBMIT</string>
+    <string name="evp_retry">RETRY</string>
+
+
+    <string name="facebook">Facebook</string>
+    <string name="twitter">Twitter</string>
+    <string name="youtube">Youtube</string>
+    <string name="whatsapp">Whatsapp</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+
+
+</resources>

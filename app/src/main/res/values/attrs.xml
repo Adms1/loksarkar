@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="RotateLoading">
+        <attr name="loading_width" format="dimension"/>
+        <attr name="loading_color" format="color"/>
+        <attr name="shadow_position" format="integer"/>
+        <attr name="loading_speed" format="integer"/>
+    </declare-styleable>
+
+    <declare-styleable name="CradleBall">
+        <attr name="cradle_ball_color" format="color" />
+    </declare-styleable>
+    <declare-styleable name="Alerter">
+        <attr name="alertStyle" format="reference"/>
+    </declare-styleable>
+
+    <declare-styleable name="Alert">
+        <attr name="alertIcon" format="reference"/>
+        <attr name="alertBackgroundColor" format="color"/>
+        <attr name="alertTitle" format="string"/>
+        <attr name="alertText" format="string"/>
+    </declare-styleable>
+
+    <declare-styleable name="ProcessButton">
+        <attr name="pb_textProgress" format="string" />
+        <attr name="pb_textComplete" format="string" />
+        <attr name="pb_textError" format="string" />
+        <attr name="pb_colorProgress" format="color" />
+        <attr name="pb_colorComplete" format="color" />
+        <attr name="pb_colorError" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="FlatButton">
+        <attr name="pb_colorPressed" format="color" />
+        <attr name="pb_colorNormal" format="color" />
+        <attr name="pb_cornerRadius" format="dimension" />
+    </declare-styleable>
+
+
+    <declare-styleable name="multi_line_radio_group">
+        <attr name="max_in_row" format="integer" />
+        <attr name="radio_buttons" format="reference" />
+        <attr name="default_button" format="string" />
+    </declare-styleable>
+    <declare-styleable name="OtpViewTheme">
+        <attr format="reference" name="otpViewStyle"/>
+    </declare-styleable>
+
+    <declare-styleable name="OtpView">
+        <attr format="integer" name="itemCount"/>
+        <attr format="dimension" name="itemWidth"/>
+        <attr format="dimension" name="itemHeight"/>
+        <attr format="dimension" name="itemRadius"/>
+        <attr format="dimension" name="itemSpacing"/>
+        <attr format="dimension" name="lineWidth"/>
+        <attr format="reference|color" name="lineColor"/>
+        <attr format="enum" name="viewType">
+            <enum name="rectangle" value="0"/>
+            <enum name="line" value="1"/>
+            <enum name="none" value="2"/>
+        </attr>
+        <attr name="android:cursorVisible"/>
+        <attr format="dimension" name="cursorWidth"/>
+        <attr format="reference|color" name="cursorColor"/>
+        <attr name="android:itemBackground"/>
+        <attr format="boolean" name="hideLineWhenFilled"/>
+    </declare-styleable>
+
+
+
+    <declare-styleable name="EasyVideoPlayer">
+
+        <attr name="evp_source" format="string" />
+
+        <attr name="evp_leftAction" format="enum">
+            <enum name="none" value="0" />
+            <enum name="restart" value="1" />
+            <enum name="retry" value="2" />
+        </attr>
+
+        <attr name="evp_rightAction" format="enum">
+            <enum name="none" value="3" />
+            <enum name="submit" value="4" />
+            <enum name="customLabel" value="5" />
+        </attr>
+
+        <attr name="evp_customLabelText" format="string" />
+        <attr name="evp_retryText" format="string" />
+        <attr name="evp_submitText" format="string" />
+        <attr name="evp_bottomText" format="string" />
+
+        <attr name="evp_restartDrawable" format="reference" />
+        <attr name="evp_playDrawable" format="reference" />
+        <attr name="evp_pauseDrawable" format="reference" />
+
+        <attr name="evp_hideControlsOnPlay" format="boolean" />
+        <attr name="evp_autoPlay" format="boolean" />
+
+        <attr name="evp_disableControls" format="boolean" />
+
+        <attr name="evp_themeColor" format="color" />
+
+        <attr name="evp_autoFullscreen" format="boolean" />
+
+        <attr name="evp_loop" format="boolean" />
+
+    </declare-styleable>
+
+
+    <declare-styleable name="FlowLayout">
+        <attr name="flFlow" format="boolean"/>
+        <attr name="flChildSpacing" format="enum|dimension">
+            <enum name="auto" value="-65536"/>
+        </attr>
+        <attr name="flMinChildSpacing" format="dimension"/>
+        <attr name="flChildSpacingForLastRow" format="enum|dimension">
+            <enum name="auto" value="-65536"/>
+            <enum name="align" value="-65537"/>
+        </attr>
+        <attr name="flRowSpacing" format="enum|dimension">
+            <enum name="auto" value="-65536"/>
+        </attr>
+        <attr name="flRtl" format="boolean"/>
+        <attr name="flMaxRows" format="integer"/>
+        <attr name="flRowVerticalGravity" format="enum">
+            <enum name="auto" value="-65536"/>
+            <enum name="top" value="0x30"/>
+            <enum name="center" value="0x10"/>
+            <enum name="bottom" value="0x50"/>
+        </attr>
+        <attr name="android:gravity"/>
+    </declare-styleable>
+
+
+
+    <attr
+        name="textColorInverse"
+        format="color" />
+</resources>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.LocalizationAcitivity">
+
+
+    <!--flFlow	boolean	true to allow flow. false to restrict all child views in one row. The default is true.-->
+    <!--flChildSpacing	auto/dimension	The horizontal spacing between child views. Either auto, or a fixed size. The default is 0dp.-->
+    <!--flChildSpacingForLastRow	auto/align/-->
+    <!--dimension	The horizontal spacing between child views of the last row. Either auto, align or a fixed size. If not set, childSpacing will be used instead.-->
+    <!--flRowSpacing	auto/dimension	The vertical spacing between rows. Either auto, or a fixed size. The default is 0dp.-->
+    <!--flRtl	boolean	true to layout child views from right to left. false to layout from left to right. The default is false.-->
+    <!--flMaxRows	integer	The maximum height of FlowLayout in terms of number of rows.-->
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/image"
+        android:layout_width="@dimen/_150sdp"
+        android:layout_height="@dimen/_150sdp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toTopOf="@id/flowlayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:civ_border_color="@color/black"
+        app:civ_border_width="@dimen/_1sdp"
+        android:src="@drawable/round_logo"
+        app:layout_constraintBaseline_toBaselineOf="parent" />
+
+
+    <RelativeLayout
+       android:id="@+id/flowlayout"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_50sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+
+
+      <TextView
+          android:id="@+id/tv_gujarati"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:textSize="15sp"
+          android:text="@string/gujarati"
+
+          android:layout_marginLeft="@dimen/_10sdp"
+          android:layout_alignParentLeft="true"
+          android:background="@drawable/label_bg"
+          android:padding="@dimen/_10sdp"
+          android:textColor="@color/text_color_txt" />
+
+        <TextView
+            android:id="@+id/tv_hindi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="@string/hindi"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="@dimen/_5sdp"
+
+            android:background="@drawable/label_bg"
+            android:padding="@dimen/_10sdp"
+            android:textColor="@color/text_color_txt" />
+
+        <TextView
+            android:id="@+id/tv_english"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="@string/eng"
+            android:layout_marginRight="@dimen/_5sdp"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/label_bg"
+            android:padding="@dimen/_10sdp"
+            android:textColor="@color/text_color_txt" />
+
+  </RelativeLayout>
+
+
+   <RelativeLayout
+       android:id="@+id/RL_skip"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       app:layout_constraintBottom_toBottomOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintStart_toStartOf="parent"
+       android:layout_marginBottom="@dimen/_20sdp"
+       android:padding="@dimen/_10sdp">
+
+
+       <TextView
+           android:id="@+id/tv_skip"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_alignParentRight="true"
+           android:layout_marginRight="@dimen/_5sdp"
+           android:textColor="@color/colorPrimary"
+           android:textSize="15sp"
+           android:text="@string/skip_step"/>
+
+   </RelativeLayout>
+
+
+
+
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_130sdp"
+    android:background="@color/colorPrimary">
+
+
+   <de.hdodenhof.circleimageview.CircleImageView
+       android:id="@+id/iv_menuheader"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_marginLeft="@dimen/_5sdp"
+       android:layout_marginRight="@dimen/_5sdp"
+       android:layout_centerVertical="true"
+       android:src="@mipmap/ic_launcher_round" />
+
+
+   <TextView
+       android:id="@+id/tv_header_name"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:text="@string/header_name"
+       android:gravity="center"
+       android:textAllCaps="true"
+       android:layout_marginLeft="@dimen/_5sdp"
+       android:layout_centerVertical="true"
+       android:layout_toRightOf="@+id/iv_menuheader"
+       android:textColor="@color/white"
+       android:visibility="gone"
+       android:textSize="20sp" />
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+
+       android:layout_centerVertical="true"
+       android:layout_marginLeft="@dimen/_2sdp"
+       android:layout_toRightOf="@+id/iv_menuheader"
+       android:orientation="vertical">
+
+      <TextView
+          android:id="@+id/tv_header_username"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:gravity="center"
+          android:textAllCaps="true"
+          android:textColor="@color/white"
+          android:textSize="13sp" />
+
+      <TextView
+          android:id="@+id/tv_header_referal_code"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:gravity="center"
+          android:textAllCaps="true"
+          android:textColor="@color/white"
+          android:textSize="13sp" />
+
+   </LinearLayout>
+
+
+</RelativeLayout>

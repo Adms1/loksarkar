@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1071537818419",
+    "firebase_url": "https://loksarkar-a2aa5.firebaseio.com",
+    "project_id": "loksarkar-a2aa5",
+    "storage_bucket": "loksarkar-a2aa5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1071537818419:android:d7f19afec48135f9",
+        "android_client_info": {
+          "package_name": "com.loksarkar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1071537818419-0esn1a75hepcooltbh5odu0kdot4ql92.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.loksarkar",
+            "certificate_hash": "9c317d938ff47aafc9591875b9985ccfff975e3b"
+          }
+        },
+        {
+          "client_id": "1071537818419-gaeksfp2ckmr1isa1c6m7jp93ig9j2p4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8cS3zDUPJgv36b3JMUDLKIM6aTJ1uc0E"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1071537818419-gaeksfp2ckmr1isa1c6m7jp93ig9j2p4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
