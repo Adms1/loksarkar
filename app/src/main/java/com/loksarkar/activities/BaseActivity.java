@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Build;
+import android.support.annotation.LayoutRes;
+import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.NavigationView;
 import android.support.v4.content.ContextCompat;
@@ -15,6 +17,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,6 +30,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.loksarkar.R;
+import com.loksarkar.api.ApiHandler;
 import com.loksarkar.base.BaseApp;
 import com.loksarkar.adapters.ExpandableMenuAdapter;
 import com.loksarkar.constants.WebViewURLS;
@@ -33,15 +38,23 @@ import com.loksarkar.localeutils.LocaleChanger;
 import com.loksarkar.localeutils.utils.ActivityRecreationHelper;
 import com.loksarkar.models.ChildListModel;
 import com.loksarkar.models.ExpandabelModel;
+import com.loksarkar.models.RegistrationModel;
+import com.loksarkar.utils.AppUtils;
+import com.loksarkar.utils.InstallReferrerHelper;
 import com.loksarkar.utils.PrefUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 import static android.media.MediaFormat.KEY_LANGUAGE;
+import static com.loksarkar.utils.PrefUtils.REFERRAL_ID_KEY;
 
-public class BaseActivity extends AppCompatActivity {
+public class BaseActivity extends AppCompatActivity implements InstallReferrerHelper.InstallReferrerCallback {
 
     public DrawerLayout drawerLayout;
     private Toolbar toolbar;
@@ -59,6 +72,8 @@ public class BaseActivity extends AppCompatActivity {
     private LinearLayout viewLogin;
     private String language = "";
     private ImageView mImageViewLogo;
+    //private BranchUniversalObject branchUniversalObject;
+    private Bundle activityArguments;
 
 
     @Override
@@ -68,10 +83,15 @@ public class BaseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_base);
         drawerIcon = (FrameLayout)findViewById(R.id.frm_drawer_icon);
         localeSharedPrefs = getSharedPreferences(SP_LOCALE, Context.MODE_PRIVATE);
-         language = localeSharedPrefs.getString(KEY_LANGUAGE, "");
+        language = localeSharedPrefs.getString(KEY_LANGUAGE, "");
+        //branchUniversalObject = new BranchUniversalObject();
         //PrefUtils.getInstance(BaseActivity.this).setUserLogout();
 
-
+        try {
+            InstallReferrerHelper.fetchInstallReferrer(this,this);
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
 
 
     }
@@ -93,19 +113,15 @@ public class BaseActivity extends AppCompatActivity {
         mImageViewLogo = (ImageView)findViewById(R.id.iv_app_logo);
 
         try {
-
-
             if (language.equalsIgnoreCase("gu")) {
                 language = "gujarati";
                 mImageViewLogo.setImageResource(R.mipmap.ic_launcher_round);
             } else if (language.equalsIgnoreCase("hi")) {
                 language = "hindi";
                 mImageViewLogo.setImageResource(R.mipmap.ic_launcher_hindi_round);
-
             } else if (language.equalsIgnoreCase("en")) {
                 language = "english";
                 mImageViewLogo.setImageResource(R.mipmap.ic_launcher_eng_round);
-
             }
         }catch (Exception ex){
             ex.printStackTrace();
@@ -132,9 +148,14 @@ public class BaseActivity extends AppCompatActivity {
 
                             @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
                             public void onClick(DialogInterface dialog, int whichButton) {
+
                                 PrefUtils.getInstance(BaseActivity.this).setUserLogout();
                                 PrefUtils.getInstance(BaseActivity.this).clear();
                                 //LocaleChanger.setLocale(BaseApp.SUPPORTED_LOCALES.get(0));
+
+                                //logout user from branch sdk.
+                                //Branch.getInstance(getApplicationContext()).logout();
+
                                 Intent intentHome = new Intent(BaseActivity.this,DashBoardActivity.class);
                                 startActivity(intentHome);
                                 finishAffinity();
@@ -160,6 +181,20 @@ public class BaseActivity extends AppCompatActivity {
         });
     }
 
+    @Nullable
+    public Toolbar getBaseToolbar() {
+        return toolbar;
+    }
+
+    /**
+     * @return the layout id associated to the layout used in the activity.
+     */
+
+
+
+    public Bundle getActivityArguments() {
+        return activityArguments;
+    }
     protected void setMenuClick(final boolean isClick){
 
         drawerIcon.setOnClickListener(new View.OnClickListener() {
@@ -179,6 +214,10 @@ public class BaseActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onNewIntent(Intent intent) {
+        this.setIntent(intent);
+    }
 
 
 
@@ -227,7 +266,7 @@ public class BaseActivity extends AppCompatActivity {
         try {
             if (PrefUtils.getInstance(BaseActivity.this).getUserLogin()) {
                 headerUserName.setText(PrefUtils.getInstance(BaseActivity.this).getStringValue(PrefUtils.USERNAME_KEY, ""));
-                referralCode.setText(PrefUtils.getInstance(BaseActivity.this).getStringValue(PrefUtils.REFERRAL_ID_KEY, "") +  "  (Referral code)");
+                referralCode.setText(PrefUtils.getInstance(BaseActivity.this).getStringValue(REFERRAL_ID_KEY, "") +  "  (Referral code)");
                 headerUserName.setVisibility(View.VISIBLE);
                 referralCode.setVisibility(View.VISIBLE);
                 header.setVisibility(View.GONE);
@@ -251,7 +290,7 @@ public class BaseActivity extends AppCompatActivity {
         prepareListData();
         mMenuAdapter = new ExpandableMenuAdapter(this,listDataHeader, listDataChild, expandableList);
 
-        // setting list adapter
+        // setting list_item_complaint adapter
         expandableList.setAdapter(mMenuAdapter);
 
 
@@ -294,8 +333,6 @@ public class BaseActivity extends AppCompatActivity {
             language = "gujarati";
         }else if(language.equalsIgnoreCase("hi")){
             language = "hindi";
-
-
         }else if(language.equalsIgnoreCase("en")){
             language = "english";
 
@@ -304,8 +341,6 @@ public class BaseActivity extends AppCompatActivity {
 
 
         switch (pos){
-
-
             case 0:
                 drawerLayout.closeDrawers();
                 Intent intent = new Intent(this,DashBoardActivity.class);
@@ -315,16 +350,37 @@ public class BaseActivity extends AppCompatActivity {
             case 1:
                 drawerLayout.closeDrawers();
                 Intent intent1 = new Intent(this,WebviewActivty.class);
-                intent1.putExtra("url", WebViewURLS.ABOUT_US+language);
+                intent1.putExtra("url", WebViewURLS.ABOUT_US);
                 startActivity(intent1);
                 break;
             case 2:
                 drawerLayout.closeDrawers();
                 Intent intent2 = new Intent(this,WebviewActivty.class);
 
-                intent2.putExtra("url",WebViewURLS.REGISTRATION+language);
+                intent2.putExtra("url",WebViewURLS.REGISTRATION);
                 startActivity(intent2);
                 break;
+
+            case 3:
+                drawerLayout.closeDrawers();
+                if(PrefUtils.getInstance(BaseActivity.this).getUserLogin()){
+                    Intent intent3 = new Intent(this,ComplaintsList.class);
+                    startActivity(intent3);
+                }else{
+                    Intent intent3 = new Intent(this,SigninActivity.class);
+                    startActivity(intent3);
+                }
+                break;
+
+            case 4:
+                drawerLayout.closeDrawers();
+                Intent intent3 = new Intent(this,WebviewActivty.class);
+                intent3.putExtra("url",WebViewURLS.TRACK_APPLICATION);
+                intent3.putExtra("lang","none");
+                startActivity(intent3);
+                break;
+
+
 //
 //            case 4:
 //                drawerLayout.closeDrawers();
@@ -351,12 +407,23 @@ public class BaseActivity extends AppCompatActivity {
 //                            }
 //                        }).show();
 //                break;
-//            case 3:
-//                break;
+            case 6:
+                if (drawerLayout.isDrawerOpen(Gravity.START)) {
+                    drawerLayout.closeDrawer(Gravity.START);
+                }
+
+                Intent intentReferralCode = new Intent(BaseActivity.this,ReferralActivity.class);
+                startActivity(intentReferralCode);
+
+                break;
         }
 
 
     }
+
+
+
+
     private void onHandleChildClick(int pos){
 
         switch (pos){
@@ -369,14 +436,12 @@ public class BaseActivity extends AppCompatActivity {
             case 1:
                 //for hindi.
                 mImageViewLogo.setImageResource(R.mipmap.ic_launcher_hindi_round);
-
                 LocaleChanger.setLocale(BaseApp.SUPPORTED_LOCALES.get(1));
                 ActivityRecreationHelper.recreate(BaseActivity.this, true);
                 break;
             case 2:
                 //for english.
                 mImageViewLogo.setImageResource(R.mipmap.ic_launcher_eng_round);
-
                 LocaleChanger.setLocale(BaseApp.SUPPORTED_LOCALES.get(2));
                 ActivityRecreationHelper.recreate(BaseActivity.this, true);
                 break;
@@ -386,11 +451,11 @@ public class BaseActivity extends AppCompatActivity {
 
 
 
+
     @Override
     protected void onResume(){
         super.onResume();
         ActivityRecreationHelper.onResume(this);
-
     }
 
     @Override
@@ -417,26 +482,39 @@ public class BaseActivity extends AppCompatActivity {
 
         ExpandabelModel expandabelModel3 = new ExpandabelModel();
         expandabelModel3.setName(getString(R.string.registration));
-        expandabelModel3.setDrawable_id(ContextCompat.getDrawable(BaseActivity.this,R.drawable.registration));
+        expandabelModel3.setDrawable_id(ContextCompat.getDrawable(BaseActivity.this,R.drawable.ic_registration));
+
+        ExpandabelModel expandabelModel5 = new ExpandabelModel();
+        expandabelModel5.setName(getString(R.string.track_app));
+        expandabelModel5.setDrawable_id(ContextCompat.getDrawable(BaseActivity.this,R.drawable.ic_track));
 
         ExpandabelModel expandabelModel4 = new ExpandabelModel();
-        expandabelModel4.setName(getString(R.string.my_complaint_status));
-        expandabelModel4.setDrawable_id(ContextCompat.getDrawable(BaseActivity.this,R.drawable.ic_complaint1));
+        expandabelModel4.setName(getString(R.string.my_complaints_requests));
+        expandabelModel4.setDrawable_id(ContextCompat.getDrawable(BaseActivity.this,R.drawable.ic_complaints));
 
 //        ExpandabelModel expandabelModel5 = new ExpandabelModel();
 //        expandabelModel5.setName(getString(R.string.logout));
 //        expandabelModel5.setDrawable_id(ContextCompat.getDrawable(BaseActivity.this,R.drawable.ic_logout));
 
 
-        ExpandabelModel expandabelModel5 = new ExpandabelModel();
-        expandabelModel5.setName(getString(R.string.choose_language));
-        expandabelModel5.setDrawable_id(ContextCompat.getDrawable(BaseActivity.this,R.drawable.ic_language));
+        ExpandabelModel expandabelModel6 = new ExpandabelModel();
+        expandabelModel6.setName(getString(R.string.choose_language));
+        expandabelModel6.setDrawable_id(ContextCompat.getDrawable(BaseActivity.this,R.drawable.ic_language));
+
+
+        ExpandabelModel expandabelModel7 = new ExpandabelModel();
+        expandabelModel7.setName(getString(R.string.referral));
+        expandabelModel7.setDrawable_id(ContextCompat.getDrawable(BaseActivity.this,R.drawable.ic_share));
+
+
 
         listDataHeader.add(expandabelModel);
         listDataHeader.add(expandabelModel1);
         listDataHeader.add(expandabelModel3);
         listDataHeader.add(expandabelModel4);
         listDataHeader.add(expandabelModel5);
+        listDataHeader.add(expandabelModel6);
+        listDataHeader.add(expandabelModel7);
 
         String language = localeSharedPrefs.getString(KEY_LANGUAGE, "");
 
@@ -467,7 +545,7 @@ public class BaseActivity extends AppCompatActivity {
         heading1.add(childListModel1);
         heading1.add(childListModel2);
 
-        listDataChild.put(listDataHeader.get(4), heading1);
+        listDataChild.put(listDataHeader.get(5),heading1);
 
     }
 
@@ -495,6 +573,36 @@ public class BaseActivity extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    public void onReceived(String installReferrer) {
+        try {
+
+            if(installReferrer != null) {
+
+                if (!PrefUtils.getInstance(this).isFirstTime()) {
+
+                    Log.d("referral_code",installReferrer);
+
+                    SharedPreferences pref = getApplicationContext().getSharedPreferences(PrefUtils.SHARED_PREF, 0);
+                    String token = pref.getString("regId", "");
+
+                    if (token != null && !TextUtils.isEmpty(token)) {
+                        sendDeviceIdWithToken(token,installReferrer);
+                    }
+                }
+
+            }
+
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onFailed() {
+
+    }
+
 //    @Override
 //    public boolean onOptionsItemSelected(MenuItem item) {
 //        if (drawerToggle.onOptionsItemSelected(item))
@@ -509,8 +617,63 @@ public class BaseActivity extends AppCompatActivity {
 //    }
 
 
+    private void sendDeviceIdWithToken(final String token,String referralCode) {
+        // sending fcm token to server
+
+        if (!AppUtils.isNetworkConnected(this)) {
+            AppUtils.ping(getApplicationContext(),getResources().getString(R.string.internet_error));
+            return;
+        }
+
+        ApiHandler.getApiService().registerDeviceNew(setDeviceDetail(token,referralCode),new retrofit.Callback<RegistrationModel>() {
+            @Override
+            public void success(RegistrationModel registrationModel, Response response) {
+                AppUtils.dismissDialog();
+                if (registrationModel == null) {
+                    AppUtils.ping(getApplicationContext(),getString(R.string.something_wrong));
+
+                    return;
+                }
+                if (registrationModel.getSuccess() == null) {
+                    AppUtils.ping(getApplicationContext(), getString(R.string.something_wrong));
+                    return;
+                }
+                if (registrationModel.getSuccess().equalsIgnoreCase("false")) {
+                    AppUtils.ping(getApplicationContext(), getString(R.string.something_wrong));
+
+                    return;
+                }
+                if (registrationModel.getSuccess().equalsIgnoreCase("True")) {
+                    PrefUtils.getInstance(BaseActivity.this).setIsFirstTime(true);
+                    return;
+                }
+
+            }
+            @Override
+            public void failure(RetrofitError error) {
+                AppUtils.dismissDialog();
+                error.printStackTrace();
+                AppUtils.ping(getApplicationContext(), getString(R.string.something_wrong));
+            }
+        });
 
 
+    }
+
+    private Map<String, String> setDeviceDetail(String token, String referralCode) {
+        Map<String, String> map = new HashMap<>();
+        map.put("DeviceToken",token);
+        map.put("DeviceID",AppUtils.getDeviceId(this));
+
+        if(referralCode.equals("utm_source=google-play&utm_medium=organic") || referralCode.contains("utm_source")){
+            map.put("ReferralCode","");
+        }else{
+            map.put("ReferralCode",referralCode);
+
+        }
+
+        return map;
+    }
 
 
 

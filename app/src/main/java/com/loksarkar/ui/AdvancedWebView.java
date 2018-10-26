@@ -56,7 +56,7 @@ public class AdvancedWebView extends WebView {
 
     public interface Listener {
         void onPageStarted(String url, Bitmap favicon);
-        void onPageFinished(String url);
+        void onPageFinished(WebView webView,String url);
         void onPageError(int errorCode, String description, String failingUrl);
         void onDownloadRequested(String url, String suggestedFilename, String mimeType, long contentLength, String contentDisposition, String userAgent);
         void onExternalPageRequest(String url);
@@ -471,7 +471,7 @@ public class AdvancedWebView extends WebView {
             public void onPageFinished(WebView view, String url) {
                 if (!hasError()) {
                     if (mListener != null) {
-                        mListener.onPageFinished(url);
+                        mListener.onPageFinished(view,url);
                     }
                 }
 
@@ -992,7 +992,7 @@ public class AdvancedWebView extends WebView {
                 final String suggestedFilename = URLUtil.guessFileName(url, contentDisposition, mimeType);
 
                 if (mListener != null) {
-                    mListener.onDownloadRequested(url, suggestedFilename, mimeType, contentLength, contentDisposition, userAgent);
+                    mListener.onDownloadRequested(url,suggestedFilename, mimeType, contentLength, contentDisposition, userAgent);
                 }
             }
 

@@ -23,19 +23,69 @@
         android:configChanges="layoutDirection|locale"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
+
+        <!-- <meta-data android:name="io.branch.sdk.BranchKey" android:value="key_live_knQjgvmfbmHab01g1f3wscobEugGxnKy" /> -->
+        <!-- <meta-data android:name="io.branch.sdk.BranchKey.test" android:value="key_test_mbMhgyhkloIplZZo9mXU7kdfAufUCaTV" /> -->
+
+
+        <!-- &lt;!&ndash; Branch testing (TestMode "true" to simulate fresh installs on dev environment) &ndash;&gt; -->
+        <!-- <meta-data android:name="io.branch.sdk.TestMode" android:value="false" /> -->
+
+
+        <!-- <meta-data android:name="io.branch.sdk.auto_link_disable" android:value="false"/> -->
+
+
+        <!-- <uses-library android:name="android.test.runner" /> -->
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.loksarkar.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
         <activity
             android:name=".activities.SplashActivity"
             android:label="@string/app_name"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Launcher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <!-- Branch URI scheme -->
+            <intent-filter>
+                <data
+                    android:host="open"
+                    android:scheme="loksarkar" />
+
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+            </intent-filter>
+
+            <!-- Branch App Links -->
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="loksarkar.app.link"
+                    android:scheme="https" />
             </intent-filter>
         </activity>
         <activity
@@ -45,7 +95,26 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.BaseActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait">
+
+            <!-- &lt;!&ndash; Branch URI scheme &ndash;&gt; -->
+            <!-- <intent-filter> -->
+            <!-- <data android:scheme="loksarkar" android:host="open" /> -->
+            <!-- <action android:name="android.intent.action.VIEW" /> -->
+            <!-- <category android:name="android.intent.category.DEFAULT" /> -->
+            <!-- <category android:name="android.intent.category.BROWSABLE" /> -->
+            <!-- </intent-filter> -->
+
+
+            <!-- &lt;!&ndash; Branch App Links &ndash;&gt; -->
+            <!-- <intent-filter android:autoVerify="true"> -->
+            <!-- <action android:name="android.intent.action.VIEW" /> -->
+            <!-- <category android:name="android.intent.category.DEFAULT" /> -->
+            <!-- <category android:name="android.intent.category.BROWSABLE" /> -->
+            <!-- <data android:scheme="https" android:host="loksarkar.app.link" /> -->
+            <!-- </intent-filter> -->
+
+        </activity>
         <activity
             android:name=".activities.RegistrationListActivity"
             android:screenOrientation="portrait" />
@@ -59,7 +128,9 @@
         <activity
             android:name=".activities.Facility"
             android:screenOrientation="portrait" />
-        <activity android:name=".activities.ComplainForum" />
+        <activity
+            android:name=".activities.ComplaintsList"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.SignupActivity"
             android:screenOrientation="portrait"
@@ -90,7 +161,30 @@
         <activity
             android:name=".activities.LocalizationAcitivity"
             android:theme="@style/AppTheme" />
-        <activity android:name=".activities.SocialMediaActivity"></activity>
+        <activity android:name=".activities.SocialMediaActivity" />
+
+        <!-- <receiver android:name=".receivers.InstallReferrerReceiver" -->
+        <!-- android:exported="true" -->
+        <!-- android:enabled="true" -->
+        <!-- android:permission="android.permission.INSTALL_PACKAGES"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="com.android.vending.INSTALL_REFERRER" /> -->
+        <!-- </intent-filter> -->
+        <!-- </receiver> -->
+        <receiver
+            android:name=".receivers.InstallReferrerReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.android.vending.INSTALL_REFERRER" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name=".activities.ReferralActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activities.FragmentContainerActivity"></activity>
     </application>
 
 </manifest>

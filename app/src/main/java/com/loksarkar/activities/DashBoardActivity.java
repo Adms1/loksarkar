@@ -1,46 +1,38 @@
 package com.loksarkar.activities;
 
 import android.Manifest;
+import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.TypedArray;
+import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.view.ContextThemeWrapper;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.gson.JsonObject;
 import com.loksarkar.adapters.DashboardMenuAdapter;
-import com.loksarkar.api.ApiHandler;
-import com.loksarkar.base.BaseApp;
-import com.loksarkar.fragments.LanguageSelection;
-import com.loksarkar.localeutils.LocaleChanger;
+import com.loksarkar.api.DeviceVersionAsyncTask;
 import com.loksarkar.models.DashBoardModel;
 import com.loksarkar.R;
-import com.loksarkar.models.LoginModel;
-import com.loksarkar.ui.fullscreendialog.FullScreenDialogFragment;
+import com.loksarkar.models.DeviceVersionModel;
 import com.loksarkar.utils.AppUtils;
-import com.loksarkar.utils.PrefUtils;
-import com.squareup.okhttp.MediaType;
-import com.squareup.okhttp.RequestBody;
-
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import okhttp3.MultipartBody;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
-import retrofit2.Call;
-import retrofit2.Callback;
 
 public class DashBoardActivity extends BaseActivity   {
 
@@ -52,17 +44,14 @@ public class DashBoardActivity extends BaseActivity   {
     private int [] allColors;
     private String typeId = "";
     private int[] mMenuIcons = new int[]{R.drawable.complaint,R.drawable.registration,R.drawable.useful_information,R.drawable.facility,R.drawable.media_bulletin,R.drawable.people_voice,R.drawable.suggestion,R.drawable.join_congress};
-    private static final int EXTERNAL_STORAGE_PERMISSION_CONSTANT = 100;
-
-
+    private String currentVersion;
+    private DeviceVersionAsyncTask deviceVersionAsyncTask = null;
+    private DeviceVersionModel deviceVersionModel;
+    private boolean isVersionCodeUpdated = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-
-
         setContentView(R.layout.activity_dash_board);
         setMenuClick(true);
         recyclerView = (RecyclerView)findViewById(R.id.rv_menu_list);
@@ -82,20 +71,33 @@ public class DashBoardActivity extends BaseActivity   {
         }catch (Exception ex){
             ex.getLocalizedMessage();
         }
+        try {
+            currentVersion = String.valueOf(getPackageManager().getPackageInfo(getPackageName(), 0).versionCode);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+
+
 
 
        // LocaleChanger.setLocale(BaseApp.SUPPORTED_LOCALES.get(0));
 
         try {
             menuNames = getResources().getStringArray(R.array.dashboard_menu);
-
         } catch (Exception ex){
             ex.printStackTrace();
         }
+
+
         setData();
 
-        checkRuntimePermission();
 
+
+    }
+
+    public void onResume(){
+        super.onResume();
+        appUpdateTask();
     }
 
 
@@ -130,31 +132,10 @@ public class DashBoardActivity extends BaseActivity   {
         }
     }
 
-    private void checkRuntimePermission() {
 
-        if (ActivityCompat.checkSelfPermission(DashBoardActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(DashBoardActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                //Show Information about why you need the permission
-                AlertDialog.Builder builder = new AlertDialog.Builder(DashBoardActivity.this);
-                builder.setTitle("Need Storage Permission");
-                builder.setMessage("This app needs storage permission.");
-                builder.setPositiveButton("Grant", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                        ActivityCompat.requestPermissions(DashBoardActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, EXTERNAL_STORAGE_PERMISSION_CONSTANT);
-                    }
-                });
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-                builder.show();
-            }
-        }
-    }
+
+
+
 
 
 //
@@ -199,7 +180,19 @@ public class DashBoardActivity extends BaseActivity   {
 //       // dataList.add(dashBoardModel8);
 
 
+    public void appUpdateTask(){
+        PackageManager packageManager = this.getPackageManager();
+        PackageInfo packageInfo = null;
+        try {
+            packageInfo =  packageManager.getPackageInfo(getPackageName(),0);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        String currentVersion = packageInfo.versionName;
+        getVersionUpdateInfo();
 
+
+    }
 
     @Override
     public void onBackPressed(){
@@ -211,7 +204,68 @@ public class DashBoardActivity extends BaseActivity   {
                 back_pressed = System.currentTimeMillis();
             }
         }
+    public void getVersionUpdateInfo() {
+        if (AppUtils.isNetworkConnected(mContext)) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        HashMap<String, String> params = new HashMap<String, String>();
+//                        params.put("UserID", Utility.getPref(mContext, "studid"));
+//                        params.put("VersionID", String.valueOf(versionCode));//String.valueOf(versionCode)
+//                        params.put("UserType", "Student");
+                        //=========new ========
+                        params.put("VersionID",String.valueOf(currentVersion));//String.valueOf(versionCode)
+                        params.put("DeviceType","Android");
+                        deviceVersionAsyncTask = new DeviceVersionAsyncTask(params);
+                        deviceVersionModel = deviceVersionAsyncTask.execute().get();
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (deviceVersionModel!=null) {
+                                    if (deviceVersionModel.getSuccess().equalsIgnoreCase("True")) {
+                                        isVersionCodeUpdated = true;
 
+                                    } else {
+                                        isVersionCodeUpdated = false;
+                                        Log.d("false", "" + isVersionCodeUpdated);
+                                        new android.app.AlertDialog.Builder(new android.view.ContextThemeWrapper(DashBoardActivity.this, R.style.AppCompatAlertDialogStyle))
+                                                .setCancelable(false)
+                                                .setTitle("Update App")
+                                                .setMessage("Please update to a new version of the app.")
+                                                .setIcon(R.mipmap.ic_launcher_round)
+                                                .setPositiveButton("Update",new DialogInterface.OnClickListener() {
+                                                    public void onClick(DialogInterface dialog, int which) {
+                                                        Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id="+getPackageName()));
+                                                        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                        mContext.startActivity(i);
+                                                    }
+                                                })
+                                                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                                    public void onClick(DialogInterface dialog, int which) {
+                                                        dialog.dismiss();
+                                                        AppUtils.ping(mContext, "You wont be able to use other funcationality without updating to a newer version");
+                                                    }
+                                                })
+
+                                                .show();
+
+                                    }
+                                }else{
+
+                                }
+                            }
+                        });
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+        } else {
+            AppUtils.ping(mContext, "Network not available");
+
+        }
+    }
 
 
 

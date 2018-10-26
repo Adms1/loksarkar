@@ -13,6 +13,7 @@ import com.loksarkar.R;
 import com.loksarkar.adapters.MediaBulletinAdapter;
 import com.loksarkar.api.ApiHandler;
 import com.loksarkar.base.BaseApp;
+import com.loksarkar.constants.AppConstants;
 import com.loksarkar.listener.CallbackHandler;
 import com.loksarkar.listener.EndlessRecyclerViewScrollListener;
 import com.loksarkar.localeutils.LocaleChanger;
@@ -62,7 +63,7 @@ public class MediaBulletinListActivity extends BaseActivity {
             return;
         }
         rotateLoaderDialog.showLoader();
-        ApiHandler.getApiService().getMediaBulletin(setType(type),new retrofit.Callback<MediaBulletinModel>() {
+        ApiHandler.getApiService().getMediaBulletin(setType(AppConstants.typeId),new retrofit.Callback<MediaBulletinModel>() {
             @Override
             public void success(MediaBulletinModel mediaBulletinModel, Response response) {
                 AppUtils.dismissDialog();

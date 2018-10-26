@@ -1,6 +1,8 @@
 package com.loksarkar.api;
 
 import com.google.gson.JsonObject;
+import com.loksarkar.models.ComplaintsModel;
+import com.loksarkar.models.HtmlModel;
 import com.loksarkar.models.LoginModel;
 import com.loksarkar.models.MediaBulletinModel;
 import com.loksarkar.models.NotificationDataModel;
@@ -12,6 +14,7 @@ import okhttp3.MultipartBody;
 import retrofit.Callback;
 import retrofit.http.FieldMap;
 import retrofit.http.FormUrlEncoded;
+import retrofit.http.GET;
 import retrofit.http.POST;
 import retrofit2.Call;
 import retrofit2.http.Multipart;
@@ -92,9 +95,31 @@ public interface WebServices {
     @POST("/Media_SignUpUser")
     public void mediaSignUp(@FieldMap Map<String, String> map, Callback<RegistrationModel> callback);
 
+    @FormUrlEncoded
+    @POST("/Media_SignUpUserNew")
+    public void mediaSignUpNew(@FieldMap Map<String, String> map, Callback<RegistrationModel> callback);
+
     @Multipart
     @POST(AppConfiguration.IMAGE_UPLOAD_URL)
     Call<JsonObject> uploadImage(@Part MultipartBody.Part image);
 
+    @FormUrlEncoded
+    @POST("/GetLatestVersion")
+    public void getLatestVersion(@FieldMap Map<String, String> map, Callback<RegistrationModel> callback);
+
+    @FormUrlEncoded
+    @POST("/ReferralDetail")
+    public void referralDetail(@FieldMap Map<String, String> map, Callback<RegistrationModel> callback);
+
+    @FormUrlEncoded
+    @POST("/RegisterDeviceNew")
+    public void registerDeviceNew(@FieldMap Map<String, String> map, Callback<RegistrationModel> callback);
+
+    @FormUrlEncoded
+    @POST("/LoksevakRequest")
+    public void getComplaintsList(@FieldMap Map<String, String> map, Callback<ComplaintsModel> callback);
+
+    @GET("/NewService")
+    public void getHtmlContent(Callback<HtmlModel> callback);
 
 }

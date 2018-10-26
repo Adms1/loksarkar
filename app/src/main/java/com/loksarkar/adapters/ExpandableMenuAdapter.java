@@ -43,7 +43,7 @@ public class ExpandableMenuAdapter extends BaseExpandableListAdapter {
     @Override
     public int getChildrenCount(int groupPosition) {
         int childCount = 0;
-        if (groupPosition == 4) {
+        if (groupPosition == 5) {
             childCount = this.mListDataChild.get(this.mListDataHeader.get(groupPosition)).size();
         }
         return childCount;

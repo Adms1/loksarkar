@@ -13,13 +13,15 @@ public class PrefUtils {
     public static String KEY_USERID = "";
     public static final String LOGIN_KEY = "loksarkar.login";
     public static final String LANGUGAE_KEY = "loksarkar.language";
-
     public static final String REFERRAL_ID_KEY = "loksarkar.referralid";
     public static final String USERNAME_KEY = "loksarkar.username";
     public static final String EMAIL_KEY = "loksarkar.email";
     public static final String MOB_KEY = "loksarkar.mobile";
     public static final String ADDRESS_KEY = "loksarkar.address";
     public static final String SHARED_PREF = "loksarkar.fcmTokenId";
+    public static final String NO_STRING_VALUE = "bnc_no_value";
+    public static final String isFirstTimeKey = "isFirstTime";
+
 
     private PrefUtils(Context context) {
         mContext = context;
@@ -79,6 +81,16 @@ public class PrefUtils {
         return mSharedPreferences.getBoolean(LANGUGAE_KEY,false);
     }
 
+
+    public void setIsFirstTime(boolean value){
+        mSharedPreferencesEditor.putBoolean(isFirstTimeKey, value);
+        mSharedPreferencesEditor.commit();
+        mSharedPreferencesEditor.apply();
+}
+
+    public boolean isFirstTime(){
+        return mSharedPreferences.getBoolean(isFirstTimeKey,false);
+    }
 
     /**
      * Stores int value in preference
@@ -183,10 +195,10 @@ public class PrefUtils {
     }
 
 
-    /**
-     * Clears all the preferences stored
-     */
+
     public void clear() {
         mSharedPreferencesEditor.clear().commit();
     }
+
+
 }

@@ -132,7 +132,7 @@ public class SigninActivity extends AppCompatActivity implements OnProgressCompl
 
                 if(!TextUtils.isEmpty(NOTIFICATION_MSG)){
 
-                    AppUtils.notify(SigninActivity.this,getString(R.string.success_msg),NOTIFICATION_MSG,R.color.material_light_green,ContextCompat.getDrawable(SigninActivity.this,R.drawable.ic_check));
+                    AppUtils.notify(SigninActivity.this,getString(R.string.success_msg),NOTIFICATION_MSG,R.color.material_light_green,ContextCompat.getDrawable(SigninActivity.this,R.drawable.ic_check),20000);
                     NOTIFICATION_MSG = "";
 
 
@@ -214,6 +214,9 @@ public class SigninActivity extends AppCompatActivity implements OnProgressCompl
                     PrefUtils.getInstance(SigninActivity.this).setValue(PrefUtils.USERNAME_KEY,loginypeModel.getFinalAry().get(0).getName());
                     PrefUtils.getInstance(SigninActivity.this).setValue(PrefUtils.ADDRESS_KEY,loginypeModel.getFinalAry().get(0).getAddress());
 
+
+//                    Branch branch = Branch.getInstance(getApplicationContext());
+//                    branch.setIdentity(loginypeModel.getFinalAry().get(0).getReferralID());
                     //change locale of app.
                     //LocaleChanger.setLocale(BaseApp.SUPPORTED_LOCALES.get(0));
 

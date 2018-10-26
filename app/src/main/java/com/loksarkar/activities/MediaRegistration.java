@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.media.Image;
+import android.support.annotation.ColorRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -24,6 +25,7 @@ import com.loksarkar.R;
 import com.loksarkar.api.ApiHandler;
 import com.loksarkar.base.BaseApp;
 import com.loksarkar.constants.AppConstants;
+import com.loksarkar.listener.OnAlertNotificationClick;
 import com.loksarkar.localeutils.LocaleChanger;
 import com.loksarkar.models.OTPModel;
 import com.loksarkar.models.RegistrationModel;
@@ -31,6 +33,7 @@ import com.loksarkar.models.RegistrationTypeModel;
 import com.loksarkar.ui.MultiLineRadioGroup;
 import com.loksarkar.ui.RotateLoaderDialog;
 import com.loksarkar.utils.AppUtils;
+import com.loksarkar.utils.DialogUtils;
 import com.tapadoo.alerter.Alerter;
 
 import java.text.SimpleDateFormat;
@@ -44,32 +47,31 @@ import fr.ganfra.materialspinner.MaterialSpinner;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-public class MediaRegistration extends BaseActivity {
+public class MediaRegistration extends BaseActivity implements OnAlertNotificationClick {
 
 
-    private MultiLineRadioGroup multiLineRadioGroup;
+    private MultiLineRadioGroup multiLineRadioGroup,multiLineRadioGroup1;
     private Context mContext;
     private List<RegistrationTypeModel> finalArraydistrictTypeList;
 
 
     private EditText input_name,input_address,input_mobnum,input_email,input_dob,input_fb_link,input_twitter_link,input_media_house,input_website_link;
-    private String finalIdentityproofStr = "",finalcategoryTypeStr = "Other";
+    private String finalIdentityproofStr = "",finalcategoryTypeStr = "Other",finalmediatypeTypeStr = "National Representative";
     private AppCompatButton mBtnSignUp;
     private String REC_OTP = "",day ="",month = "",year = "",finaldistrictIdStr ="",districtName = "" ;
     private DatePickerDialog.OnDateSetListener bdate;
     private Calendar myCalendar = Calendar.getInstance();
     private RotateLoaderDialog rotateLoaderDialog;
     private Dialog OTPdialog;
-
-
+    private OnAlertNotificationClick onAlertNotificationClick;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_media_registartion);
 
+        onAlertNotificationClick= (OnAlertNotificationClick)this;
         mContext = this;
-
         input_name = (EditText)findViewById(R.id.input_name);
         input_address = (EditText)findViewById(R.id.input_address);
         input_mobnum =(EditText)findViewById(R.id.input_mobnum);
@@ -80,6 +82,7 @@ public class MediaRegistration extends BaseActivity {
         input_media_house = (EditText)findViewById(R.id.input_media_housename);
         input_website_link = (EditText)findViewById(R.id.input_web_link);
         multiLineRadioGroup = (MultiLineRadioGroup)findViewById(R.id.rg_options);
+        multiLineRadioGroup1 = (MultiLineRadioGroup)findViewById(R.id.rg_options1);
 
         mBtnSignUp = (AppCompatButton)findViewById(R.id.btn_submit);
 
@@ -104,8 +107,8 @@ public class MediaRegistration extends BaseActivity {
             @Override
             public void onClick(View v) {
                 if(validateForum()){
-                   // callOTPApi(input_mobnum.getText().toString(),input_email.getText().toString());
-                    callMediaSignUpApi();
+                    callOTPApi(input_mobnum.getText().toString(),input_email.getText().toString());
+
                 }
             }
         });
@@ -114,6 +117,13 @@ public class MediaRegistration extends BaseActivity {
             @Override
             public void onCheckedChanged(ViewGroup group, RadioButton button) {
                 finalcategoryTypeStr = button.getText().toString();
+            }
+        });
+
+        multiLineRadioGroup1.setOnCheckedChangeListener(new MultiLineRadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(ViewGroup group, RadioButton button) {
+                finalmediatypeTypeStr = button.getText().toString();
             }
         });
 
@@ -151,7 +161,7 @@ public class MediaRegistration extends BaseActivity {
         }
         rotateLoaderDialog.showLoader();
 
-        ApiHandler.getApiService().mediaSignUp(setUserDetails(),new retrofit.Callback<RegistrationModel>() {
+        ApiHandler.getApiService().mediaSignUpNew(setUserDetails(),new retrofit.Callback<RegistrationModel>() {
             @Override
             public void success(RegistrationModel registrationModel, Response response) {
                 AppUtils.dismissDialog();
@@ -176,13 +186,15 @@ public class MediaRegistration extends BaseActivity {
                 if (registrationModel.getSuccess().equalsIgnoreCase("True")) {
                     rotateLoaderDialog.dismissLoader();
 
-                    AppUtils.ping(MediaRegistration.this,registrationModel.getMessage());
+                   // AppUtils.notify(MediaRegistration.this,getString(R.string.success_msg),registrationModel.getMessage(),R.color.material_light_green,ContextCompat.getDrawable(MediaRegistration.this,R.drawable.ic_check),20000,onAlertNotificationClick);
+                    DialogUtils.showMessageDialog(MediaRegistration.this,R.drawable.ic_check,getString(R.string.success_msg),registrationModel.getMessage(),onAlertNotificationClick);
+
                     //LocaleChanger.setLocale(BaseApp.SUPPORTED_LOCALES.get(0));
 
-                    Intent intentDashboard = new Intent(MediaRegistration.this,DashBoardActivity.class);
-                    intentDashboard.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intentDashboard);
-                    finish();
+//                    Intent intentDashboard = new Intent(MediaRegistration.this,DashBoardActivity.class);
+//                    intentDashboard.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                    startActivity(intentDashboard);s
+//                    finish();
 
                 }
             }
@@ -193,7 +205,6 @@ public class MediaRegistration extends BaseActivity {
                 error.printStackTrace();
                 error.getMessage();
                 rotateLoaderDialog.dismissLoader();
-
                 AppUtils.ping(mContext, getString(R.string.something_wrong));
             }
         });
@@ -203,11 +214,11 @@ public class MediaRegistration extends BaseActivity {
 
     private Map<String, String> setUserDetails() {
         Map<String, String> map = new HashMap<>();
-        map.put("Name", input_name.getText().toString());
-        map.put("Address", input_address.getText().toString());
-        map.put("MobileNo", input_mobnum.getText().toString());
-        map.put("EmailAddress", input_email.getText().toString());
-        map.put("DateofBirth", input_dob.getText().toString());
+        map.put("Name",input_name.getText().toString());
+        map.put("Address",input_address.getText().toString());
+        map.put("MobileNo",input_mobnum.getText().toString());
+        map.put("EmailAddress",input_email.getText().toString());
+        map.put("DateofBirth",input_dob.getText().toString());
 
         if(input_fb_link.getText().toString().length() > 0){
             map.put("FBLink",input_fb_link.getText().toString());
@@ -220,6 +231,7 @@ public class MediaRegistration extends BaseActivity {
         }else{
             map.put("TwitterLink","");
         }
+        map.put("MediaType",finalcategoryTypeStr);
         map.put("Category",finalcategoryTypeStr);
         map.put("MediaHouseName",finalcategoryTypeStr);
 
@@ -321,10 +333,8 @@ public class MediaRegistration extends BaseActivity {
                 }
                 if (otptypeModel.getSuccess().equalsIgnoreCase("false")) {
 //                    Utils.ping(mContext, getString(R.string.false_msg));
-                    AppUtils.notify(MediaRegistration.this,"Error","email or phone already exist",R.color.error_color,ContextCompat.getDrawable(MediaRegistration.this,R.drawable.ic_error));
-
+                    AppUtils.notify(MediaRegistration.this,"Error",getString(R.string.something_wrong),R.color.error_color,ContextCompat.getDrawable(MediaRegistration.this,R.drawable.ic_error));
                     rotateLoaderDialog.dismissLoader();
-
                     return;
                 }
                 if (otptypeModel.getSuccess().equalsIgnoreCase("True")) {
@@ -377,11 +387,10 @@ public class MediaRegistration extends BaseActivity {
             public void onClick(View v) {
                 if(edtOtp.getText().toString().equals(REC_OTP)){
 
-                    //AppUtils.hideKeyboard(SignupActivity.this);
+                    AppUtils.hideKeyboard(MediaRegistration.this);
                     OTPdialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
                     OTPdialog.dismiss();
-
-
+                    callMediaSignUpApi();
                 }else{
                     edtOtp.requestFocus();
                     edtOtp.setError("OTP not match");
@@ -407,4 +416,11 @@ public class MediaRegistration extends BaseActivity {
     }
 
 
+    @Override
+    public void OnAlertOkClick() {
+        Intent intentDashboard = new Intent(MediaRegistration.this,DashBoardActivity.class);
+        intentDashboard.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intentDashboard);
+        finish();
+    }
 }

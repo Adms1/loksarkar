@@ -37,12 +37,12 @@ public class LocaleChanger {
     /**
      * Initialize the LocaleChanger, this method needs to be called before calling any other method and it must be called only once.
      * <p>
-     * If this method was never invoked before it sets a Locale from the supported list if a language match is found with the system Locales,
-     * if no match is found the first Locale in the list will be set.<p>
+     * If this method was never invoked before it sets a Locale from the supported list_item_complaint if a language match is found with the system Locales,
+     * if no match is found the first Locale in the list_item_complaint will be set.<p>
      * If this method was invoked before it will load a Locale previously set.
      *
      * @param context
-     * @param supportedLocales a list of your app supported Locales
+     * @param supportedLocales a list_item_complaint of your app supported Locales
      * @throws IllegalStateException if the LocaleChanger is already initialized
      */
     public static void initialize(Context context, List<Locale> supportedLocales) {
@@ -58,7 +58,7 @@ public class LocaleChanger {
      * If this method was invoked before it will load a Locale previously set.
      *
      * @param context
-     * @param supportedLocales  a list of your app supported Locales
+     * @param supportedLocales  a list_item_complaint of your app supported Locales
      * @param matchingAlgorithm used to find a match between supported and system Locales
      * @param preference        used to indicate what Locale is preferred to load in case of a match
      * @throws IllegalStateException if the LocaleChanger is already initialized

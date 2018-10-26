@@ -26,16 +26,14 @@ import android.widget.Spinner;
 import com.loksarkar.R;
 import com.loksarkar.api.ApiHandler;
 import com.loksarkar.constants.AppConstants;
-import com.loksarkar.constants.NotificationConfig;
-import com.loksarkar.listener.OnOtpCompletionListener;
 import com.loksarkar.models.OTPModel;
 import com.loksarkar.models.RegistrationModel;
 import com.loksarkar.models.RegistrationTypeModel;
 import com.loksarkar.ui.MultiLineRadioGroup;
 import com.loksarkar.ui.RotateLoaderDialog;
 import com.loksarkar.utils.AppUtils;
+import com.loksarkar.utils.InstallReferrerHelper;
 import com.loksarkar.utils.PrefUtils;
-import com.tapadoo.alerter.Alert;
 import com.tapadoo.alerter.Alerter;
 
 import java.lang.reflect.Field;
@@ -51,7 +49,7 @@ import fr.ganfra.materialspinner.MaterialSpinner;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-public class SignupActivity extends AppCompatActivity implements OnOtpCompletionListener {
+public class SignupActivity extends AppCompatActivity implements InstallReferrerHelper.InstallReferrerCallback {
 
 
     private MultiLineRadioGroup multiLineRadioGroup,rgUserType;
@@ -105,6 +103,14 @@ public class SignupActivity extends AppCompatActivity implements OnOtpCompletion
         input_Id_Proof_Num =(EditText)findViewById(R.id.input_Id_Proof_Num);
         input_loksevak_code = (EditText)findViewById(R.id.input_loksevak_code);
         mBtnSignUp = (AppCompatButton)findViewById(R.id.btn_submit);
+
+
+        try {
+            InstallReferrerHelper.fetchInstallReferrer(SignupActivity.this,this);
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+
 
         bdate = new DatePickerDialog.OnDateSetListener() {
 
@@ -397,17 +403,6 @@ public class SignupActivity extends AppCompatActivity implements OnOtpCompletion
 
 
     @Override
-    public void onOtpCompleted(String otp) {
-        if(otp.equalsIgnoreCase(REC_OTP)){
-            AppUtils.ping(mContext,"OTP verified");
-        }
-
-
-    }
-
-
-
-    @Override
     public void onDestroy(){
         super.onDestroy();
         Alerter.clearCurrent(SignupActivity.this);
@@ -590,4 +585,24 @@ public class SignupActivity extends AppCompatActivity implements OnOtpCompletion
     }
 
 
+    @Override
+    public void onReceived(String installReferrer) {
+        if(installReferrer != null) {
+            if (!installReferrer.contains("utm")) {
+                InstallReferrerHelper.setReferrerData(SignupActivity.this, installReferrer);
+                String refferCode = InstallReferrerHelper.getReferrerDataRaw(SignupActivity.this);
+                if (refferCode != null) {
+                    input_loksevak_code.setText(refferCode);
+                    input_loksevak_code.setEnabled(false);
+                }
+            }
+        }
+    }
+
+    @Override
+    public void onFailed() {
+//        input_loksevak_code.setText(refferCode);
+//        input_loksevak_code.setEnabled(false);
+
+    }
 }

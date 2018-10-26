@@ -64,4 +64,17 @@
     <color name="pink">#e91e63</color>
     <color name="pink_pressed">#ec407a</color>
     <color name="gradient">#00004a</color>
+
+    <color name="no_action">#70f58634</color>
+    <color name="pending">#7025639c</color>
+    <color name="close">#7000a859</color>
+
+    <color name="no_action_text">#f58634</color>
+    <color name="pending_text">#25639c</color>
+    <color name="close_text">#00a859</color>
+    <array name="complaint_status_colors">
+        <item name="item1">@color/no_action</item>
+        <item name="item2">@color/pending</item>
+        <item name="item3">@color/close</item>
+    </array>
 </resources>

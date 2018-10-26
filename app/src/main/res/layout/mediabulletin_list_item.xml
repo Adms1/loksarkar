@@ -25,12 +25,12 @@
             android:layout_height="@dimen/_130sdp"
             android:visibility="visible">
 
-            <ImageView
+            <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/img_preview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:adjustViewBounds="true"
-                android:src="@drawable/app_logo"
+                card_view:srcCompat="@drawable/app_logo"
                 android:scaleType="fitXY" />
 
             <TextView

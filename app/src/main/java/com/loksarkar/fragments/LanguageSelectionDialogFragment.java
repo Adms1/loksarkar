@@ -3,25 +3,19 @@ package com.loksarkar.fragments;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.loksarkar.R;
 import com.loksarkar.activities.DashBoardActivity;
-import com.loksarkar.activities.LocalizationAcitivity;
 import com.loksarkar.base.BaseApp;
 import com.loksarkar.localeutils.LocaleChanger;
 import com.loksarkar.ui.fullscreendialog.FullScreenDialogContent;
@@ -30,7 +24,7 @@ import com.loksarkar.utils.PrefUtils;
 
 
 
-public class LanguageSelection extends Fragment implements FullScreenDialogContent,View.OnClickListener {
+public class LanguageSelectionDialogFragment extends Fragment implements FullScreenDialogContent,View.OnClickListener {
 
 
     public static final String EXTRA_NAME = "EXTRA_NAME";
@@ -42,13 +36,13 @@ public class LanguageSelection extends Fragment implements FullScreenDialogConte
     private Context mContext;
     private View view;
 
-    public LanguageSelection() {
+    public LanguageSelectionDialogFragment() {
         // Required empty public constructor
     }
 
 
-    public static LanguageSelection newInstance(String param1, String param2) {
-        LanguageSelection fragment = new LanguageSelection();
+    public static LanguageSelectionDialogFragment newInstance(String param1, String param2) {
+        LanguageSelectionDialogFragment fragment = new LanguageSelectionDialogFragment();
         Bundle args = new Bundle();
         return fragment;
     }

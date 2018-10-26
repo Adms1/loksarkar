@@ -30,9 +30,12 @@
     <string name="userid">User ID</string>
     <string name="password">Password</string>
     <string name="website_link">Website link</string>
+    <string name="website_link_hint">-- Please enter Website link -- </string>
+
     <string name="do_media_registartion">Media Registration</string>
 
     <string name="media_housename">Media House Name*</string>
+    <string name="media_housename_hint">-- Please enter Media House Name--</string>
 
     <string name="email">Email ID</string>
 
@@ -58,6 +61,7 @@
     <string name="time_ago_day">Day ago</string>
     <string name="time_ago_days">Days ago</string>
     <string name="category">Category</string>
+    <string name="media_types">Media Types</string>
 
 
     <string name="logout_confrim_msg">Do you really want to logout?</string>
@@ -120,7 +124,7 @@
     <string name="login">Login</string>
 
 
-    <!-- registation list screen-->
+    <!-- registation list_item_complaint screen-->
     <string name="prachar_smiti">Publicity</string>
     <string name="lok_sevak">Loksevak </string>
     <string name="reseach_team">Research</string>
@@ -171,7 +175,18 @@
         <item>Other</item>
     </string-array>
 
+
+    <string-array name="radio_buttons_media_types">
+        <item>National Representative</item>
+        <item>State Representative</item>
+        <item>District Representative</item>
+        <item>Regional  Representative</item>
+
+    </string-array>
+
     <string name="other">Other</string>
+
+    <string name="register">Register</string>
     <!-- Forum Hints -->
 
 
@@ -219,9 +234,10 @@
     <string name="about">ABOUT LOKSARKAR</string>
     <string name="registration">REGISTRATION</string>
     <string name="choose_language">CHOOSE LANGUAGE</string>
-    <string name="my_complaint_status">MY COMPLAIINTS STATUS</string>
+    <string name="my_complaint_status">MY COMPLAINTS STATUS</string>
+    <string name="share_app">Share App</string>
     <string name="logout">logout</string>
-
+    <string name="track_app">TRACK APPLICATION</string>
 
     <!--submenu-->
     <string name="gujarati">ગુજરાતી</string>
@@ -233,6 +249,7 @@
     <string name="eng1"><u>ENGLISH</u></string>
 
     <string name="facility">Information / facility</string>
+    <string name="my_complaints_requests">My Complaints</string>
 
     <string name="ok">ok</string>
     <string name="cancel">Cancel</string>
@@ -261,7 +278,18 @@
     <string name="youtube">Youtube</string>
     <string name="whatsapp">Whatsapp</string>
 
+    <string name="invitation_subject">Join Loksarkar</string>
+    <string name="invitation_extended_title"></string>
+    <string name="reward_msg">Share app and get rewards points.</string>
+    <string name="referral">REFERRALS</string>
 
+    <string name="no_records">No Records Found</string>
+
+    <string name="complain_detail">COMPLAINTS DETAIl</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="print_succes">Download complete</string>
     <!-- TODO: Remove or change this placeholder text -->
 
 

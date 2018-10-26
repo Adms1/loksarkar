@@ -17,7 +17,7 @@ import com.loksarkar.models.MediaBulletinModel;
 import java.util.List;
 
 
-public class MediaBulletinAdapter extends EndlessRecyclerViewAdapter<String, MediaBulletinAdapter.MyViewHolder, MediaBulletinAdapter.FooterViewHolder>  {
+public class MediaBulletinAdapter extends EndlessRecyclerViewAdapter<String, RecyclerView.ViewHolder, MediaBulletinAdapter.FooterViewHolder>  {
 
     private Context context;
     private List<MediaBulletinModel.FinalArray> mDataList;
@@ -32,34 +32,69 @@ public class MediaBulletinAdapter extends EndlessRecyclerViewAdapter<String, Med
     }
 
     @Override
-    public MediaBulletinAdapter.MyViewHolder onCreateDataViewHolder(ViewGroup parent, int viewType) {
-        View view = this.inflater.inflate(R.layout.mediabulletin_list_item, parent, false);
-        return new MediaBulletinAdapter.MyViewHolder(view);
+    public RecyclerView.ViewHolder onCreateDataViewHolder(ViewGroup parent, int viewType) {
+
+        switch (viewType) {
+            case 101:
+                View view = this.inflater.inflate(R.layout.mediabulletin_list_item, parent, false);
+                return new ImageViewHolder(view);
+
+            case 202:
+                View view1 = this.inflater.inflate(R.layout.mediabulletin_list_video_item, parent, false);
+                return new MediaBulletinAdapter.VideoViewHolder(view1);
+
+        }
+        return null;
     }
 
     @Override
-    public void onBindDataViewHolder(MediaBulletinAdapter.MyViewHolder holder, final int position) {
-        holder.tvTitle.setText(mDataList.get(position).getBulletinTitle());
-        holder.tvCategory.setText(category);
-        holder.tvDate.setText(mDataList.get(position).getBulletinCDate());
+    public void onBindDataViewHolder(RecyclerView.ViewHolder holder, final int position) {
 
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intentMediaDetail = new Intent(context, MediaDetailActivity.class);
-                intentMediaDetail.putExtra("blog_id",mDataList.get(position).getPKBulletinID());
-                context.startActivity(intentMediaDetail);
-            }
-        });
-        if(mDataList.get(position).getFileType().equalsIgnoreCase("Image")){
-            holder.frameImageContainer.setVisibility(View.VISIBLE);
-            holder.backImage.setVisibility(View.VISIBLE);
-            Glide.with(context).load(mDataList.get(position).getBulletinFileName()).into(holder.backImage);
-        }else{
-            holder.backImage.setVisibility(View.GONE);
-            holder.frameImageContainer.setVisibility(View.GONE);
 
+        switch (holder.getItemViewType()) {
+            case 101:
+                ImageViewHolder holder1 = (ImageViewHolder) holder;
+                holder1.tvTitle.setText(mDataList.get(position).getBulletinTitle());
+                holder1.tvCategory.setText(category);
+                holder1.tvDate.setText(mDataList.get(position).getBulletinCDate());
+
+                holder1.cardView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intentMediaDetail = new Intent(context, MediaDetailActivity.class);
+                        intentMediaDetail.putExtra("blog_id",mDataList.get(position).getPKBulletinID());
+                        context.startActivity(intentMediaDetail);
+                    }
+                });
+                if(mDataList.get(position).getFileType().equalsIgnoreCase("Image")){
+                    holder1.frameImageContainer.setVisibility(View.VISIBLE);
+                    holder1.backImage.setVisibility(View.VISIBLE);
+                    Glide.with(context).load(mDataList.get(position).getBulletinFileName()).into(holder1.backImage);
+                }else{
+                    holder1.backImage.setVisibility(View.GONE);
+                    holder1.frameImageContainer.setVisibility(View.GONE);
+                }
+                break;
+
+            case 202:
+                VideoViewHolder viewHolder2 = (VideoViewHolder) holder;
+                viewHolder2.tvTitle.setText(mDataList.get(position).getBulletinTitle());
+                viewHolder2.tvCategory.setText(category);
+                viewHolder2.tvDate.setText(mDataList.get(position).getBulletinCDate());
+                Glide.with(context).load(R.drawable.video_bg).into(viewHolder2.backImage);
+
+                viewHolder2.cardView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intentMediaDetail = new Intent(context, MediaDetailActivity.class);
+                        intentMediaDetail.putExtra("blog_id",mDataList.get(position).getPKBulletinID());
+                        context.startActivity(intentMediaDetail);
+                    }
+                });
+
+                break;
         }
+
 
 
     }
@@ -81,15 +116,42 @@ public class MediaBulletinAdapter extends EndlessRecyclerViewAdapter<String, Med
     public int getItemCount() {
         return mDataList.size();
     }
+    @Override
+    public int getItemViewType(int position) {
+        if(mDataList.get(position).getFileType().equals("Image")){
+            return 101;
+        }else if(mDataList.get(position).getFileType().equals("Video")){
+            return 202;
+        }
+        return 0;
 
+    }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public class ImageViewHolder extends RecyclerView.ViewHolder {
         private TextView tvTitle,tvDate,tvCategory;
         private ImageView backImage;
         private FrameLayout frameImageContainer;
         private CardView cardView;
 
-        public MyViewHolder(View itemView) {
+        public ImageViewHolder(View itemView) {
+            super(itemView);
+            tvTitle = (TextView) itemView.findViewById(R.id.itm_title);
+            tvDate = (TextView) itemView.findViewById(R.id.itm_date);
+            tvCategory= (TextView) itemView.findViewById(R.id.categoryLabel);
+            backImage = (ImageView) itemView.findViewById(R.id.img_preview);
+            frameImageContainer = (FrameLayout)itemView.findViewById(R.id.fl_prev_container);
+            cardView = (CardView)itemView.findViewById(R.id.cardPlaceItm);
+        }
+
+    }
+
+    public class VideoViewHolder extends RecyclerView.ViewHolder {
+        private TextView tvTitle,tvDate,tvCategory;
+        private ImageView backImage;
+        private FrameLayout frameImageContainer;
+        private CardView cardView;
+
+        public VideoViewHolder(View itemView) {
             super(itemView);
             tvTitle = (TextView) itemView.findViewById(R.id.itm_title);
             tvDate = (TextView) itemView.findViewById(R.id.itm_date);

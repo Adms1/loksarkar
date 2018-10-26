@@ -62,7 +62,7 @@ public class Facility extends BaseActivity {
     }
 
     private void showDialog(){
-        dialog = new Dialog(this);
+        dialog = new Dialog(this,R.style.CustomDialog);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_comming_soon);
 

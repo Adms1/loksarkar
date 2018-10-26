@@ -36,6 +36,7 @@
             android:padding="5dp"
             android:id="@+id/save_story"
             android:layout_marginBottom="5dp"
+            android:visibility="gone"
             android:layout_marginLeft="15dp">
 
             <ImageView
@@ -64,6 +65,7 @@
             android:id="@+id/add_to_story"
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="15dp"
+            android:visibility="gone"
             android:layout_toRightOf="@+id/save_story">
 
             <ImageView
@@ -150,6 +152,7 @@
         android:fontFamily="sans-serif-medium"
         android:gravity="center"
         android:minHeight="@dimen/evp_button_size"
+        android:visibility="gone"
         android:paddingLeft="@dimen/evp_content_inset"
         android:paddingRight="@dimen/evp_content_inset"
         android:text="@string/evp_retry"
@@ -195,6 +198,7 @@
         android:paddingLeft="@dimen/evp_content_inset"
         android:paddingRight="@dimen/evp_content_inset"
         android:text="@string/evp_submit"
+        android:visibility="gone"
         android:textAllCaps="false"
         android:textColor="#fff"
         android:textSize="@dimen/evp_text_size_medium"

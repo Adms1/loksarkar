@@ -64,9 +64,17 @@
 
     <string name="loksabha">-- लोकसभा --</string>
     <string name="loksabha_txt">लोकसभा</string>
-    <string name="media_housename">मीडिया का घर का नाम *</string>
-    <string name="website_link">वेबसाइट की लिंक</string>
-    <string name="do_media_registartion">मीडिया पंजीकरण करें</string>
+    <string name="media_housename">मीडिया हाऊस नाम *</string>
+    <string name="media_housename_hint">-- मीडिया हाऊस नाम दर्ज करें--</string>
+
+    <!--<string name="website_link">वेबसाइट की लिंक</string>-->
+    <string name="website_link">Website link</string>
+    <string name="website_link_hint">-- Website link दर्ज करें -- </string>
+
+
+    <string name="do_media_registartion">मीडिया पंजीकरण</string>
+
+    <string name="media_types">मीडिया प्रकार</string>
 
     <string name="category">वर्ग</string>
 
@@ -102,7 +110,9 @@
 
     <string name="login">लॉग इन करें</string>
 
-    <!-- registation list screen-->
+    <string name="register">रजिस्टर</string>
+
+    <!-- registation list_item_complaint screen-->
 
     <string name="prachar_smiti">प्रचार</string>
     <string name="lok_sevak">लोक सेवा</string>
@@ -157,14 +167,27 @@
     </string-array>
 
     <string-array name="radio_buttons_category">
-        <item>प्रिंट मीडिया</item>
-        <item>इलेकट्रोनिक मीडिया</item>
-        <item>डिजिटल मीडिया</item>
-        <item>फ्रीलांसर</item>
-        <item>अन्य</item>
+        <!--<item>प्रिंट मीडिया</item>-->
+        <!--<item>इलेकट्रोनिक मीडिया</item>-->
+        <!--<item>डिजिटल मीडिया</item>-->
+        <!--<item>फ्रीलांसर</item>-->
+        <!--<item>अन्य</item>-->
+
+            <item>Print Media</item>
+            <item>Electronic Media</item>
+            <item>Digital Media</item>
+            <item>Freelancer</item>
+            <item>Other</item>
+
     </string-array>
     <string name="other">अन्य</string>
+    <string-array name="radio_buttons_media_types">
+        <item>National Representative</item>
+        <item>State Representative</item>
+        <item>District Representative</item>
+        <item>Regional  Representative</item>
 
+    </string-array>
     <!-- Form textHints -->
     <string name="name_hint">-- कृपया नाम दर्ज करें --</string>
     <string name="address_hint">-- कृपया पता दर्ज करें --</string>
@@ -219,6 +242,9 @@
     <string name="choose_language">भाषा चुनें</string>
     <string name="my_complaint_status">मेरी शिकायत की स्थिति</string>
     <string name="logout">लोग आउट</string>
+    <string name="share_app">ऐप शेयर करें</string>
+    <string name="track_app">ट्रैक एप्लिकेशन </string>
+
 
 
     <!--submenu-->
@@ -251,4 +277,16 @@
     <string name="twitter">ट्विटर</string>
     <string name="youtube">यूट्यूब</string>
     <string name="whatsapp">व्हाट्स अप</string>
+
+    <string name="invitation_subject">Join Loksarkar</string>
+    <string name="invitation_extended_title"></string>
+    <string name="reward_msg">Share app and get rewards points.</string>
+
+    <string name="referral">रेफरल</string>
+    <string name="no_records">No Records Found</string>
+    <string name="my_complaints_requests">मेरी शिकायते</string>
+    <string name="complain_detail">शिकायतों का विवरण</string>
+    <string name="print_succes">Download complete</string>
+
+
 </resources>

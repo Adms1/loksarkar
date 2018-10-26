@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:padding="@dimen/_5sdp"
     android:fitsSystemWindows="true"
-    tools:context="com.loksarkar.activities.MainActivity">
+    tools:context="com.loksarkar.activities.ComplaintsList">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -381,7 +381,46 @@
 
                         </RelativeLayout>
 
-                    </LinearLayout>
+                    </LinearLayout> <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/assembly"
+                        android:textSize="17sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/black" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:background="@drawable/rounded_corner_layout">
+
+
+                        <fr.ganfra.materialspinner.MaterialSpinner
+                            android:id="@+id/spinner_assembly"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:ms_multiline="false"
+                            app:ms_hint="@string/assembly_dropdown_hint"
+                            app:ms_enableFloatingLabel="false"
+                            app:ms_enableErrorLabel="false"
+                            app:ms_floatingLabelText="@string/assembly_dropdown_hint"
+                            android:layout_marginTop="5dp"
+                            app:ms_thickness="0dp"
+                            app:ms_alignLabels="true" />
+
+                    </RelativeLayout>
+
+                </LinearLayout>
 
 
 
@@ -678,7 +717,20 @@
                         </RelativeLayout>
 
                     </LinearLayout>
+                    <android.support.v7.widget.AppCompatButton
+                        android:id="@+id/btn_submit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_15sdp"
+                        android:layout_marginBottom="@dimen/_5sdp"
+                        style="@style/Widget.AppCompat.Button"
+                        android:shadowColor="@color/btn_color"
+                        android:background="@color/btn_color"
+                        android:layout_gravity="center"
+                        android:text="SUBMIT"
 
+                        android:textColor="@color/white"
+                        android:gravity="center"/>
 
                  </LinearLayout>
 
@@ -714,18 +766,7 @@
 
         </RelativeLayout>
 
-            <android.support.v7.widget.AppCompatButton
-                android:id="@+id/btn_submit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_10sdp"
-                style="@style/Widget.AppCompat.Button"
-                android:shadowColor="@color/btn_color"
-                android:background="@color/btn_color"
-                android:layout_gravity="center"
-                android:text="SUBMIT"
-                android:textColor="@color/white"
-                android:gravity="center"/>
+
 
         </LinearLayout>
     </ScrollView>

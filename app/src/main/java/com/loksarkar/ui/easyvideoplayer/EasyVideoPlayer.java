@@ -645,22 +645,28 @@ public class EasyVideoPlayer extends FrameLayout
     Log.d(TAG, "PLAYER: releasing player.");
     mIsPrepared = false;
 
-    if (mPlayer != null) {
-      try {
-        mPlayer.release();
-      } catch (Throwable ignored) {
+    try {
+      if (mPlayer != null) {
+        try {
+          mPlayer.release();
+        } catch (Throwable ignored) {
+        }
+        mPlayer = null;
+        deleteOutputFile(mSource.getPath());
       }
-      mPlayer = null;
-      deleteOutputFile(mSource.getPath());
-    }
 
-    if (mHandler != null) {
-      mHandler.removeCallbacks(mUpdateCounters);
-      mHandler = null;
+      if (mHandler != null) {
+        mHandler.removeCallbacks(mUpdateCounters);
+        mHandler = null;
+      }
+    }catch(Exception ignored){
+      ignored.printStackTrace();
     }
-
     LOG("Released player and Handler");
   }
+
+
+
 
   private void deleteOutputFile(@Nullable String uri) {
     if (uri != null)

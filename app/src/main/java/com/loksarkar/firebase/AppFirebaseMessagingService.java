@@ -3,11 +3,13 @@ package com.loksarkar.firebase;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.loksarkar.R;
+import com.loksarkar.activities.BaseActivity;
 import com.loksarkar.activities.MediaDetailActivity;
 import com.loksarkar.activities.SplashActivity;
 import com.loksarkar.api.ApiHandler;
@@ -15,16 +17,19 @@ import com.loksarkar.constants.AppConstants;
 import com.loksarkar.constants.NotificationConfig;
 import com.loksarkar.models.RegistrationModel;
 import com.loksarkar.utils.AppUtils;
+import com.loksarkar.utils.InstallReferrerHelper;
 import com.loksarkar.utils.NotificationUtils;
 import com.loksarkar.utils.PrefUtils;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
+
 import java.util.HashMap;
 import java.util.Map;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 
-public class AppFirebaseMessagingService extends FirebaseMessagingService {
+public class AppFirebaseMessagingService extends FirebaseMessagingService implements InstallReferrerHelper.InstallReferrerCallback{
 
     private static final String TAG = AppFirebaseMessagingService.class.getSimpleName();
 
@@ -36,7 +41,15 @@ public class AppFirebaseMessagingService extends FirebaseMessagingService {
         super.onNewToken(refreshedToken);
         Log.d("refreshtoken",refreshedToken);
         storeRegIdInPref(refreshedToken);
-        sendRegistrationToServer(refreshedToken);
+
+        try {
+            InstallReferrerHelper.fetchInstallReferrer(this,this);
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+
+
+       // sendRegistrationToServer(refreshedToken);
 
     }
 
@@ -102,6 +115,8 @@ public class AppFirebaseMessagingService extends FirebaseMessagingService {
                         return;
                     }
                     if (registrationModel.getSuccess().equalsIgnoreCase("True")) {
+
+
                         return;
                     }
 
@@ -123,6 +138,67 @@ public class AppFirebaseMessagingService extends FirebaseMessagingService {
             return map;
         }
 
+
+
+
+
+    private void sendDeviceIdWithToken(final Context context, final String token, String referralCode) {
+        // sending fcm token to server
+
+        if (!AppUtils.isNetworkConnected(this)) {
+            AppUtils.ping(getApplicationContext(),getResources().getString(R.string.internet_error));
+            return;
+        }
+
+        ApiHandler.getApiService().registerDeviceNew(setDeviceDetail(token,referralCode),new retrofit.Callback<RegistrationModel>() {
+            @Override
+            public void success(RegistrationModel registrationModel, Response response) {
+                AppUtils.dismissDialog();
+                if (registrationModel == null) {
+                    AppUtils.ping(getApplicationContext(),getString(R.string.something_wrong));
+
+                    return;
+                }
+                if (registrationModel.getSuccess() == null) {
+                    AppUtils.ping(getApplicationContext(), getString(R.string.something_wrong));
+                    return;
+                }
+                if (registrationModel.getSuccess().equalsIgnoreCase("false")) {
+                    AppUtils.ping(getApplicationContext(), getString(R.string.something_wrong));
+                    return;
+                }
+                if (registrationModel.getSuccess().equalsIgnoreCase("True")) {
+                    PrefUtils.getInstance(context).setIsFirstTime(true);
+                    return;
+                }
+
+            }
+            @Override
+            public void failure(RetrofitError error) {
+                AppUtils.dismissDialog();
+                error.printStackTrace();
+                AppUtils.ping(getApplicationContext(), getString(R.string.something_wrong));
+            }
+        });
+
+
+    }
+
+    private Map<String, String> setDeviceDetail(String token, String referralCode) {
+        Map<String, String> map = new HashMap<>();
+        map.put("DeviceToken",token);
+        map.put("DeviceID",AppUtils.getDeviceId(this));
+
+        if(referralCode.equals("utm_source=google-play&utm_medium=organic") || referralCode.contains("utm_source")){
+            map.put("ReferralCode","");
+        }else{
+            map.put("ReferralCode",referralCode);
+
+        }
+
+
+        return map;
+    }
 
 
 
@@ -209,5 +285,36 @@ public class AppFirebaseMessagingService extends FirebaseMessagingService {
         notificationUtils = new NotificationUtils(context);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         notificationUtils.showNotificationMessage(title, message,intent, imageUrl);
+    }
+
+
+    @Override
+    public void onReceived(String installReferrer) {
+        try {
+
+            if(installReferrer != null) {
+
+                if (!PrefUtils.getInstance(this).isFirstTime()) {
+
+                    Log.d("referral_code",installReferrer);
+                    SharedPreferences pref = getApplicationContext().getSharedPreferences(PrefUtils.SHARED_PREF, 0);
+                    String token = pref.getString("regId", "");
+
+                    if (token != null && !TextUtils.isEmpty(token)) {
+                        sendDeviceIdWithToken(this,token,installReferrer);
+                    }
+                }
+
+
+            }
+
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onFailed() {
+
     }
 }

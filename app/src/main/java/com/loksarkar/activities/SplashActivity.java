@@ -48,10 +48,9 @@ public class SplashActivity extends AppCompatActivity {
             }
 
         }catch (Exception ex){
-
+            ex.printStackTrace();
         }
-
-        }
+       }
 
     }
 

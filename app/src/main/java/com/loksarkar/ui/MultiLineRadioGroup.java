@@ -45,7 +45,7 @@ public class MultiLineRadioGroup extends RadioGroup {
     // all buttons are stored in table layout
     private TableLayout mTableLayout;
 
-    // list to store all the buttons
+    // list_item_complaint to store all the buttons
     private List<RadioButton> mRadioButtons;
 
     // the checked button
@@ -386,7 +386,7 @@ public class MultiLineRadioGroup extends RadioGroup {
 
         int realIndex = (index != -1) ? index : mRadioButtons.size();
 
-        // inits the buttons and adds them to the list
+        // inits the buttons and adds them to the list_item_complaint
         for (RadioButton radioButton : radioButtons) {
             initRadioButton(radioButton);
             mRadioButtons.add(realIndex++, radioButton);
@@ -540,7 +540,7 @@ public class MultiLineRadioGroup extends RadioGroup {
             // if the button to remove is the checked button set mCheckedButton to null
             if (radiobutton == mCheckedButton)
                 mCheckedButton = null;
-            // removes the button from the list
+            // removes the button from the list_item_complaint
             mRadioButtons.remove(i);
         }
 
@@ -619,7 +619,7 @@ public class MultiLineRadioGroup extends RadioGroup {
             int startIndexToRemove;
             int count;
 
-            // if it is the last row removes all redundancies after the last button in the list
+            // if it is the last row removes all redundancies after the last button in the list_item_complaint
             if (i == tableChildCount - 1) {
                 startIndexToRemove = (mRadioButtons.size() - 1) % maxInRow + 1;
                 count = tableRowChildCount - startIndexToRemove;

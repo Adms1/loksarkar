@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 
 import com.loksarkar.R;
 import com.loksarkar.base.BaseApp;
+import com.loksarkar.constants.AppConstants;
 import com.loksarkar.localeutils.LocaleChanger;
 
 public class MediaBulletinActivity extends BaseActivity {
@@ -34,22 +35,27 @@ public class MediaBulletinActivity extends BaseActivity {
         findViewById(R.id.view_click).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    Intent intentMediaRegitration = new Intent(MediaBulletinActivity.this, SocialMediaActivity.class);
-                    startActivity(intentMediaRegitration);
-                }catch (Exception ex){
-                    ex.printStackTrace();
-                }
+//                try {
+//                    Intent intentMediaRegitration = new Intent(MediaBulletinActivity.this, SocialMediaActivity.class);
+//                    startActivity(intentMediaRegitration);
+//                }catch (Exception ex){
+//                    ex.printStackTrace();
+//                }
+                AppConstants.typeId = category_socialMedia;
+                intentMediaList.putExtra("category_type",category_socialMedia);
+                startActivity(intentMediaList);
             }
         });
 
         findViewById(R.id.view_click1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                intentMediaList.putExtra("category_type",category_mediaCoverage);
-//                startActivity(intentMediaList);
 
-                showDialog();
+                AppConstants.typeId =category_mediaCoverage;
+                intentMediaList.putExtra("category_type",category_mediaCoverage);
+                startActivity(intentMediaList);
+
+               // showDialog();
             }
         });
 
@@ -57,9 +63,11 @@ public class MediaBulletinActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
 
-                showDialog();
-//                intentMediaList.putExtra("category_type",category_video);
-//                startActivity(intentMediaList);
+               // showDialog();
+                AppConstants.typeId = category_video;
+
+                intentMediaList.putExtra("category_type",category_video);
+                startActivity(intentMediaList);
             }
         });
         findViewById(R.id.view_click4).setOnClickListener(new View.OnClickListener() {

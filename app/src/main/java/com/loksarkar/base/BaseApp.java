@@ -1,19 +1,33 @@
 package com.loksarkar.base;
 
 import android.app.Application;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.SystemClock;
 import android.support.multidex.MultiDex;
 
+import com.loksarkar.R;
+import com.loksarkar.api.ApiHandler;
 import com.loksarkar.localeutils.LocaleChanger;
+import com.loksarkar.models.RegistrationModel;
+import com.loksarkar.utils.AppUtils;
 import com.loksarkar.utils.DeviceUtils;
+import com.loksarkar.utils.InstallReferrerHelper;
+import com.loksarkar.utils.PrefUtils;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-public class BaseApp extends Application {
+
+import retrofit.RetrofitError;
+import retrofit.client.Response;
+
+
+public class BaseApp extends Application   {
 
 
     public static final List<Locale> SUPPORTED_LOCALES = Arrays.asList(new Locale("gu", "IN"),
@@ -24,6 +38,11 @@ public class BaseApp extends Application {
     @Override
     public void onCreate(){
         super.onCreate();
+
+//        Branch.setPlayStoreReferrerCheckTimeout(2000);
+//        Branch.getAutoInstance(this);
+
+
         MultiDex.install(this);
 
         DeviceUtils.LogDeviceInfo(this);
@@ -31,6 +50,10 @@ public class BaseApp extends Application {
         SystemClock.sleep(TimeUnit.SECONDS.toMillis(3));
 
         LocaleChanger.initialize(getApplicationContext(),SUPPORTED_LOCALES);
+
+        PrefUtils.getInstance(this).setIsFirstTime(false);
+
+
        /// LocaleChanger.setLocale(SUPPORTED_LOCALES.get(2));
     }
 

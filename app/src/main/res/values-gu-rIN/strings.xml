@@ -48,10 +48,17 @@
     <string name="id_proof_num">ઓળખ પત્ર નંબર</string>
     <string name="lok_sevak_code">લોકસેવક કોડ</string>
 
-    <string name="media_housename">મીડિયા ઘરનું નામ*</string>
+    <string name="media_housename">મીડિયા હાઉસ નામ*</string>
+    <string name="media_housename_hint">-- મીડિયા હાઉસનું નામ લખો --</string>
 
-    <string name="website_link">વેબસાઇટ લિંક</string>
-    <string name="do_media_registartion">મીડિયા નોંધણી કરો</string>
+
+    <string name="media_types">મીડિયા પ્રકારો</string>
+
+    <!--<string name="website_link">વેબસાઇટ લિંક</string>-->
+    <string name="website_link">Website link </string>
+    <string name="website_link_hint">-- Website link દાખલ કરો -- </string>
+
+    <string name="do_media_registartion">મીડિયા નોંધણી</string>
 
     <string name="category">શ્રેણી</string>
 
@@ -67,7 +74,7 @@
     <string name="taluka_panchyat">તાલુકા પંચાયત</string>
     <string name="jilla_panchyat">જિલ્લા પંચાયત</string>
     <string name="zone_t">ઝોન</string>
-    <!-- registation list screen-->
+    <!-- registation list_item_complaint screen-->
 
     <string name="prachar_smiti">પ્રચાર સમિતિ</string>
     <string name="lok_sevak">લોકસેવક</string>
@@ -156,11 +163,17 @@
     </string-array>
 
     <string-array name="radio_buttons_category">
-        <item>પ્રિન્ટ મીડિયા</item>
-        <item>ઇલેક્ટ્રોનિક મીડિયા</item>
-        <item>Digital Media</item>
-        <item>ફ્રીલાન્સર</item>
-        <item>અન્ય</item>
+        <!--<item>પ્રિન્ટ મીડિયા</item>-->
+        <!--<item>ઇલેક્ટ્રોનિક મીડિયા</item>-->
+        <!--<item>Digital Media</item>-->
+        <!--<item>ફ્રીલાન્સર</item>-->
+        <!--<item>અન્ય</item>-->
+
+            <item>Print Media</item>
+            <item>Electronic Media</item>
+            <item>Digital Media</item>
+            <item>Freelancer</item>
+            <item>Other</item>
     </string-array>
     <string name="other">અન્ય</string>
 
@@ -173,7 +186,7 @@
     <string name="email_address_hint">-- તમારુ ઇ-મેઇલ એડ્રેસ લખો --</string>
     <string name="dob_hint">-- જન્મ તારીખ લખો --</string>
     <string name="identification_hint">-- તમારુ ઓળખ પત્ર નંબર લખો --</string>
-    <string name="fb_link_hint">-- Facebook Link દાખલ લખો --</string>
+    <string name="fb_link_hint">-- Facebook Link દાખલ કરો --</string>
     <string name="twitter_link_hint">-- Twitter Link દાખલ કરો --</string>
     <string name="district_drop_down_hint">-- ફરિયાદિત જિલ્લા / મ્યુનિસિપલ કોર્પોરેશન પસંદ કરો --</string>
     <string name="assembly_dropdown_hint">-- વિધાનસભા પસંદ કરો --</string>
@@ -218,9 +231,22 @@
     <string name="choose_language">ભાષા પસંદ કરો</string>
     <string name="my_complaint_status">મારી ફરિયાદોની સ્થિતિ</string>
     <string name="logout">લૉગ આઉટ</string>
+    <string name="share_app">શેર એપ્લિકેશન</string>
+    <string name="track_app">ટ્રેક એપ્લિકેશન</string>
 
 
+
+    <string-array name="radio_buttons_media_types">
+        <item>National Representative</item>
+        <item>State Representative</item>
+        <item>District Representative</item>
+        <item>Regional  Representative</item>
+
+    </string-array>
     <!--submenu-->
+
+    <string name="register">નોંધણી કરો</string>
+
     <string name="gujarati">ગુજરાતી</string>
     <string name="hindi">हिन्दी</string>
     <string name="eng">ENGLISH</string>
@@ -250,5 +276,17 @@
     <string name="twitter">ટ્વિટર</string>
     <string name="youtube">યુ-ટ્યૂબ</string>
     <string name="whatsapp">વહટ્સ અપ</string>
+
+    <string name="invitation_subject">Join Loksarkar</string>
+    <string name="invitation_extended_title"></string>
+    <string name="reward_msg">Share app and get rewards points.</string>
+
+    <string name="referral">રેફરલ્સ</string>
+    <string name="no_records">No Records Found</string>
+    <string name="my_complaints_requests">મારી ફરિયાદો</string>
+    <string name="complain_detail">ફરિયાદો ની વિગત</string>
+
+    <string name="print_succes">Download complete</string>
+
 
 </resources>

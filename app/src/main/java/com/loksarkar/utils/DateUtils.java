@@ -7,8 +7,12 @@ import android.support.annotation.Nullable;
 
 import com.loksarkar.R;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public class DateUtils {
     //region Constants
@@ -41,7 +45,9 @@ public class DateUtils {
         if (diff < 24 * DateUtils.HOUR_MILLIS) return String.format(context.getString(R.string.time_ago_hours), String.valueOf(Math.round(diff / (double)DateUtils.HOUR_MILLIS)));
         if (diff < 48 * DateUtils.HOUR_MILLIS) return context.getString(R.string.time_ago_day);
 
-        return String.format(context.getString(R.string.time_ago_days), String.valueOf(Math.round(diff / (double)DateUtils.DAY_MILLIS)));
+    //    return String.format(context.getString(R.string.time_ago_days), String.valueOf(Math.round(diff /(double)DateUtils.DAY_MILLIS)));
+        return String.valueOf(Math.round(diff /(double)DateUtils.DAY_MILLIS) + " " +context.getString(R.string.time_ago_days));
+
     }
 
 
@@ -53,4 +59,58 @@ public class DateUtils {
 
         return newDateString;
     }
+
+    public static String getCurrentDate(){
+        Date c = Calendar.getInstance().getTime();
+
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy",Locale.ENGLISH);
+        String formattedDate = df.format(c);
+        return  formattedDate;
+    }
+
+    public static String getCurrentDatePlusOneDay(){
+        Date dt = new Date();
+        Calendar c = Calendar.getInstance();
+        c.setTime(dt);
+        c.add(Calendar.DATE, 1);
+        dt = c.getTime();
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyy",Locale.ENGLISH);
+        String formattedDate = df.format(dt);
+        return formattedDate;
+
+    }
+
+    public static String getCurrentDateMinusOneMonth(){
+        Date dt = new Date();
+        Calendar c = Calendar.getInstance();
+        c.setTime(dt);
+        c.add(Calendar.MONTH, - 1);
+        dt = c.getTime();
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy",Locale.ENGLISH);
+        String formattedDate = df.format(dt);
+        return formattedDate;
+
+    }
+
+    public static boolean CheckDates(String fromDate, String toDate)   {
+        SimpleDateFormat dfDate  = new SimpleDateFormat("dd/MM/yyyy");
+
+        boolean b = false;
+        try {
+            if(dfDate.parse(fromDate).before(dfDate.parse(toDate))) {
+                b = true;//If start date is before end date
+            }
+            else if(dfDate.parse(fromDate).equals(dfDate.parse(toDate))) {
+                b = true;//If two dates are equal
+            }
+            else {
+                b = false; //If start date is after the end date
+            }
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return b;
+    }
+
 }
