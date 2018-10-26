@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:layout_gravity="center"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/_5sdp">
+
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/edt_fromDate"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="@dimen/_40sdp"
+            android:background="@drawable/rounded_editext"
+            android:editable="false"
+            android:focusable="false"
+            android:clickable="true"
+            android:hint="FromDate"
+            android:paddingStart="@dimen/_5sdp"
+            android:paddingLeft="@dimen/_5sdp"
+            android:drawableTint="@color/btn_color"
+            android:paddingRight="@dimen/_2sdp"
+            android:drawableRight="@drawable/ic_calendar"/>
+
+         <View
+             android:layout_width="0dp"
+             android:layout_weight="0.1"
+             android:layout_height="match_parent"/>
+
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/edt_toDate"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="@dimen/_40sdp"
+            android:background="@drawable/rounded_editext"
+            android:editable="false"
+            android:focusable="false"
+            android:clickable="true"
+            android:hint="ToDate"
+            android:paddingStart="@dimen/_5sdp"
+            android:paddingLeft="@dimen/_5sdp"
+            android:paddingRight="@dimen/_2sdp"
+            android:drawableTint="@color/btn_color"
+            android:drawableRight="@drawable/ic_calendar"/>
+
+
+
+    </android.support.v7.widget.LinearLayoutCompat>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginRight="@dimen/_10sdp"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Complaints Status"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            android:textColor="@color/black" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@drawable/rounded_corner_layout">
+
+
+            <fr.ganfra.materialspinner.MaterialSpinner
+                android:id="@+id/spinner_complaints"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
+                app:ms_multiline="false"
+                app:ms_enableFloatingLabel="false"
+                app:ms_enableErrorLabel="false"
+                android:layout_marginTop="5dp"
+                app:ms_thickness="0dp"
+                app:ms_alignLabels="true" />
+
+        </RelativeLayout>
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btn_done"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
+            style="@style/Widget.AppCompat.Button"
+            android:shadowColor="@color/btn_color"
+            android:background="@color/btn_color"
+            android:layout_gravity="center"
+            android:text="DONE"
+            android:textColor="@color/white"
+            android:gravity="center"/>
+
+    </LinearLayout>
+
+
+
+
+</android.support.v7.widget.LinearLayoutCompat>

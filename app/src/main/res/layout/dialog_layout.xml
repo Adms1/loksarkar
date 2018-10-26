@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_180sdp"
+    android:background="@drawable/dialog_bg"
+    android:layout_gravity="center"
+    android:layout_margin="@dimen/_10sdp"
+    android:padding="@dimen/_5sdp"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+            <ImageView
+                android:id="@+id/image_action"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:tint="@color/material_light_green"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/ic_check" />
+
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Title"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_below="@+id/image_action"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/text_color_title"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/tv_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Content here"
+            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/text_color_title"
+            android:textSize="15sp" />
+
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btn_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:text="@string/ok"
+            android:textColor="@color/white"
+            android:alpha="0.9"
+            android:background="@drawable/transparent_green_bg"/>
+
+
+
+
+    </RelativeLayout>
+
+</android.support.v7.widget.LinearLayoutCompat>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_80sdp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/view_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/_3sdp"
+        app:contentPadding="@dimen/_3sdp"
+        app:cardUseCompatPadding="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tv_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_5sdp"
+                android:layout_alignParentRight="true"
+                android:text="Mon 25 July"
+                android:textSize="10sp"
+                android:textColor="@color/text_color_txt" />
+
+            <RelativeLayout
+                android:id="@+id/left_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/LL_ic_container"
+                    android:layout_width="@dimen/_40sdp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_margin="@dimen/_5sdp"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/circle_layout">
+
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/iv_doc"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:srcCompat="@drawable/ic_text_form"
+                    android:padding="@dimen/_10sdp" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="fill"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_toRightOf="@+id/left_container">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tv_label_compalaint_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="Complaint Number  "
+                android:textSize="14sp"
+                android:visibility="gone"
+                android:textColor="@color/text_color_txt" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tv_compalaint_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_toRightOf="@+id/tv_label_compalaint_code"
+                android:text="7747SEWWW"
+                android:layout_centerVertical="true"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                android:textAllCaps="true"
+                android:textColor="@color/text_color_title" />
+
+
+
+            <android.support.v7.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_compalaint_code">
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/tv_status_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Status"
+                    android:visibility="gone"
+                    android:textSize="14sp"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/text_color_txt" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tv_status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="No Action"
+                android:textSize="10sp"
+                android:textColor="@color/text_color_txt" />
+
+            </android.support.v7.widget.LinearLayoutCompat>
+
+            </RelativeLayout>
+        </RelativeLayout>
+
+
+    </android.support.v7.widget.CardView>
+
+
+
+</android.support.v7.widget.LinearLayoutCompat>
