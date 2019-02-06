@@ -32,13 +32,11 @@ import java.util.regex.Pattern;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-
 public class AppFirebaseMessagingService extends FirebaseMessagingService implements InstallReferrerHelper.InstallReferrerCallback{
 
     private static final String TAG = AppFirebaseMessagingService.class.getSimpleName();
 
     private NotificationUtils notificationUtils;
-
 
     @Override
     public void onNewToken(String refreshedToken) {
@@ -51,7 +49,6 @@ public class AppFirebaseMessagingService extends FirebaseMessagingService implem
         }catch (Exception ex){
             ex.printStackTrace();
         }
-
 
        // sendRegistrationToServer(refreshedToken);
 
