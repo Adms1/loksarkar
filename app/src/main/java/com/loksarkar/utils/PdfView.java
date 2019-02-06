@@ -8,7 +8,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
-import android.print.PdfPrint;
+
 import android.print.PrintAttributes;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
@@ -42,34 +42,34 @@ public class PdfView {
                     .setResolution(new PrintAttributes.Resolution("pdf", "pdf", 600, 600))
                     .setMinMargins(PrintAttributes.Margins.NO_MARGINS).build();
         }
-        PdfPrint pdfPrint = new PdfPrint(attributes);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            pdfPrint.print(webView.createPrintDocumentAdapter(jobName), directory, fileName, new PdfPrint.CallbackPrint() {
-                @Override
-                public void success(String path) {
-                    callback.success(path);
-                }
-
-                @Override
-                public void onFailure() {
-                    callback.failure();
-                }
-            });
-        }else {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                pdfPrint.print(webView.createPrintDocumentAdapter(), directory, fileName,new PdfPrint.CallbackPrint() {
-                    @Override
-                    public void success(String path) {
-                        callback.success(path);
-                    }
-
-                    @Override
-                    public void onFailure() {
-                        callback.failure();
-                    }
-                });
-            }
-        }
+//        PdfPrint pdfPrint = new PdfPrint(attributes);
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            pdfPrint.print(webView.createPrintDocumentAdapter(jobName), directory, fileName, new PdfPrint.CallbackPrint() {
+//                @Override
+//                public void success(String path) {
+//                    callback.success(path);
+//                }
+//
+//                @Override
+//                public void onFailure() {
+//                    callback.failure();
+//                }
+//            });
+//        }else {
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+//                pdfPrint.print(webView.createPrintDocumentAdapter(), directory, fileName,new PdfPrint.CallbackPrint() {
+//                    @Override
+//                    public void success(String path) {
+//                        callback.success(path);
+//                    }
+//
+//                    @Override
+//                    public void onFailure() {
+//                        callback.failure();
+//                    }
+//                });
+//            }
+//        }
     }
 
 

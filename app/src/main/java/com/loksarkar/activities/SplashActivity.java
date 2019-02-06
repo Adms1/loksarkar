@@ -18,7 +18,7 @@ import com.loksarkar.utils.PrefUtils;
 
 public class SplashActivity extends AppCompatActivity {
 
-    private String typeId = "";
+    private String typeId = "",title;
     private boolean isLanguageSelected;
 
     @Override
@@ -27,22 +27,28 @@ public class SplashActivity extends AppCompatActivity {
 
         try{
             typeId = getIntent().getStringExtra("blog_id");
+            title = getIntent().getStringExtra("title");
+
         }catch (Exception ex){
             typeId = "";
+
             ex.getLocalizedMessage();
         }
 
 
         try {
             if (!PrefUtils.getInstance(SplashActivity.this).isLanguageSelected()) {
-                Intent intent = new Intent(this, LocalizationAcitivity.class);
-                intent.putExtra("blog_id", typeId);
+                Intent intent = new Intent(this,LocalizationAcitivity.class);
+                intent.putExtra("blog_id",typeId);
+                intent.putExtra("title",title);
                 startActivity(intent);
                 finish();
 
             }else{
-                Intent intent = new Intent(this, DashBoardActivity.class);
+                Intent intent = new Intent(this,DashBoardActivity.class);
                 intent.putExtra("blog_id", typeId);
+                intent.putExtra("title",title);
+
                 startActivity(intent);
                 finish();
             }
@@ -50,7 +56,8 @@ public class SplashActivity extends AppCompatActivity {
         }catch (Exception ex){
             ex.printStackTrace();
         }
-       }
+
+      }
 
     }
 

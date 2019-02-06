@@ -30,7 +30,7 @@ public class ComplaintsModel {
         this.finalAry = finalAry;
     }
 
-    public class FinalAry {
+    public static class FinalAry {
 
         @SerializedName("Number")
         @Expose

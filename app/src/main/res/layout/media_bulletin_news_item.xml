@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardPlaceItm"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/_5sdp"
+    android:clickable="true"
+    android:focusable="true"
+    card_view:cardUseCompatPadding="true"
+    card_view:cardBackgroundColor="@color/white">
+
+    <android.support.v7.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/_7sdp"
+        android:weightSum="10"
+        android:orientation="horizontal">
+
+
+        <android.support.v7.widget.LinearLayoutCompat
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3.5">
+
+
+            <android.support.v7.widget.LinearLayoutCompat
+               android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:padding="@dimen/_1sdp"
+                android:background="@drawable/box_background">
+
+            <ImageView
+                android:id="@+id/iv_itempic"
+                android:layout_width="@dimen/_85sdp"
+                android:layout_height="@dimen/_85sdp"
+                android:scaleType="fitXY"
+                android:src="@drawable/loksarkarlogo" />
+
+            </android.support.v7.widget.LinearLayoutCompat>
+
+        </android.support.v7.widget.LinearLayoutCompat>
+
+
+        <android.support.v7.widget.LinearLayoutCompat
+            android:layout_width="0dp"
+            android:layout_weight="7"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/itm_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@android:style/TextAppearance.Medium"
+                android:maxLines="4"
+                android:layout_marginRight="@dimen/_5sdp"
+                android:textColor="@color/text_color_title"
+                android:textStyle="normal"/>
+
+            <TextView
+                android:id="@+id/itm_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:textAppearance="@android:style/TextAppearance.Medium"
+                android:textColor="@color/text_color_odd" />
+
+        </android.support.v7.widget.LinearLayoutCompat>
+
+    </android.support.v7.widget.LinearLayoutCompat>
+
+
+
+</android.support.v7.widget.CardView>

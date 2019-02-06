@@ -94,6 +94,7 @@ public class MediaBulletinListActivity extends BaseActivity {
                             findViewById(R.id.tv_empty).setVisibility(View.GONE);
 
                             server = new MockServer(1,mediaBulletinModel.getFinalArray().size());
+
                             mediaBulletinAdapter = new MediaBulletinAdapter(mediaBulletinModel.getFinalArray(),MediaBulletinListActivity.this,type);
                             mRvList.setLayoutManager(new LinearLayoutManager(MediaBulletinListActivity.this));
                             mRvList.setAdapter(mediaBulletinAdapter);

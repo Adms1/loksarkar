@@ -8,15 +8,31 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.loksarkar.R;
+import com.loksarkar.fragments.RefferalUserListFragment;
 
-public abstract class FragmentContainerActivity extends BaseActivity {
+public class FragmentContainerActivity extends BaseActivity {
 
     private Fragment fragment;
+    private int fragmentid;
 
     @Override
     public void onCreate(Bundle savedInstace) {
         super.onCreate(savedInstace);
-        initFragment();
+        setContentView(R.layout.activity_fragment_container);
+
+
+        fragment = new RefferalUserListFragment();
+        fragmentid = fragment.getId();
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+
+        if (fragment instanceof RefferalUserListFragment) {
+            fragmentManager.beginTransaction().setCustomAnimations(0, 0).replace(R.id.container,fragment).commit();
+        }
+
+
+
+        //initFragment();
     }
 
 
@@ -28,8 +44,8 @@ public abstract class FragmentContainerActivity extends BaseActivity {
         }
         fragment = fragmentManager.findFragmentById(containerId);
         if (fragment == null) {
-            fragment = getFragmentInstance();
-            fragmentManager.beginTransaction().add(containerId, fragment).commit();
+         //   fragment = getFragmentInstance();
+            fragmentManager.beginTransaction().add(containerId,fragment).commit();
         }
     }
 
@@ -40,15 +56,9 @@ public abstract class FragmentContainerActivity extends BaseActivity {
         return R.id.container;
     }
 
-    /**
-     * @return The new fragment to place in the container
-     */
 
-    protected abstract Fragment getFragmentInstance();
 
-    /**
-     * @return nested target fragment
-     */
+
     public Fragment getNestedTargetFragment() {
         return fragment;
     }

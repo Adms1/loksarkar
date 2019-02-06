@@ -3,6 +3,7 @@ package com.loksarkar.firebase;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
@@ -10,6 +11,7 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.loksarkar.R;
 import com.loksarkar.activities.BaseActivity;
+import com.loksarkar.activities.DashBoardActivity;
 import com.loksarkar.activities.MediaDetailActivity;
 import com.loksarkar.activities.SplashActivity;
 import com.loksarkar.api.ApiHandler;
@@ -25,6 +27,8 @@ import org.w3c.dom.Text;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
+
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
@@ -156,7 +160,6 @@ public class AppFirebaseMessagingService extends FirebaseMessagingService implem
                 AppUtils.dismissDialog();
                 if (registrationModel == null) {
                     AppUtils.ping(getApplicationContext(),getString(R.string.something_wrong));
-
                     return;
                 }
                 if (registrationModel.getSuccess() == null) {
@@ -164,7 +167,7 @@ public class AppFirebaseMessagingService extends FirebaseMessagingService implem
                     return;
                 }
                 if (registrationModel.getSuccess().equalsIgnoreCase("false")) {
-                    AppUtils.ping(getApplicationContext(), getString(R.string.something_wrong));
+                    AppUtils.ping(getApplicationContext(),getString(R.string.something_wrong));
                     return;
                 }
                 if (registrationModel.getSuccess().equalsIgnoreCase("True")) {
@@ -177,14 +180,14 @@ public class AppFirebaseMessagingService extends FirebaseMessagingService implem
             public void failure(RetrofitError error) {
                 AppUtils.dismissDialog();
                 error.printStackTrace();
-                AppUtils.ping(getApplicationContext(), getString(R.string.something_wrong));
+                AppUtils.ping(getApplicationContext(),getString(R.string.something_wrong));
             }
         });
 
 
     }
 
-    private Map<String, String> setDeviceDetail(String token, String referralCode) {
+    private Map<String, String> setDeviceDetail(String token,String referralCode) {
         Map<String, String> map = new HashMap<>();
         map.put("DeviceToken",token);
         map.put("DeviceID",AppUtils.getDeviceId(this));
@@ -193,10 +196,7 @@ public class AppFirebaseMessagingService extends FirebaseMessagingService implem
             map.put("ReferralCode","");
         }else{
             map.put("ReferralCode",referralCode);
-
         }
-
-
         return map;
     }
 
@@ -231,41 +231,71 @@ public class AppFirebaseMessagingService extends FirebaseMessagingService implem
             Log.d(TAG, "push_message : " + dataMessage +" "+type);
 
             String[] split = dataMessage.split("-");
+
             String date = split[0];
             String title = split[1];
 
-
-
             if (!NotificationUtils.isAppIsInBackground(getApplicationContext())) {
 
+                Intent resultIntent;
+                if(type.equalsIgnoreCase("News")){
+//                    title = title.substring(0, title.length() - 1);
+//                    resultIntent = new Intent(Intent.ACTION_VIEW);
+//                    resultIntent.setData(Uri.parse(title));
+                    resultIntent = new Intent(getApplicationContext(),DashBoardActivity.class);
+                    resultIntent.putExtra("blog_id",type);
+                    resultIntent.putExtra("title",title);
 
-                Intent resultIntent = new Intent(getApplicationContext(),MediaDetailActivity.class);
-                resultIntent.putExtra("blog_id", type);
+                }else{
+                    resultIntent = new Intent(getApplicationContext(),MediaDetailActivity.class);
+                    resultIntent.putExtra("blog_id",type);
+                    resultIntent.putExtra("title",title);
+
+                }
+
+
                 if (TextUtils.isEmpty(imageUrl)) {
-                    showNotificationMessage(getApplicationContext(),title, "", resultIntent);
+                    showNotificationMessage(getApplicationContext(),type,title,date,resultIntent);
 
                 } else {
                     // image is present, show notification with image
-                    showNotificationMessageWithBigImage(getApplicationContext(), title, "", timestamp, resultIntent, imageUrl);
+                    showNotificationMessageWithBigImage(getApplicationContext(),type,title, "", timestamp, resultIntent, imageUrl);
                 }
 
             } else {
                 // app is in background, show the notification in notification tray
 
-                Intent resultIntent = new Intent(getApplicationContext(),SplashActivity.class);
-                resultIntent.putExtra("blog_id", type);
+                Intent resultIntent;
+//                if(type.equalsIgnoreCase("News")){
+////                    title = title.substring(0, title.length() - 1);
+////                    resultIntent = new Intent(Intent.ACTION_VIEW);
+////                    resultIntent.setData(Uri.parse(title));
+//                    resultIntent = new Intent(getApplicationContext(),DashBoardActivity.class);
+//
+//                }else{
 
-                resultIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
-                        Intent.FLAG_ACTIVITY_SINGLE_TOP |
-                        Intent.FLAG_ACTIVITY_NEW_TASK);
+
+
+
+                    resultIntent = new Intent(getApplicationContext(),SplashActivity.class);
+                    resultIntent.putExtra("blog_id",type);
+                    resultIntent.putExtra("title",title);
+
+
+//                }
+
+
+//                resultIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
+//                        Intent.FLAG_ACTIVITY_SINGLE_TOP |
+//                        Intent.FLAG_ACTIVITY_NEW_TASK);
 
                 // check for image attachment
                 if (TextUtils.isEmpty(imageUrl)) {
-                    showNotificationMessage(getApplicationContext(),title, "", resultIntent);
+                    showNotificationMessage(getApplicationContext(),type,title,date,resultIntent);
 
                 } else {
                     // image is present, show notification with image
-                    showNotificationMessageWithBigImage(getApplicationContext(), title, "", timestamp, resultIntent, imageUrl);
+                    showNotificationMessageWithBigImage(getApplicationContext(),type,title, "", timestamp, resultIntent, imageUrl);
                 }
             }
         } catch (Exception e) {
@@ -274,17 +304,20 @@ public class AppFirebaseMessagingService extends FirebaseMessagingService implem
     }
 
 
-    private void showNotificationMessage(Context context, String title, String message, Intent intent) {
+
+    private void showNotificationMessage(Context context,String type,String title, String message, Intent intent) {
         notificationUtils = new NotificationUtils(context);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        notificationUtils.showNotificationMessage(title, message, intent);
+      //  intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+
+        notificationUtils.showNotificationMessage(title,type,message, intent);
     }
 
 
-    private void showNotificationMessageWithBigImage(Context context, String title, String message, String timeStamp, Intent intent, String imageUrl) {
+    private void showNotificationMessageWithBigImage(Context context, String type,String title, String message, String timeStamp, Intent intent, String imageUrl) {
         notificationUtils = new NotificationUtils(context);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        notificationUtils.showNotificationMessage(title, message,intent, imageUrl);
+        notificationUtils.showNotificationMessage(title,type,message,intent, imageUrl);
     }
 
 
@@ -304,8 +337,6 @@ public class AppFirebaseMessagingService extends FirebaseMessagingService implem
                         sendDeviceIdWithToken(this,token,installReferrer);
                     }
                 }
-
-
             }
 
         }catch (Exception ex){

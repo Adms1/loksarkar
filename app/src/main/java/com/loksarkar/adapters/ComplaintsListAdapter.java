@@ -85,7 +85,7 @@ public class ComplaintsListAdapter extends RecyclerView.Adapter<ComplaintsListAd
     }
 
     @Override
-    public void onBindViewHolder(ComplaintsListAdapter.MyViewHolder holder, final int position) {
+    public void onBindViewHolder(final ComplaintsListAdapter.MyViewHolder holder, final int position) {
         final ComplaintsModel.FinalAry complaintsModel = dataList.get(position);
         setAnimation(holder.itemView, position);
         holder.tv_Complaint_Code.setText(complaintsModel.getNumber());
@@ -130,7 +130,7 @@ public class ComplaintsListAdapter extends RecyclerView.Adapter<ComplaintsListAd
             shape.setColor(ContextCompat.getColor(context,R.color.no_action));
             shape.setStroke(1, ContextCompat.getColor(context,R.color.white));
             holder.mImageConatiner.setBackground(shape);
-            holder.circleImageView.setColorFilter(ContextCompat.getColor(context, R.color.white), android.graphics.PorterDuff.Mode.MULTIPLY);
+            holder.circleImageView.setColorFilter(ContextCompat.getColor(context, R.color.no_action_text), android.graphics.PorterDuff.Mode.MULTIPLY);
             holder.tv_Complaint_Status.setTextColor(ContextCompat.getColor(context,R.color.no_action_text));
 
 
@@ -144,7 +144,7 @@ public class ComplaintsListAdapter extends RecyclerView.Adapter<ComplaintsListAd
             holder.mImageConatiner.setBackground(shape);
 
           //  holder.mImageConatiner.setBackgroundColor(ContextCompat.getColor(context,R.color.close));
-            holder.circleImageView.setColorFilter(ContextCompat.getColor(context, R.color.white), android.graphics.PorterDuff.Mode.MULTIPLY);
+            holder.circleImageView.setColorFilter(ContextCompat.getColor(context, R.color.close), android.graphics.PorterDuff.Mode.MULTIPLY);
             holder.tv_Complaint_Status.setTextColor(ContextCompat.getColor(context,R.color.close_text));
 
 
@@ -156,16 +156,24 @@ public class ComplaintsListAdapter extends RecyclerView.Adapter<ComplaintsListAd
             shape.setColor(ContextCompat.getColor(context,R.color.pending));
             shape.setStroke(1, ContextCompat.getColor(context,R.color.pending));
             holder.mImageConatiner.setBackground(shape);
-            holder.circleImageView.setColorFilter(ContextCompat.getColor(context, R.color.white), android.graphics.PorterDuff.Mode.MULTIPLY);
+            holder.circleImageView.setColorFilter(ContextCompat.getColor(context, R.color.pending), android.graphics.PorterDuff.Mode.MULTIPLY);
 
             //holder.mImageConatiner.setBackgroundColor(ContextCompat.getColor(context,R.color.pending));
             holder.circleImageView.setColorFilter(ContextCompat.getColor(context, R.color.pending), android.graphics.PorterDuff.Mode.MULTIPLY);
             holder.tv_Complaint_Status.setTextColor(ContextCompat.getColor(context,R.color.pending_text));
 
         }
+//        Palette.from(((BitmapDrawable)holder.circleImageView.getDrawable()).getBitmap()).maximumColorCount(3).generate(new Palette.PaletteAsyncListener() {
+//            @Override
+//            public void onGenerated(Palette palette) {
+//                Palette.Swatch darkVibrant = palette.getDarkVibrantSwatch();
+//                   holder.itemView.setCardBackgroundColor(darkVibrant.getRgb());
+//                    holder.tv_Complaint_Status.setTextColor(darkVibrant.getTitleTextColor());
+//
+//            }
+//        });
 
-
-        Palette.from(((BitmapDrawable)holder.circleImageView.getDrawable()).getBitmap()).maximumColorCount(3).generate(new PalleteGeneration(holder));
+       Palette.from(((BitmapDrawable)holder.circleImageView.getDrawable()).getBitmap()).maximumColorCount(3).generate(new PalleteGeneration(holder));
 
 
     }
@@ -227,7 +235,7 @@ public class ComplaintsListAdapter extends RecyclerView.Adapter<ComplaintsListAd
 
             if (palette.getLightMutedSwatch() != null) {
                 Palette.Swatch lightVibrant = palette.getLightVibrantSwatch();
-                _holder.itemView.setBackgroundColor(lightVibrant.getRgb());
+                _holder.itemView.setBackgroundColor(lightVibrant.getTitleTextColor());
 
             }
             else if (palette.getLightMutedSwatch() != null) {

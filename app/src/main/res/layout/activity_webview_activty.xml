@@ -8,17 +8,26 @@
     tools:context="com.loksarkar.activities.WebviewActivty">
 
 
-
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <com.loksarkar.ui.AdvancedWebView
         android:id="@+id/webview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
+    <com.loksarkar.ui.AdvancedWebView
+        android:id="@+id/webview_preview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
+
     <ProgressBar
         android:id="@+id/loader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_centerInParent="true"/>
 
 
@@ -26,8 +35,7 @@
         android:id="@+id/action_download"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom|end"
         app:backgroundTint="@color/btn_color"
         android:layout_margin="@dimen/_14sdp"
         app:elevation="@dimen/_5sdp"
@@ -38,6 +46,6 @@
         android:tint="@color/white"
         android:src="@drawable/ic_download" />
 
-
+</FrameLayout>
 
 </RelativeLayout>

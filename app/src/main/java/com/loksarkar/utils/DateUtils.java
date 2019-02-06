@@ -40,9 +40,9 @@ public class DateUtils {
 
         if (diff < DateUtils.MINUTE_MILLIS) return context.getString(R.string.time_ago_now);
         if (diff < 2 * DateUtils.MINUTE_MILLIS) return context.getString(R.string.time_ago_minute);
-        if (diff < 50 * DateUtils.MINUTE_MILLIS) return String.format(context.getString(R.string.time_ago_minutes), String.valueOf(Math.round(diff / (double)DateUtils.MINUTE_MILLIS)));
+        if (diff < 50 * DateUtils.MINUTE_MILLIS) return  String.valueOf(Math.round(diff / (double)DateUtils.MINUTE_MILLIS)+" "+context.getString(R.string.time_ago_minutes));
         if (diff < 90 * DateUtils.MINUTE_MILLIS) return context.getString(R.string.time_ago_hour);
-        if (diff < 24 * DateUtils.HOUR_MILLIS) return String.format(context.getString(R.string.time_ago_hours), String.valueOf(Math.round(diff / (double)DateUtils.HOUR_MILLIS)));
+        if (diff < 24 * DateUtils.HOUR_MILLIS) return String.valueOf(Math.round(diff / (double)DateUtils.HOUR_MILLIS) +" "+context.getString(R.string.time_ago_hours));
         if (diff < 48 * DateUtils.HOUR_MILLIS) return context.getString(R.string.time_ago_day);
 
     //    return String.format(context.getString(R.string.time_ago_days), String.valueOf(Math.round(diff /(double)DateUtils.DAY_MILLIS)));
@@ -77,7 +77,6 @@ public class DateUtils {
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyy",Locale.ENGLISH);
         String formattedDate = df.format(dt);
         return formattedDate;
-
     }
 
     public static String getCurrentDateMinusOneMonth(){
@@ -89,7 +88,6 @@ public class DateUtils {
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy",Locale.ENGLISH);
         String formattedDate = df.format(dt);
         return formattedDate;
-
     }
 
     public static boolean CheckDates(String fromDate, String toDate)   {

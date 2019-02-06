@@ -58,22 +58,24 @@
                 android:drawableTint="@color/colorPrimary"
                 android:hint="@string/userid"/>
 
-            <android.support.v7.widget.AppCompatEditText
-                android:id="@+id/et_pswd"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_40sdp"
-                android:layout_margin="@dimen/_5sdp"
-                android:background="@drawable/rounded_editext"
-                android:paddingStart="@dimen/_5sdp"
-                android:paddingLeft="@dimen/_5sdp"
-                android:layout_marginTop="@dimen/_5sdp"
-                android:inputType="textPassword"
-                android:imeOptions="actionDone"
-                app:passwordToggleEnabled="true"
-                android:hint="@string/password"/>
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/et_pswd"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_40sdp"
+                    android:background="@drawable/rounded_editext"
+                    android:paddingStart="@dimen/_5sdp"
+                    android:paddingLeft="@dimen/_5sdp"
+                    android:layout_margin="@dimen/_5sdp"
+                    android:inputType="textPassword"
+                    android:imeOptions="actionDone"
+                    app:passwordToggleEnabled="true"
+                    android:hint="@string/password"/>
 
 
-                <com.loksarkar.ui.GenerateProcessButton
+
+
+                <android.support.v7.widget.AppCompatButton
                     android:id="@+id/btnLogin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

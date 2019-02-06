@@ -1,8 +1,12 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Lok Sarkar</string>
 
-    <string name="msg.alert_cleared">Alert Cleared</string>
-    <string name="msg.no_alert_showing">No Alert Showing</string>
+    <string name="msg.alert_cleared" tools:ignore="ExtraTranslation">Alert Cleared</string>
+    <string name="msg.no_alert_showing" tools:ignore="ExtraTranslation">No Alert Showing</string>
+
+
+    <string name="no_internet_title">No Internet Connection</string>
+    <string name="no_internet_msg">Please check your network</string>
     <string name="loksabha">-- લોકસભા  --</string>
 
     <string name="loksabha_txt">લોકસભા</string>
@@ -39,6 +43,9 @@
     <string name="mobile_no">મોબાઇલ નંબર *</string>
     <string name="email">ઈ-મેઈલ આઈ.ડી</string>
     <string name="email_label">ઈ-મેઈલ આઈ.ડી *</string>
+
+    <string name="news">સમાચાર</string>
+
 
     <string name="userid">યુઝર આઈડી</string>
     <string name="password">પાસવર્ડ</string>
@@ -260,7 +267,7 @@
     <string name="blank">Blank Filed Not Allowed</string>
     <string name="false_msg">Record not found</string>
     <string name="true_msg">Send Successfully</string>
-    <string name="thank_msg">Thank you</string>
+
 
     <string name="social_media">સોશ્યિલ મીડિયા</string>
     <string name="media_coverage">મીડિયા કવરેજ</string>
@@ -287,6 +294,16 @@
     <string name="complain_detail">ફરિયાદો ની વિગત</string>
 
     <string name="print_succes">Download complete</string>
+    <string name="success_msg">Success</string>
+    <string name="thank_msg">Thank you</string>
+
+    <string name="top_referral_users">ટોચના 5 રેફરલ્સ</string>
+
+    <string name="top_users_sentance1"><font color='#25639c'>લોક સરકાર મોબાઈલ એપ્લિકેશનમાં વધુ માં વધુ રજીસ્ટ્રેશન કરાવનાર ટોપ 5 કાર્યકર્તા / હોદ્દેદારો. </font></string>
+    <string name="top_users_sentance2"><font color='#25639c'>લોક સરકાર વેબસાઈટ અને મોબાઈલ એપ્લિકેશનના માધ્યમથી લોકોની સમસ્યાઓ સરકાર સુધી પહોંચાડનાર ટોપ 5 કાર્યકર્તા / હોદ્દેદારો </font></string>
+
+    <string name="top_users_sentance3"><font color='#25639c'>લોક સરકાર મોબાઈલ એપ્લિકેશનમાં વધુ માં વધુ રજીસ્ટ્રેશન કરાવનાર ટોપ 5 કાર્યકર્તા / હોદ્દેદારો. </font></string>
+    <string name="top_users_sentance4"><font color='#25639c'>લોક સરકાર વેબસાઈટ અને મોબાઈલ એપ્લિકેશનના માધ્યમથી લોકોની સમસ્યાઓ સરકાર સુધી પહોંચાડનાર ટોપ 5 કાર્યકર્તા / હોદ્દેદારો </font></string>
 
 
 </resources>

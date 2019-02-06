@@ -5,27 +5,38 @@ import com.google.gson.annotations.SerializedName;
 
 public class HtmlModel {
 
+
     @SerializedName("Success")
     @Expose
     private String success;
-    @SerializedName("FinalArray")
+    @SerializedName("DataContent")
     @Expose
-    private String finalArray;
+    private String dataContent;
+    @SerializedName("ComplaintNo")
+    @Expose
+    private String complaintNo;
 
     public String getSuccess() {
-            return success;
-        }
-        public void setSuccess(String success) {
-            this.success = success;
-        }
+        return success;
+    }
 
-        public String getFinalArray() {
-            return finalArray;
-        }
+    public void setSuccess(String success) {
+        this.success = success;
+    }
 
-        public void setFinalArray(String finalArray) {
-            this.finalArray = finalArray;
-        }
+    public String getDataContent() {
+        return dataContent;
+    }
 
+    public void setDataContent(String dataContent) {
+        this.dataContent = dataContent;
+    }
 
+    public String getComplaintNo() {
+        return complaintNo;
+    }
+
+    public void setComplaintNo(String complaintNo) {
+        this.complaintNo = complaintNo;
+    }
 }

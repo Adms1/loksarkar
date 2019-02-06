@@ -27,6 +27,7 @@ import com.loksarkar.utils.RecyclerHelper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import retrofit.RetrofitError;
@@ -43,6 +44,7 @@ public class ComplaintsList extends BaseActivity implements SwipeRefreshLayout.O
     private Context mContext;
     private FloatingActionButton mFabSearch;
     private TextView mTvErrorView;
+    private List<ComplaintsModel.FinalAry> mData = new ArrayList<ComplaintsModel.FinalAry>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -155,7 +157,8 @@ public class ComplaintsList extends BaseActivity implements SwipeRefreshLayout.O
             public void failure(RetrofitError error) {
                 AppUtils.dismissDialog();
                 error.printStackTrace();
-                AppUtils.ping(mContext, getString(R.string.something_wrong));
+                swipeRefreshLayout.setRefreshing(false);
+                AppUtils.ping(mContext,getString(R.string.something_wrong));
             }
         });
 

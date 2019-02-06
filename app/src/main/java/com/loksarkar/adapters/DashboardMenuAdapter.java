@@ -102,12 +102,13 @@ public class DashboardMenuAdapter extends RecyclerView.Adapter<DashboardMenuAdap
                         if(AppUtils.isNetworkConnected(context)) {
                             Intent intent = new Intent(context, WebviewActivty.class);
                             intent.putExtra("url", WebViewURLS.COMPLAIN_FORUM);
-
+                           // intent.putExtra("lang","none");
                             if(PrefUtils.getInstance(context).getUserLogin()) {
                                 intent.putExtra("loksevak_code", "l_code");
                             }else{
                                 intent.putExtra("loksevak_code", "none");
                             }
+                            intent.putExtra("loksevak_code", "none");
                             context.startActivity(intent);
                         }else{
                             AppUtils.notify(context,context.getString(R.string.no_internet_title),context.getString(R.string.no_internet_msg));

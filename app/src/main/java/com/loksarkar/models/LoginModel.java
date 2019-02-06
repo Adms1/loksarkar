@@ -10,28 +10,28 @@ public class LoginModel {
     @SerializedName("Success")
     @Expose
     private String success;
-    @SerializedName("FinalAry")
-    @Expose
-    private List<FinalAry> finalAry = null;
+        @SerializedName("FinalAry")
+        @Expose
+        private List<FinalAry> finalAry = null;
 
-    public String getSuccess() {
-        return success;
-    }
+        public String getSuccess() {
+            return success;
+        }
 
-    public void setSuccess(String success) {
-        this.success = success;
-    }
+        public void setSuccess(String success) {
+            this.success = success;
+        }
 
-    public List<FinalAry> getFinalAry() {
-        return finalAry;
-    }
+        public List<FinalAry> getFinalAry() {
+            return finalAry;
+        }
 
-    public void setFinalAry(List<FinalAry> finalAry) {
-        this.finalAry = finalAry;
-    }
-
+        public void setFinalAry(List<FinalAry> finalAry) {
+            this.finalAry = finalAry;
+        }
 
     public class FinalAry {
+
         @SerializedName("ReferralID")
         @Expose
         private String referralID;
@@ -47,6 +47,9 @@ public class LoginModel {
         @SerializedName("EmailAddress")
         @Expose
         private String emailAddress;
+        @SerializedName("TotalInstallation")
+        @Expose
+        private Integer totalInstallation;
 
         public String getReferralID() {
             return referralID;
@@ -88,7 +91,14 @@ public class LoginModel {
             this.emailAddress = emailAddress;
         }
 
-    }
+        public Integer getTotalInstallation() {
+            return totalInstallation;
+        }
 
+        public void setTotalInstallation(Integer totalInstallation) {
+            this.totalInstallation = totalInstallation;
+        }
+
+    }
 
 }

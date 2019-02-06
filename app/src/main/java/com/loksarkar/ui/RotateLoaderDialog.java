@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.view.ViewGroup;
 import android.view.Window;
 
@@ -12,10 +13,12 @@ public class RotateLoaderDialog extends Dialog {
 
     private Dialog dialog;
     private RotateLoading rotateLoading;
+    private Context context;
 
 
     public RotateLoaderDialog(@NonNull Context context) {
         super(context);
+        this.context = context;
         dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.loader);
@@ -34,6 +37,7 @@ public class RotateLoaderDialog extends Dialog {
                 if (rotateLoading.isStart()) {
                     rotateLoading.stop();
                 }else{
+                    //rotateLoading.setLoadingColor(ContextCompat.getColor(context,R.color.btn_color));
                     rotateLoading.start();
                 }
 

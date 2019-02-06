@@ -6,25 +6,18 @@ import android.content.SharedPreferences;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatEditText;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.EditText;
 
 import com.loksarkar.R;
 import com.loksarkar.api.ApiHandler;
-import com.loksarkar.base.BaseApp;
-import com.loksarkar.constants.AppConstants;
 import com.loksarkar.listener.OnProgressCompleteListener;
-import com.loksarkar.localeutils.LocaleChanger;
 import com.loksarkar.models.LoginModel;
-import com.loksarkar.models.RegistrationModel;
-import com.loksarkar.ui.GenerateProcessButton;
 import com.loksarkar.ui.RotateLoaderDialog;
 import com.loksarkar.utils.AppUtils;
 import com.loksarkar.utils.PrefUtils;
-import com.loksarkar.utils.ProgressGenerator;
-import com.tapadoo.alerter.Alerter;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -36,8 +29,7 @@ import static com.loksarkar.constants.AppConstants.NOTIFICATION_MSG;
 
 public class SigninActivity extends AppCompatActivity implements OnProgressCompleteListener{
 
-    private ProgressGenerator progressGenerator;
-    private GenerateProcessButton loginBtn;
+    private AppCompatButton loginBtn;
     private AppCompatEditText etUsername,etPassword;
     private RotateLoaderDialog rotateLoaderDialog;
     private Context mContext;
@@ -56,8 +48,7 @@ public class SigninActivity extends AppCompatActivity implements OnProgressCompl
         }catch (Exception ex){
             ex.getLocalizedMessage();
         }
-        //progressGenerator = new ProgressGenerator(this);
-        loginBtn = (GenerateProcessButton) findViewById(R.id.btnLogin);
+        loginBtn = (AppCompatButton) findViewById(R.id.btnLogin);
         loginBtn.setBackgroundColor(ContextCompat.getColor(this,R.color.btn_color));
         etUsername = (AppCompatEditText) findViewById(R.id.et_username);
         etPassword = (AppCompatEditText) findViewById(R.id.et_pswd);
@@ -158,7 +149,7 @@ public class SigninActivity extends AppCompatActivity implements OnProgressCompl
     private void callLoginApi() {
 
         if (!AppUtils.isNetworkConnected(SigninActivity.this)) {
-            AppUtils.notify(SigninActivity.this,getResources().getString(R.string.internet_error), getResources().getString(R.string.internet_connection_error));
+            AppUtils.notify(SigninActivity.this,getResources().getString(R.string.internet_error),getResources().getString(R.string.internet_connection_error));
             return;
         }
         rotateLoaderDialog.showLoader();
@@ -169,7 +160,7 @@ public class SigninActivity extends AppCompatActivity implements OnProgressCompl
                 AppUtils.dismissDialog();
                 if (loginypeModel == null) {
                     rotateLoaderDialog.dismissLoader();
-                    AppUtils.ping(mContext, getString(R.string.something_wrong));
+                    AppUtils.ping(mContext,getString(R.string.something_wrong));
                     loginBtn.setEnabled(true);
                     etUsername.setEnabled(true);
                     etPassword.setEnabled(true);
@@ -178,7 +169,7 @@ public class SigninActivity extends AppCompatActivity implements OnProgressCompl
                 }
                 if (loginypeModel.getSuccess() == null) {
                     rotateLoaderDialog.dismissLoader();
-                    AppUtils.ping(mContext, getString(R.string.something_wrong));
+                    AppUtils.ping(mContext,getString(R.string.something_wrong));
                     loginBtn.setText(getString(R.string.login));
                     loginBtn.setEnabled(true);
                     etUsername.setEnabled(true);
@@ -193,8 +184,6 @@ public class SigninActivity extends AppCompatActivity implements OnProgressCompl
                     etUsername.setEnabled(true);
                     etPassword.setEnabled(true);
                     AppUtils.notify(SigninActivity.this,"Error","Userid and Password Not Match",R.color.error_color,ContextCompat.getDrawable(SigninActivity.this,R.drawable.ic_error));
-
-
                     return;
                 }
                 if (loginypeModel.getSuccess().equalsIgnoreCase("True")) {
@@ -213,6 +202,8 @@ public class SigninActivity extends AppCompatActivity implements OnProgressCompl
                     PrefUtils.getInstance(SigninActivity.this).setValue(PrefUtils.MOB_KEY,loginypeModel.getFinalAry().get(0).getMobileNo());
                     PrefUtils.getInstance(SigninActivity.this).setValue(PrefUtils.USERNAME_KEY,loginypeModel.getFinalAry().get(0).getName());
                     PrefUtils.getInstance(SigninActivity.this).setValue(PrefUtils.ADDRESS_KEY,loginypeModel.getFinalAry().get(0).getAddress());
+                    PrefUtils.getInstance(SigninActivity.this).setValue(PrefUtils.REWARD_POINTS,loginypeModel.getFinalAry().get(0).getTotalInstallation());
+
 
 
 //                    Branch branch = Branch.getInstance(getApplicationContext());

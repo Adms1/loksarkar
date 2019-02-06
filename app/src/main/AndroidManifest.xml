@@ -10,6 +10,8 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
     <supports-screens
         android:anyDensity="true"
@@ -51,6 +53,11 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider>
+
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-7793510975061206~8275052408"/>
 
         <activity
             android:name=".activities.SplashActivity"
@@ -174,7 +181,8 @@
         <receiver
             android:name=".receivers.InstallReferrerReceiver"
             android:enabled="true"
-            android:exported="true">
+            android:exported="true"
+            android:stopWithTask="false">
             <intent-filter>
                 <action android:name="com.android.vending.INSTALL_REFERRER" />
             </intent-filter>
@@ -184,7 +192,11 @@
             android:name=".activities.ReferralActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activities.FragmentContainerActivity"></activity>
+
+        <activity android:name=".activities.FragmentContainerActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".activities.ChromeTabActivity"/>
     </application>
 
 </manifest>

@@ -136,8 +136,7 @@ public abstract class BaseFragment extends Fragment  {
      * @param fragment The new fragment to place in the container
      */
 
-    protected void onReplaceTransactionWithBackStack(@IdRes int containerViewId,
-                                                     @NonNull Fragment fragment) {
+    protected void onReplaceTransactionWithBackStack(@IdRes int containerViewId, @NonNull Fragment fragment) {
         getActivitySupportFragmentManager().beginTransaction()
                 .replace(containerViewId, fragment)
                 .addToBackStack(Fragment.class.getCanonicalName())

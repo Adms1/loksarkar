@@ -31,8 +31,7 @@ public class SocialMediaActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 if (!fb_url.startsWith("http://") && !fb_url.startsWith("https://")){
-                    fb_url = "http://" + fb_url;
-
+                     fb_url = "http://" + fb_url;
                   }
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(fb_url));
                 startActivity(browserIntent);

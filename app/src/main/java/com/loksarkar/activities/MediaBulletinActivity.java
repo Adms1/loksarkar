@@ -22,6 +22,8 @@ public class MediaBulletinActivity extends BaseActivity {
     private String category_socialMedia = "Social Media";
     private String category_mediaCoverage = "Media Coverage";
     private String category_video = "Video";
+    private String category_news = "News";
+
     private Dialog dialog;
 
 
@@ -51,7 +53,7 @@ public class MediaBulletinActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
 
-                AppConstants.typeId =category_mediaCoverage;
+                AppConstants.typeId = category_mediaCoverage;
                 intentMediaList.putExtra("category_type",category_mediaCoverage);
                 startActivity(intentMediaList);
 
@@ -78,6 +80,17 @@ public class MediaBulletinActivity extends BaseActivity {
                startActivity(intentMediaRegitration);
             }
         });
+
+        findViewById(R.id.view_click5).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //LocaleChanger.setLocale(BaseApp.SUPPORTED_LOCALES.get(2));
+                AppConstants.typeId = category_news;
+                intentMediaList.putExtra("category_type",category_news);
+                startActivity(intentMediaList);
+            }
+        });
+
 
     }
 

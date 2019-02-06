@@ -12,6 +12,8 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -21,20 +23,32 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
+import android.webkit.WebView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
 import com.google.gson.JsonObject;
 import com.loksarkar.adapters.DashboardMenuAdapter;
 import com.loksarkar.api.DeviceVersionAsyncTask;
+import com.loksarkar.constants.WebViewURLS;
 import com.loksarkar.models.DashBoardModel;
 import com.loksarkar.R;
 import com.loksarkar.models.DeviceVersionModel;
 import com.loksarkar.utils.AppUtils;
+import com.loksarkar.utils.PrefUtils;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.regex.Pattern;
 
-public class DashBoardActivity extends BaseActivity   {
+public class DashBoardActivity extends BaseActivity {
 
     private RecyclerView recyclerView;
     private DashboardMenuAdapter dashboardMenuAdapter;
@@ -42,55 +56,88 @@ public class DashBoardActivity extends BaseActivity   {
     private static long back_pressed;
     private String[] menuNames;
     private int [] allColors;
-    private String typeId = "";
+    private String typeId = "",title = "";
     private int[] mMenuIcons = new int[]{R.drawable.complaint,R.drawable.registration,R.drawable.useful_information,R.drawable.facility,R.drawable.media_bulletin,R.drawable.people_voice,R.drawable.suggestion,R.drawable.join_congress};
     private String currentVersion;
     private DeviceVersionAsyncTask deviceVersionAsyncTask = null;
     private DeviceVersionModel deviceVersionModel;
     private boolean isVersionCodeUpdated = false;
+    private InterstitialAd mInterstitialAd;
+    private Handler mHandler;
+    private Runnable displayAd;     // Code to execute to perform this operation
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dash_board);
         setMenuClick(true);
-        recyclerView = (RecyclerView)findViewById(R.id.rv_menu_list);
-        recyclerView.setLayoutManager(new GridLayoutManager(this,2));
+        recyclerView = (RecyclerView) findViewById(R.id.rv_menu_list);
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
-        try{
+
+        try {
             typeId = getIntent().getStringExtra("blog_id");
+            title = getIntent().getStringExtra("title");
 
-            if(typeId != null && !TextUtils.isEmpty(typeId)){
-                //redirect to notification detail screen.
-                Intent intentDashboard = new Intent(DashBoardActivity.this,MediaDetailActivity.class);
-                intentDashboard.putExtra("blog_id",typeId);
-                startActivity(intentDashboard);
+            if (typeId != null && !TextUtils.isEmpty(typeId)) {
+
+                if (typeId.equalsIgnoreCase("News")) {
+                    try {
+//                        title = title.substring(0,title.length() - 1);
+//                        Intent intent = new Intent(Intent.ACTION_VIEW,Uri.parse(title));
+//                        intent.setData();
+//                        String title = "Open Via";
+//                        Intent chooser = Intent.createChooser(intent,title);
+//                        startActivity(chooser);
+
+                        String[] contentTitle = title.split(Pattern.quote("|"));
+
+                        String description = contentTitle[0];
+                        String link = contentTitle[1];
+
+                        Intent intentDashboard = new Intent(DashBoardActivity.this, WebviewActivty.class);
+                        intentDashboard.putExtra("url", link);
+                        intentDashboard.putExtra("lang", "none");
+                        startActivity(intentDashboard);
+
+//
+//                        Intent intentDashboard1 = new Intent(DashBoardActivity.this,ChromeTabActivity.class);
+//                        intentDashboard1.putExtra("url", link);
+//                        intentDashboard1.putExtra("lang","none");
+//                        startActivity(intentDashboard1);
+
+
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                } else {
+
+                    Intent intentDashboard = new Intent(DashBoardActivity.this, MediaDetailActivity.class);
+                    intentDashboard.putExtra("blog_id", typeId);
+                    startActivity(intentDashboard);
+                }
 
             }
-
-        }catch (Exception ex){
+        } catch (Exception ex) {
             ex.getLocalizedMessage();
         }
+
         try {
             currentVersion = String.valueOf(getPackageManager().getPackageInfo(getPackageName(), 0).versionCode);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
 
-
-
-
-       // LocaleChanger.setLocale(BaseApp.SUPPORTED_LOCALES.get(0));
+        // LocaleChanger.setLocale(BaseApp.SUPPORTED_LOCALES.get(0));
 
         try {
             menuNames = getResources().getStringArray(R.array.dashboard_menu);
-        } catch (Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
 
-
         setData();
-
 
 
     }
@@ -99,7 +146,6 @@ public class DashBoardActivity extends BaseActivity   {
         super.onResume();
         appUpdateTask();
     }
-
 
     private void setData() {
 
@@ -130,54 +176,8 @@ public class DashBoardActivity extends BaseActivity   {
 
             recyclerView.setAdapter(dashboardMenuAdapter);
         }
+
     }
-
-
-
-
-
-
-
-//
-//
-//        DashBoardModel dashBoardModel1 = new DashBoardModel();
-//        dashBoardModel1.setMenuIcon(R.drawable.registration);
-//        dashBoardModel1.setMenuName("Registration");
-//
-//        DashBoardModel dashBoardModel2 = new DashBoardModel();
-//        dashBoardModel2.setMenuIcon(R.drawable.useful_information);
-//        dashBoardModel2.setMenuName("Useful Information");
-//
-//        DashBoardModel dashBoardModel3 = new DashBoardModel();
-//        dashBoardModel3.setMenuIcon(R.drawable.facility);
-//        dashBoardModel3.setMenuName("Facilities");
-//
-//        DashBoardModel dashBoardModel4 = new DashBoardModel();
-//        dashBoardModel4.setMenuIcon(R.drawable.media_bulletin);
-//        dashBoardModel4.setMenuName("Media Builtin");
-//
-//
-//        DashBoardModel dashBoardModel5 = new DashBoardModel();
-//        dashBoardModel5.setMenuIcon(R.drawable.people_voice);
-//        dashBoardModel5.setMenuName("Voice of People");
-//
-//        DashBoardModel dashBoardModel6 = new DashBoardModel();
-//        dashBoardModel6.setMenuIcon(R.drawable.suggestion);
-//        dashBoardModel6.setMenuName("Suggestion");
-//
-//        DashBoardModel dashBoardModel7 = new DashBoardModel();
-//        dashBoardModel7.setMenuIcon(R.drawable.join_congress_1);
-//        dashBoardModel7.setMenuName("More");
-
-
-//        dataList.add(dashBoardModel1);
-//        dataList.add(dashBoardModel2);
-//        dataList.add(dashBoardModel3);
-//        dataList.add(dashBoardModel4);
-//        dataList.add(dashBoardModel5);
-//        dataList.add(dashBoardModel6);
-//        dataList.add(dashBoardModel7);
-//       // dataList.add(dashBoardModel8);
 
 
     public void appUpdateTask(){

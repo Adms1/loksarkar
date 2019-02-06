@@ -21,6 +21,7 @@ public class PrefUtils {
     public static final String SHARED_PREF = "loksarkar.fcmTokenId";
     public static final String NO_STRING_VALUE = "bnc_no_value";
     public static final String isFirstTimeKey = "isFirstTime";
+    public static final String REWARD_POINTS = "rewardPoints";
 
 
     private PrefUtils(Context context) {
@@ -86,7 +87,7 @@ public class PrefUtils {
         mSharedPreferencesEditor.putBoolean(isFirstTimeKey, value);
         mSharedPreferencesEditor.commit();
         mSharedPreferencesEditor.apply();
-}
+    }
 
     public boolean isFirstTime(){
         return mSharedPreferences.getBoolean(isFirstTimeKey,false);

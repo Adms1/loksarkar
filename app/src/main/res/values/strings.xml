@@ -2,6 +2,9 @@
     <string name="app_name">Lok Sarkar</string>
     <string name="header_name">Lok Sarkar</string>
 
+    <string name="msg.alert_cleared">Alert Cleared</string>
+    <string name="msg.no_alert_showing">No Alert Showing</string>
+
     <string name="no_internet_title">No Internet Connection</string>
     <string name="no_internet_msg">Please check your network</string>
 
@@ -145,13 +148,13 @@
 
     <!-- dashboard menus-->
     <string-array name="dashboard_menu">
-        <item>People Complaint</item>
-        <item>Join Lok sarkar</item>
-        <item>Useful Details</item>
-        <item>Information / facility</item>
+        <item>Complaint</item>
+        <item>Volunteer Registration</item>
+        <item>Information</item>
+        <item>Facility</item>
         <item>Lok Sarkar Bulletin</item>
         <item>Voice of People</item>
-        <item>People's Suggestions</item>
+        <item>Peoples Suggestions</item>
         <item>Join Congress Party</item>
     </string-array>
 
@@ -190,9 +193,6 @@
     <!-- Forum Hints -->
 
 
-    <string name="msg.alert_cleared" tools:ignore="ExtraTranslation">Alert Cleared</string>
-    <string name="msg.no_alert_showing" tools:ignore="ExtraTranslation">No Alert Showing</string>
-
     <string name="name_hint">-- Please enter name --</string>
     <string name="address_hint">-- Please enter address --</string>
     <string name="mob_no_hint">-- Please enter mobile number --</string>
@@ -230,14 +230,14 @@
 
 
     <!-- menu-->
-    <string name="home">HOME</string>
-    <string name="about">ABOUT LOKSARKAR</string>
-    <string name="registration">REGISTRATION</string>
-    <string name="choose_language">CHOOSE LANGUAGE</string>
-    <string name="my_complaint_status">MY COMPLAINTS STATUS</string>
+    <string name="home">Home</string>
+    <string name="about">About Loksarkar</string>
+    <string name="registration">Registration</string>
+    <string name="choose_language">Choose Language</string>
+    <string name="my_complaint_status">My Complaints Status</string>
     <string name="share_app">Share App</string>
     <string name="logout">logout</string>
-    <string name="track_app">TRACK APPLICATION</string>
+    <string name="track_app">Track Application</string>
 
     <!--submenu-->
     <string name="gujarati">ગુજરાતી</string>
@@ -261,13 +261,17 @@
     <string name="blank">Blank Filed Not Allowed</string>
     <string name="false_msg">Record not found</string>
     <string name="true_msg">Send Successfully</string>
-    <string name="success_msg" tools:ignore="MissingTranslation">Success</string>
+
+    <string name="success_msg">Success</string>
     <string name="thank_msg">Thank you</string>
 
     <string name="social_media">Social Media</string>
     <string name="media_coverage">Media Coverage</string>
     <string name="video">Video</string>
     <string name="media_reg">Media registration</string>
+
+    <string name="news" tools:ignore="MissingTranslation">News</string>
+
     <!-- Easy Video Player Stuff -->
     <string name="evp_submit">SUBMIT</string>
     <string name="evp_retry">RETRY</string>
@@ -281,16 +285,36 @@
     <string name="invitation_subject">Join Loksarkar</string>
     <string name="invitation_extended_title"></string>
     <string name="reward_msg">Share app and get rewards points.</string>
-    <string name="referral">REFERRALS</string>
+    <string name="referral">Referrals</string>
+    <string name="top_referral_users">Top 5 Referrals</string>
 
     <string name="no_records">No Records Found</string>
+    <string name="complain_detail">Complaints Detail</string>
 
-    <string name="complain_detail">COMPLAINTS DETAIl</string>
+    <string name="print_succes">Print complete</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="print_succes">Download complete</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="top_users_sentance1"><font color='#25639c'>\u2022 Top 5 volunteers whom register more people in the lok sarkar mobile application </font></string>
+
+    <string name="top_users_sentance2"><font color='#25639c'>\u2022 Top 5 Volunteers who register the problems of people through the mobile application of lok sarkar </font></string>
+
+
+    <string name="top_users_sentance3"><font color='#25639c'>Top 5 volunteers whom register more people in the lok sarkar mobile application </font></string>
+
+    <string name="top_users_sentance4"><font color='#25639c'>Top 5 Volunteers who register the problems of people through the mobile application of lok sarkar </font></string>
+
+
+    <string name="adv_app_id">ca-app-pub-7793510975061206~8275052408</string>
+    <string name="adv_unit_id">ca-app-pub-7793510975061206/3828788355</string>
+
+
+    Publisher ID  :- pub-7793510975061206
+    AdSense customer ID  :- 110-179-2904
+    Google Ads customer ID :- 404-058-4476
+    Time zone:- (GMT+05:30) India Standard Time (Asia/Calcutta) AdSense  (GMT+05:30) India Standard Time (Asia/Kolkata) Google Ads
+
+    Currency :-US Dollar (USD US$) Currency that we pay you in  Indian Rupee (INR ₹) Reporting currency for campaign
+
+
 
 
 </resources>

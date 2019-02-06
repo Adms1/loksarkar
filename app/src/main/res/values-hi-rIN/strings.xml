@@ -1,9 +1,12 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Lok Sarkar</string>
 
 
-    <string name="msg.alert_cleared">Alert Cleared</string>
-    <string name="msg.no_alert_showing">No Alert Showing</string>
+    <string name="msg.alert_cleared" tools:ignore="ExtraTranslation">Alert Cleared</string>
+    <string name="msg.no_alert_showing" tools:ignore="ExtraTranslation">No Alert Showing</string>
+
+    <string name="no_internet_title">No Internet Connection</string>
+    <string name="no_internet_msg">Please check your network</string>
 
     <string name="header_name">लोक सरकार</string>
 
@@ -108,7 +111,7 @@
 
     <string name="skip_step"><b><u>Skip this step</u></b></string>
 
-    <string name="login">लॉग इन करें</string>
+    <string name="login">लॉगिन</string>
 
     <string name="register">रजिस्टर</string>
 
@@ -203,9 +206,9 @@
 
     <!-- dashboard menus-->
     <string-array name="dashboard_menu">
-        <item>लोक शिकायत</item>
-        <item>लोक सरकार में पंजीकरण</item>
-        <item>उपयोगी विवरण</item>
+        <item>शिकायत</item>
+        <item>स्वयं सेवक पंजीकरण</item>
+        <item>जानकारी</item>
         <item>सुविधाएं</item>
         <item>लोक सरकार बुलेटिन</item>
         <item>लोगों की आवाज़</item>
@@ -261,7 +264,7 @@
     <string name="blank">Blank Filed Not Allowed</string>
     <string name="false_msg">Record not found</string>
     <string name="true_msg">Send Successfully</string>
-    <string name="thank_msg">Thank you</string>
+
 
     <string name="social_media">सोशल मीडिया</string>
     <string name="media_coverage">मीडिया कवरेज</string>
@@ -287,6 +290,18 @@
     <string name="my_complaints_requests">मेरी शिकायते</string>
     <string name="complain_detail">शिकायतों का विवरण</string>
     <string name="print_succes">Download complete</string>
+    <string name="success_msg">Success</string>
+    <string name="thank_msg">Thank you</string>
 
+    <string name="news">समाचार</string>
+
+    <string name="top_referral_users">टॉप 5 रेफरल</string>
+
+    <string name="top_users_sentance1"><font color='#25639c'>टॉप ५ लोग जिन्होंने सबसे ज्यादा लोगो को लोक सरकार मोबाइल एप्लिकेशन में रजिस्ट्रेशन करवाया है </font></string>
+    <string name="top_users_sentance2"><font color='#25639c'>टॉप ५ लोग जिन्होंने सबसे ज्यादा लोगो की समस्याओ को लोक सरकार मोबाइल एप्लिकेशन और वेबसाइट से सरकार तक पहुंचाने का काम किया है</font></string>
+
+
+    <string name="top_users_sentance3"><font color='#25639c'>टॉप ५ लोग जिन्होंने सबसे ज्यादा लोगो को लोक सरकार मोबाइल एप्लिकेशन में रजिस्ट्रेशन करवाया है </font></string>
+    <string name="top_users_sentance4"><font color='#25639c'>टॉप ५ लोग जिन्होंने सबसे ज्यादा लोगो की समस्याओ को लोक सरकार मोबाइल एप्लिकेशन और वेबसाइट से सरकार तक पहुंचाने का काम किया है</font></string>
 
 </resources>

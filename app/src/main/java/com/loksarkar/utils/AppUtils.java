@@ -18,6 +18,7 @@ import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.annotation.AttrRes;
 import android.support.annotation.ColorRes;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
@@ -136,7 +137,7 @@ public class AppUtils {
                     .setTitle(title)
                     .setText(message)
                     .setBackgroundColorRes(colorId)
-                    .setIcon(R.drawable.ic_error)
+                   // .setIcon(R.drawable.ic_error)
                     .enableSwipeToDismiss()
                     .setIcon(icon_drawable)
                     .setDuration(milliSeconds)
@@ -226,12 +227,9 @@ public class AppUtils {
         return Math.round(px);
     }
 
-    /**
-     * A helper class for providing a shadow on sheets
-     */
+
     @TargetApi(21)
    public static class ShadowOutline extends ViewOutlineProvider {
-
         int width;
         int height;
 

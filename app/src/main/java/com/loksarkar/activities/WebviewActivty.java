@@ -25,7 +25,7 @@ import android.os.CancellationSignal;
 import android.os.Environment;
 import android.os.ParcelFileDescriptor;
 import android.print.PageRange;
-import android.print.PdfPrint;
+
 import android.print.PrintAttributes;
 import android.print.PrintDocumentAdapter;
 import android.print.PrintDocumentInfo;
@@ -38,6 +38,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Base64;
+import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
@@ -45,6 +46,7 @@ import android.webkit.DownloadListener;
 import android.webkit.JavascriptInterface;
 import android.webkit.URLUtil;
 import android.webkit.WebChromeClient;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
@@ -72,11 +74,16 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URL;
 
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 import static android.media.MediaFormat.KEY_LANGUAGE;
+import static com.loksarkar.constants.WebViewURLS.COMPLAIN_FORUM;
+import static com.loksarkar.constants.WebViewURLS.GET_PARAM_URL;
 
 public class WebviewActivty extends BaseActivity implements AdvancedWebView.Listener ,PermissionUtils.ReqPermissionCallback {
 
@@ -89,20 +96,13 @@ public class WebviewActivty extends BaseActivity implements AdvancedWebView.List
     private static final String SP_LOCALE = "LocaleChanger.LocalePersistence";
     private FloatingActionButton fabDownload;
     private PermissionUtils.ReqPermissionCallback reqPermissionCallback;
-    private static final String JS_INTERFACE = "Printer";
-    private PrintManager mPrintManager;
     private Context primaryBaseActivity;
-    private int webviewHeight;
-    private WebView webView;
+    private static final String JS_INTERFACE = "Printer";
+    private static final String CLOSE_POST_MESSAGE_NAME = "cp-dialog-on-close";
+    private Intent intent;
+    private String complaintNo = "";
+    private AdvancedWebView previewWebview;
 
-    private static final String CLOSE_POST_MESSAGE_NAME =
-            "cp-dialog-on-close";
-
-    /**
-     * Intent that started the action.
-     */
-    Intent intent;
-    private ScrollView scrollView;
 
     @SuppressLint("JavascriptInterface")
     @Override
@@ -115,6 +115,7 @@ public class WebviewActivty extends BaseActivity implements AdvancedWebView.List
 
         mWebview = (AdvancedWebView)findViewById(R.id.webview);
         progressBar = (ProgressBar)findViewById(R.id.loader);
+        previewWebview = (AdvancedWebView)findViewById(R.id.webview_preview);
         //scrollView = (ScrollView)findViewById(R.id.scroller);
 
         progressBar.setVisibility(View.GONE);
@@ -172,7 +173,6 @@ public class WebviewActivty extends BaseActivity implements AdvancedWebView.List
             if(langParm != null && langParm.equals("none")){
               //  url = url+id;
 
-
             }else{
                 url = url+lang;
             }
@@ -186,7 +186,7 @@ public class WebviewActivty extends BaseActivity implements AdvancedWebView.List
                         loksevakCode = "";
                     }
                     else{
-                        loksevakCode = InstallReferrerHelper.getReferrerDataRaw(this);
+                        loksevakCode = PrefUtils.getInstance(WebviewActivty.this).getStringValue(PrefUtils.REFERRAL_ID_KEY,"");
                         url = url+"&loksevakcode="+loksevakCode;
                     }
                 }
@@ -202,22 +202,52 @@ public class WebviewActivty extends BaseActivity implements AdvancedWebView.List
         mWebview.clearCache(true);
 
         mWebview.getSettings().setJavaScriptEnabled(true);
-        mWebview.addJavascriptInterface(new MyJavaScriptInterface(this),"HtmlViewer");
-
         mWebview.setWebChromeClient(new WebChromeClient());
+
+        mWebview.setWebViewClient(new WebViewClient() {
+
+            @Override
+            public void onLoadResource(WebView view, String url) {
+                if (url.contains(WebViewURLS.GET_PARAM_URL)) {
+                    Uri uri = Uri.parse(url);
+
+                    String queryParam = uri.getQueryParameter("req");
+                    Log.d("URL_PARAM",queryParam);
+                    //fabDownload.setVisibility(View.VISIBLE);
+                    callHtml(queryParam);
+                }else{
+                    fabDownload.setVisibility(View.GONE);
+                }
+            }
+
+        });
+
+
+        //webView.addJavascriptInterface(new PrintDialogJavaScriptInterface(), JS_INTERFACE);
+
+
         mWebview.getSettings().setLoadWithOverviewMode(true);
         mWebview.getSettings().setUseWideViewPort(true);
 //        mWebview.setPadding(0, 0, 0, 0);
 //        mWebview.setInitialScale(getScale(mWebview.getMeasuredWidth()));
-        mWebview.getSettings().setSupportMultipleWindows(true);
-        mWebview.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
-        mWebview.getSettings().setAllowFileAccess(true);
-        mWebview.loadUrl(url);
+//        mWebview.getSettings().setSupportMultipleWindows(true);
+//        mWebview.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
+//        mWebview.getSettings().setAllowFileAccess(true);
+
+
+        try {
+            URL url1 = new URL(url);
+            mWebview.loadUrl(url1.toString());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
+
 
 
         mWebview.setDownloadListener(new DownloadListener() {
             @Override
-            public void onDownloadStart(String url, String userAgent, String contentDisposition, String mimetype, long contentLength) {
+            public void onDownloadStart(String url, String userAgent, String contentDisposition, String mimetype,long contentLength) {
                 try {
                     DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
                     request.setDescription("Download file...");
@@ -231,31 +261,6 @@ public class WebviewActivty extends BaseActivity implements AdvancedWebView.List
                 }catch (Exception ex){
                     ex.printStackTrace();
                 }
-            }
-        });
-
-        mWebview.setWebViewClient(new WebViewClient() {
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                return true;
-            }
-            @Override
-            public void onLoadResource(WebView view, String url) {
-                super.onLoadResource(view,url);
-            }
-            @Override
-            public void onPageFinished(WebView view, String url) {
-              //  mWebview.loadUrl("javascript:resize(document.body.getBoundingClientRect().height)");
-                super.onPageFinished(view, url);
-//                try {
-//                    File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS + "/PDFTest/");
-//                    final String fileName = "Test.jpg";
-//                    new TakeScreenShotTask(WebviewActivty.this,view,path.getAbsolutePath(),fileName).execute();
-//
-//                }catch (Exception ex){
-//                    ex.printStackTrace();
-//                }
-
             }
         });
 
@@ -279,9 +284,9 @@ public class WebviewActivty extends BaseActivity implements AdvancedWebView.List
 
                 if(PermissionUtils.hasPermission(WebviewActivty.this,Manifest.permission.WRITE_EXTERNAL_STORAGE)){
                     try {
-
-                        callHtml();
-                       // createWebPrintJob(mWebview);
+                        if(previewWebview != null) {
+                            createWebPrintJob(previewWebview);
+                        }
                     }catch (Exception ex){
                         ex.printStackTrace();
                     }
@@ -334,8 +339,8 @@ public class WebviewActivty extends BaseActivity implements AdvancedWebView.List
     @Override
     protected void onDestroy() {
         mWebview.onDestroy();
-        if(webView != null){
-            destroyWebView(webView);
+        if(previewWebview != null){
+            destroyWebView(previewWebview);
         }
         super.onDestroy();
 
@@ -350,14 +355,27 @@ public class WebviewActivty extends BaseActivity implements AdvancedWebView.List
 
     @Override
     public void onBackPressed() {
-        if (!mWebview.onBackPressed()) {
-            return;
+        if (previewWebview != null) {
+            if (previewWebview.getVisibility() == View.VISIBLE) {
+                previewWebview.setVisibility(View.GONE);
+               // destroyWebView(previewWebview);
+
+            }
         }
-        super.onBackPressed();
+        if(mWebview != null){
+            mWebview.setVisibility(View.VISIBLE);
+        }
+//        if (!mWebview.onBackPressed()) {
+//            return;
+//        }
+        if(mWebview.onBackPressed()) {
+            super.onBackPressed();
+        }
     }
 
     @Override
     public void onPageStarted(String url, Bitmap favicon) {
+        progressBar.setVisibility(View.VISIBLE);
 
     }
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -365,6 +383,7 @@ public class WebviewActivty extends BaseActivity implements AdvancedWebView.List
     public void onPageFinished(WebView webView,String url) {
         progressBar.setVisibility(View.GONE);
         rotateLoaderDialog.dismissLoader();
+
 
 
 //        webView.loadUrl("javascript:printDialog.setPrintDocument(" +
@@ -431,6 +450,11 @@ public class WebviewActivty extends BaseActivity implements AdvancedWebView.List
 
     }
 
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        primaryBaseActivity = newBase;
+        super.attachBaseContext(LocaleChanger.configureBaseContext(newBase));
+    }
 
 
     private final class PrintDialogWebClient extends WebViewClient {
@@ -456,7 +480,7 @@ public class WebviewActivty extends BaseActivity implements AdvancedWebView.List
     }
 
 
-    class PrintDialogJavaScriptInterface {
+    final class PrintDialogJavaScriptInterface {
 
         @JavascriptInterface
         @SuppressWarnings("UnusedDeclaration")
@@ -483,7 +507,6 @@ public class WebviewActivty extends BaseActivity implements AdvancedWebView.List
         @JavascriptInterface
         @SuppressWarnings("UnusedDeclaration")
         public String getContent() {
-
             try {
 
                 File file = new File(intent.getStringExtra(Intent.EXTRA_TEXT));
@@ -516,22 +539,15 @@ public class WebviewActivty extends BaseActivity implements AdvancedWebView.List
             }
         }
     }
-    @Override
-    protected void attachBaseContext(Context newBase) {
-        primaryBaseActivity = newBase;//SAVE ORIGINAL INSTANCE
-
-        super.attachBaseContext(LocaleChanger.configureBaseContext(newBase));
-
-    }
 
     @android.support.annotation.RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    private void createWebPrintJob(final WebView webView) {
+    private void createWebPrintJob(final AdvancedWebView webView) {
 //        String jobName = getString(R.string.app_name) + "-Document";
-//        PrintAttributes attributes = new PrintAttributes.Builder()
-//                .setMediaSize(PrintAttributes.MediaSize.ISO_A4)
-//                .setResolution(new PrintAttributes.Resolution("pdf", "pdf", 600, 600))
-//                .setMinMargins(PrintAttributes.Margins.NO_MARGINS).build();
-//        File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM + "/PDFTest/");
+        PrintAttributes attributes = new PrintAttributes.Builder()
+                .setMediaSize(PrintAttributes.MediaSize.UNKNOWN_PORTRAIT)
+                .setResolution(new PrintAttributes.Resolution("pdf", "pdf", 600, 600))
+                .setMinMargins(PrintAttributes.Margins.NO_MARGINS).build();
+        File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM + "/PDFTest/");
 //        PdfPrint pdfPrint = new PdfPrint(attributes);
 //        pdfPrint.print(webView.createPrintDocumentAdapter(jobName), path, "output_" + System.currentTimeMillis() + ".pdf");
 
@@ -546,7 +562,7 @@ public class WebviewActivty extends BaseActivity implements AdvancedWebView.List
 
 
          //PrintJob printJob = printManager.print(jobName,new ViewPrintAdapter(this,findViewById(R.id.webview),jobName),null);
-        printManager.print(jobName, printAdapter, new PrintAttributes.Builder().build()); //)
+        printManager.print(jobName, printAdapter, attributes); //)
 //        if(printJob.isCompleted()){
 //            AppUtils.ping(WebviewActivty.this,getString(R.string.print_succes));
 //        }else{
@@ -618,9 +634,7 @@ public class WebviewActivty extends BaseActivity implements AdvancedWebView.List
         }
 
         @Override
-        public void onWrite(PageRange[] pages, ParcelFileDescriptor destination,
-                            CancellationSignal cancellationSignal,
-                            WriteResultCallback callback) {
+        public void onWrite(PageRange[] pages, ParcelFileDescriptor destination, CancellationSignal cancellationSignal, WriteResultCallback callback) {
 
             int totalPages = 2;
             for (int i = 0; i < totalPages; i++) {
@@ -776,7 +790,7 @@ public class WebviewActivty extends BaseActivity implements AdvancedWebView.List
 
     }
 
-    private void callHtml() {
+    private void callHtml(String req) {
 
         if (!AppUtils.isNetworkConnected(WebviewActivty.this)) {
             AppUtils.notify(WebviewActivty.this,getResources().getString(R.string.internet_error), getResources().getString(R.string.internet_connection_error));
@@ -784,19 +798,21 @@ public class WebviewActivty extends BaseActivity implements AdvancedWebView.List
         }
         rotateLoaderDialog.showLoader();
 //        Utils.showDialog(getActivity());
-        ApiHandler.getApiService().getHtmlContent(new retrofit.Callback<HtmlModel>() {
+        ApiHandler.getApiService().getHtmlContent(req,new retrofit.Callback<HtmlModel>() {
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void success(HtmlModel loginypeModel, Response response) {
                 AppUtils.dismissDialog();
                 if (loginypeModel == null) {
                     rotateLoaderDialog.dismissLoader();
+                    fabDownload.setVisibility(View.GONE);
                     AppUtils.ping(mContext, getString(R.string.something_wrong));
 
                     return;
                 }
                 if (loginypeModel.getSuccess() == null) {
                     rotateLoaderDialog.dismissLoader();
+                    fabDownload.setVisibility(View.GONE);
                     AppUtils.ping(mContext, getString(R.string.something_wrong));
 
                     return;
@@ -804,7 +820,7 @@ public class WebviewActivty extends BaseActivity implements AdvancedWebView.List
                 if (loginypeModel.getSuccess().equalsIgnoreCase("false")) {
 //                    Utils.ping(mContext, getString(R.string.false_msg));
                     rotateLoaderDialog.dismissLoader();
-
+                    fabDownload.setVisibility(View.GONE);
 
 
                     return;
@@ -813,27 +829,39 @@ public class WebviewActivty extends BaseActivity implements AdvancedWebView.List
                     rotateLoaderDialog.dismissLoader();
 
 
-                    String htmlContent = loginypeModel.getFinalArray();
+                    String htmlContent = loginypeModel.getDataContent();
 
                     String finalContent ="<html xmlns=\\\"http://www.w3.org/1999/xhtml\\\"><body>"+htmlContent+"</body></html>";
 
-                    if(webView == null) {
-                        webView = new WebView(WebviewActivty.this);
-                    }
-                    webView.clearHistory();
-                    webView.clearCache(true);
-                    webView.getSettings().setJavaScriptEnabled(true);
-                    webView.setWebChromeClient(new WebChromeClient());
-                    webView.getSettings().setLoadWithOverviewMode(true);
-                    webView.getSettings().setUseWideViewPort(true);
-                    webView.getSettings().setSupportMultipleWindows(true);
-                    webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
-                    webView.getSettings().setAllowFileAccess(true);
-                    webView.setVisibility(View.GONE);
+//                    if(webView == null) {
+//                        webView = new WebView(WebviewActivty.this);
+//                    }
+//                    webView.clearHistory();
+//                    webView.clearCache(true);
+//                    webView.getSettings().setJavaScriptEnabled(true);
+//                    webView.setWebChromeClient(new WebChromeClient());
+//                    webView.getSettings().setLoadWithOverviewMode(true);
+//                    webView.getSettings().setUseWideViewPort(true);
+//                    webView.getSettings().setSupportMultipleWindows(true);
+//                    webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
+//                    webView.getSettings().setAllowFileAccess(true);
+//                    webView.setVisibility(View.GONE);
 
 
-                    webView.loadData(finalContent, "text/html", "UTF-8");
-                    createWebPrintJob(webView);
+                    //mWebview.clearHistory();
+                   // mWebview.clearCache(true);
+
+                    previewWebview.getSettings().setJavaScriptEnabled(true);
+                    previewWebview.setWebChromeClient(new WebChromeClient());
+                    previewWebview.getSettings().setLoadWithOverviewMode(true);
+                    previewWebview.getSettings().setUseWideViewPort(true);
+
+                    previewWebview.loadData(finalContent, "text/html", "UTF-8");
+                    fabDownload.setVisibility(View.VISIBLE);
+                    previewWebview.setVisibility(View.VISIBLE);
+                    mWebview.setVisibility(View.GONE);
+
+                  //  createWebPrintJob(webView);
 
                 }
 
@@ -845,7 +873,7 @@ public class WebviewActivty extends BaseActivity implements AdvancedWebView.List
                 error.printStackTrace();
                 error.getMessage();
                 rotateLoaderDialog.dismissLoader();
-
+                fabDownload.setVisibility(View.GONE);
                 AppUtils.ping(mContext, getString(R.string.something_wrong));
             }
         });

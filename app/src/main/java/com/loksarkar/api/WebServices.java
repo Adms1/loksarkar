@@ -7,6 +7,7 @@ import com.loksarkar.models.LoginModel;
 import com.loksarkar.models.MediaBulletinModel;
 import com.loksarkar.models.NotificationDataModel;
 import com.loksarkar.models.OTPModel;
+import com.loksarkar.models.RefferalUserListModel;
 import com.loksarkar.models.RegistrationModel;
 import java.util.Map;
 
@@ -16,12 +17,14 @@ import retrofit.http.FieldMap;
 import retrofit.http.FormUrlEncoded;
 import retrofit.http.GET;
 import retrofit.http.POST;
+import retrofit.http.Query;
 import retrofit2.Call;
 import retrofit2.http.Multipart;
 import retrofit2.http.Part;
 
 
 public interface WebServices {
+
     @FormUrlEncoded
     @POST("/GetRegistrationType")
     public void getRegistrationType(@FieldMap Map<String, String> map, Callback<RegistrationModel> callback);
@@ -119,7 +122,24 @@ public interface WebServices {
     @POST("/LoksevakRequest")
     public void getComplaintsList(@FieldMap Map<String, String> map, Callback<ComplaintsModel> callback);
 
-    @GET("/NewService")
-    public void getHtmlContent(Callback<HtmlModel> callback);
+
+    @FormUrlEncoded
+    @POST("/TopRefferalUser")
+    public void topRefferalUser(@FieldMap Map<String, String> map, Callback<RefferalUserListModel> callback);
+
+//    @GET("/NewService")
+//    public void getHtmlContent(Callback<HtmlModel> callback);
+
+    //@FormUrlEncoded
+//    @GET("/GetComplaintData")
+//    public void getHtmlContent(@Query("Req") String address, Callback<HtmlModel> callback);
+
+    @GET("/GetComplaintDataNew")
+    public void getHtmlContent(@Query("Req") String address, Callback<HtmlModel> callback);
+
+
+    @FormUrlEncoded
+    @POST("/GetUserPoint")
+    public void getUserPoint(@FieldMap Map<String, String> map, Callback<RefferalUserListModel> callback);
 
 }

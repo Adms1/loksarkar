@@ -33,6 +33,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Pattern;
+
+import retrofit2.http.Url;
 
 public class NotificationUtils {
 
@@ -46,112 +49,199 @@ public class NotificationUtils {
         this.mContext = mContext;
     }
 
-    public void showNotificationMessage(String title, String message, Intent intent) {
-        showNotificationMessage(title, message, intent, null);
+    public void showNotificationMessage(String title,String type,String message, Intent intent) {
+        showNotificationMessage(title,type,message,intent, null);
     }
 
-    public void showNotificationMessage(final String title, final String message,Intent intent, String imageUrl) {
+    public void showNotificationMessage(final String title,String type,final String message,Intent intent, String imageUrl) {
         // Check for empty push message
-
-
-
         // notification icon
         final int icon = R.mipmap.ic_launcher;
 
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        final PendingIntent resultPendingIntent =
-                PendingIntent.getActivity(
-                        mContext,
-                        0,
-                        intent,
-                        PendingIntent.FLAG_CANCEL_CURRENT
-                );
+        String link;
+        if(type.equalsIgnoreCase("News")){
+            try {
 
-        final NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
-                mContext);
+                String [] content  = title.split(Pattern.quote("|"));
+                String description  = content[0];
+                link = content[1];
+                link = link.substring(0,link.length() - 1);
+
+                URL urllink = new URL(link);
+
+
+                Intent resultIntent = new Intent(Intent.ACTION_VIEW);
+                resultIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                resultIntent.setData(Uri.parse(urllink.toString()));
+
+                final PendingIntent resultPendingIntent = PendingIntent.getActivity(mContext.getApplicationContext(),0,resultIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+
+                final NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(mContext);
 
 //        final Uri alarmSound = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE
 //                + "://" + mContext.getPackageName() + "/raw/notification");
 
-        if (!TextUtils.isEmpty(imageUrl)) {
+                if (!TextUtils.isEmpty(imageUrl)) {
 
-            if (imageUrl != null && imageUrl.length() > 4 && Patterns.WEB_URL.matcher(imageUrl).matches()) {
+                    if (imageUrl != null && imageUrl.length() > 4 && Patterns.WEB_URL.matcher(imageUrl).matches()) {
 
-                Bitmap bitmap = getBitmapFromURL(imageUrl);
+                        Bitmap bitmap = getBitmapFromURL(imageUrl);
 
-                if (bitmap != null) {
-                   // showBigNotification(bitmap, mBuilder, icon, title, message, timeStamp, resultPendingIntent, alarmSound);
+                        if (bitmap != null) {
+                            // showBigNotification(bitmap, mBuilder, icon, title, message, timeStamp, resultPendingIntent, alarmSound);
+                        } else {
+                            showSmallNotification(mBuilder,type,icon,title, message,resultPendingIntent);
+                        }
+                    }
                 } else {
-                    showSmallNotification(mBuilder, icon, title, message,resultPendingIntent);
+                    showSmallNotification(mBuilder,type,icon,title,message,resultPendingIntent);
+                    // playNotificationSound();
                 }
+
+
+            }catch (Exception e){
+                e.printStackTrace();
             }
-        } else {
-            showSmallNotification(mBuilder, icon, title, message,resultPendingIntent);
-           // playNotificationSound();
+
+        }else{
+            final PendingIntent resultPendingIntent = PendingIntent.getActivity(mContext.getApplicationContext(),0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+
+            final NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(mContext);
+
+//        final Uri alarmSound = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE
+//                + "://" + mContext.getPackageName() + "/raw/notification");
+
+            if (!TextUtils.isEmpty(imageUrl)) {
+
+                if (imageUrl != null && imageUrl.length() > 4 && Patterns.WEB_URL.matcher(imageUrl).matches()) {
+
+                    Bitmap bitmap = getBitmapFromURL(imageUrl);
+
+                    if (bitmap != null) {
+                        // showBigNotification(bitmap, mBuilder, icon, title, message, timeStamp, resultPendingIntent, alarmSound);
+                    } else {
+                        showSmallNotification(mBuilder,type,icon,title, message,resultPendingIntent);
+                    }
+                }
+            } else {
+                showSmallNotification(mBuilder,type,icon,title,message,resultPendingIntent);
+                // playNotificationSound();
+            }
         }
+
+
+
+      //  intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+
     }
 
 
-    private void showSmallNotification(NotificationCompat.Builder mBuilder, int icon, String title, String message,PendingIntent resultPendingIntent) {
+    private void showSmallNotification(NotificationCompat.Builder mBuilder,String type,int icon,String title,String message,PendingIntent resultPendingIntent) {
         notifyID = (int) (System.currentTimeMillis() & 0xfffffff);
 
 //        NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
 //
 //        inboxStyle.addLine(message);
 
-
+        NotificationManager notificationManager;
 
         RemoteViews contentView = new RemoteViews(mContext.getPackageName(),R.layout.custom_notification_layout);
-        contentView.setImageViewResource(R.id.image, R.mipmap.ic_launcher);
-        contentView.setTextViewText(R.id.title, mContext.getString(R.string.app_name));
-        contentView.setTextViewText(R.id.text,title);
+        contentView.setOnClickPendingIntent(R.layout.custom_notification_layout,resultPendingIntent);
+        contentView.setImageViewResource(R.id.image,R.mipmap.ic_launcher);
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(mContext,String.valueOf(notifyID));
-                 builder.setTicker(title)
-                         //.setWhen(0)
-                         .setContent(contentView)
-                .setAutoCancel(true)
-               .setContentTitle(mContext.getString(R.string.app_name))
-                         .setContentIntent(resultPendingIntent)
-               // .setSound(alarmSound)
-                //.setStyle(new NotificationCompat.BigTextStyle())
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
-                        //.setWhen(getTimeMilliSec(timeStamp))
-                .setSmallIcon(R.drawable.ic_launcher)
-              //  .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
-                .setContentText(title);
-                 Notification notification = builder.build();
-        notification.contentView = contentView;
-
-        notification.flags |= Notification.FLAG_AUTO_CANCEL;
-        notification.defaults |= Notification.DEFAULT_SOUND;
-        notification.defaults |= Notification.DEFAULT_VIBRATE;
-
-        NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
-
-//        if (Build.VERSION.SDK_INT >= 16) {
-//            // Inflate and set the layout for the expanded notification view
-//            RemoteViews expandedView =
-//                    new RemoteViews(mContext.getPackageName(), R.layout.notification_expanded);
-//            notification.bigContentView = expandedView;
-//        }
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel(String.valueOf(notifyID),
-                    title,
-                    NotificationManager.IMPORTANCE_DEFAULT);
-            notificationManager.createNotificationChannel(channel);
+        if(type.equalsIgnoreCase("News")){
+            String [] content  = title.split(Pattern.quote("|"));
+            String description  = content[0];
+            String link  = content[1];
+            contentView.setTextViewText(R.id.title,description);
+            contentView.setTextViewText(R.id.text,message);
+        }else{
+            contentView.setTextViewText(R.id.title,title);
+            contentView.setTextViewText(R.id.text,message);
         }
 
-        notificationManager.notify(notifyID, notification);
 
+        if(type.equalsIgnoreCase("News")) {
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(mContext, String.valueOf(notifyID));
+            builder.setTicker(title)
+                    //.setWhen(0)
+                    .setContent(contentView)
+                    .setAutoCancel(true).setContentIntent(resultPendingIntent)
+                    .setContentTitle(mContext.getString(R.string.app_name))
+                    .setPriority(NotificationCompat.PRIORITY_HIGH)
+                    .setWhen(System.currentTimeMillis())
+                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setContentIntent(resultPendingIntent)
+                    .setContentText(title);
+
+
+            Notification notification = builder.build();
+            notification.contentView = contentView;
+            notification.flags |= Notification.FLAG_AUTO_CANCEL;
+            notification.defaults |= Notification.DEFAULT_SOUND;
+            notification.defaults |= Notification.DEFAULT_VIBRATE;
+            notification.contentIntent = resultPendingIntent;
+
+            notification.contentView.setOnClickPendingIntent(R.layout.custom_notification_layout,resultPendingIntent);
+
+            notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+
+            if (Build.VERSION.SDK_INT >= 16) {
+                // Inflate and set the layout for the expanded notification view
+//            RemoteViews expandedView =
+//                    new RemoteViews(mContext.getPackageName(),R.layout.notification_expanded);
+//            notification.bigContentView = expandedView;
+            }
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                NotificationChannel channel = new NotificationChannel(String.valueOf(notifyID), title, NotificationManager.IMPORTANCE_HIGH);
+                notificationManager.createNotificationChannel(channel);
+            }
+
+            notificationManager.notify(notifyID, notification);
+
+        }else{
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(mContext, String.valueOf(notifyID));
+            builder.setTicker(title)
+                    //.setWhen(0)
+                    .setContent(contentView)
+                    .setAutoCancel(true).setContentIntent(resultPendingIntent)
+                    .setContentTitle(mContext.getString(R.string.app_name))
+                    .setPriority(NotificationCompat.PRIORITY_HIGH)
+                    .setWhen(System.currentTimeMillis())
+                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setContentText(title);
+
+
+            Notification notification = builder.build();
+            notification.contentView = contentView;
+            notification.flags |= Notification.FLAG_AUTO_CANCEL;
+            notification.defaults |= Notification.DEFAULT_SOUND;
+            notification.defaults |= Notification.DEFAULT_VIBRATE;
+            notification.contentIntent = resultPendingIntent;
+
+            notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+
+            if (Build.VERSION.SDK_INT >= 16) {
+                // Inflate and set the layout for the expanded notification view
+//            RemoteViews expandedView =
+//                    new RemoteViews(mContext.getPackageName(),R.layout.notification_expanded);
+//            notification.bigContentView = expandedView;
+            }
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                NotificationChannel channel = new NotificationChannel(String.valueOf(notifyID), title, NotificationManager.IMPORTANCE_HIGH);
+                notificationManager.createNotificationChannel(channel);
+            }
+
+            notificationManager.notify(notifyID, notification);
+        }
 
 
 
     }
 
     private void showBigNotification(Bitmap bitmap, NotificationCompat.Builder mBuilder, int icon, String title, String message, String timeStamp, PendingIntent resultPendingIntent, Uri alarmSound) {
-
 
         NotificationCompat.BigPictureStyle bigPictureStyle = new NotificationCompat.BigPictureStyle();
         bigPictureStyle.setBigContentTitle(title);
@@ -168,9 +258,10 @@ public class NotificationUtils {
                 .setContentTitle(mContext.getString(R.string.app_name))
                 .setContentIntent(resultPendingIntent)
                 .setSound(alarmSound)
+
                 .setStyle(bigPictureStyle)
-               // .setWhen(getTimeMilliSec(timeStamp))
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setWhen(System.currentTimeMillis())
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setSmallIcon(R.drawable.ic_launcher)
 
                // .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
@@ -182,9 +273,7 @@ public class NotificationUtils {
 
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel(String.valueOf(NotificationConfig.NOTIFICATION_ID),
-                    title,
-                    NotificationManager.IMPORTANCE_HIGH);
+            NotificationChannel channel = new NotificationChannel(String.valueOf(NotificationConfig.NOTIFICATION_ID),title,NotificationManager.IMPORTANCE_HIGH);
             notificationManager.createNotificationChannel(channel);
         }
 

@@ -11,9 +11,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.loksarkar.R;
@@ -45,8 +47,8 @@ public class MediaDetailActivity extends AppCompatActivity implements EasyVideoP
     private String Url = "";
     private EasyVideoPlayer easyVideoPlayer;
     private PermissionUtils.ReqPermissionCallback reqPermissionCallback;
+    private RelativeLayout rlBackImage;
 
-  //  private TextureVideoView mVideoView;
 
 
     @Override
@@ -56,6 +58,7 @@ public class MediaDetailActivity extends AppCompatActivity implements EasyVideoP
         rotateLoaderDialog = new RotateLoaderDialog(this);
         toolbar = (Toolbar)findViewById(R.id.toolbar);
         mSharebtn = (FloatingActionButton)findViewById(R.id.action_share);
+        rlBackImage = (RelativeLayout)findViewById(R.id.RL_back);
 
         easyVideoPlayer = (EasyVideoPlayer)findViewById(R.id.evp);
         easyVideoPlayer.showControls();
@@ -93,15 +96,6 @@ public class MediaDetailActivity extends AppCompatActivity implements EasyVideoP
         mSharebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
-
-//                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
-//                sharingIntent.setType("text/plain");
-//                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, tvContent.getText().toString());
-//                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT,imageUrl);
-//                startActivity(Intent.createChooser(sharingIntent, "Share via"));
-
                 if(PermissionUtils.hasPermission(MediaDetailActivity.this,Manifest.permission.WRITE_EXTERNAL_STORAGE)){
                     downloadFile(Url);
                 }else{
@@ -139,16 +133,13 @@ public class MediaDetailActivity extends AppCompatActivity implements EasyVideoP
         Uri Download_Uri = Uri.parse(url);
         long downloadReference;
         DownloadManager downloadManager = (DownloadManager)getSystemService(DOWNLOAD_SERVICE);
-
         DownloadManager.Request request = new DownloadManager.Request(Download_Uri);
-
         request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
         request.setAllowedOverRoaming(false);
         request.setTitle("Downloading");
         request.setDescription("Downloading File");
         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
         request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, System.currentTimeMillis() + ".png");
-
         //Enqueue a new download and same the referenceId
         downloadReference = downloadManager.enqueue(request);
 
@@ -218,22 +209,26 @@ public class MediaDetailActivity extends AppCompatActivity implements EasyVideoP
 
                     if(notificationDataModel.getFinalAry().get(0).getFileType().equals("Test") || notificationDataModel.getFinalAry().get(0).getFileType().equals("Text")){
                         backImage.setVisibility(View.GONE);
+                        rlBackImage.setVisibility(View.GONE);
                        // mVideoView.setVisibility(View.GONE);
                         easyVideoPlayer.setVisibility(View.GONE);
 
                     }
                     else if(notificationDataModel.getFinalAry().get(0).getFileType().equals("Image")){
                         backImage.setVisibility(View.VISIBLE);
+                        rlBackImage.setVisibility(View.GONE);
+
                         easyVideoPlayer.setVisibility(View.GONE);
 
                        // mVideoView.setVisibility(View.GONE);
 
                         Url = notificationDataModel.getFinalAry().get(0).getFilePath();
 
-                        Glide.with(MediaDetailActivity.this).load(notificationDataModel.getFinalAry().get(0).getFilePath()).into(backImage);
+                        Glide.with(MediaDetailActivity.this).asBitmap().load(notificationDataModel.getFinalAry().get(0).getFilePath()).into(backImage);
                     }
                     else if(notificationDataModel.getFinalAry().get(0).getFileType().equals("Video")){
                         backImage.setVisibility(View.GONE);
+
                         easyVideoPlayer.setVisibility(View.VISIBLE);
 
                        // mVideoView.setVisibility(View.VISIBLE);
@@ -243,7 +238,7 @@ public class MediaDetailActivity extends AppCompatActivity implements EasyVideoP
                         initVideoView(notificationDataModel.getFinalAry().get(0).getFilePath());
 
                     }
-                    tvContent.setText(notificationDataModel.getFinalAry().get(0).getDescription());
+                    tvContent.setText(Html.fromHtml(notificationDataModel.getFinalAry().get(0).getDescription()));
                     tvContentTitle.setText(notificationDataModel.getFinalAry().get(0).getTitle());
                     tvDate.setText(notificationDataModel.getFinalAry().get(0).getDate());
 

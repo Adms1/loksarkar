@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
@@ -27,8 +29,13 @@ import android.widget.ExpandableListView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
 import com.loksarkar.R;
 import com.loksarkar.api.ApiHandler;
 import com.loksarkar.base.BaseApp;
@@ -38,6 +45,7 @@ import com.loksarkar.localeutils.LocaleChanger;
 import com.loksarkar.localeutils.utils.ActivityRecreationHelper;
 import com.loksarkar.models.ChildListModel;
 import com.loksarkar.models.ExpandabelModel;
+import com.loksarkar.models.RefferalUserListModel;
 import com.loksarkar.models.RegistrationModel;
 import com.loksarkar.utils.AppUtils;
 import com.loksarkar.utils.InstallReferrerHelper;
@@ -47,6 +55,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -74,6 +85,11 @@ public class BaseActivity extends AppCompatActivity implements InstallReferrerHe
     private ImageView mImageViewLogo;
     //private BranchUniversalObject branchUniversalObject;
     private Bundle activityArguments;
+    private TextView textRewards;
+    private InterstitialAd mInterstitialAd;
+    private Handler mHandler;
+    private Runnable displayAd;
+    private ScheduledExecutorService scheduler;
 
 
     @Override
@@ -84,8 +100,10 @@ public class BaseActivity extends AppCompatActivity implements InstallReferrerHe
         drawerIcon = (FrameLayout)findViewById(R.id.frm_drawer_icon);
         localeSharedPrefs = getSharedPreferences(SP_LOCALE, Context.MODE_PRIVATE);
         language = localeSharedPrefs.getString(KEY_LANGUAGE, "");
+        navigationView = (NavigationView)findViewById(R.id.navigation);
         //branchUniversalObject = new BranchUniversalObject();
         //PrefUtils.getInstance(BaseActivity.this).setUserLogout();
+        MobileAds.initialize(this, "ca-app-pub-7793510975061206~8275052408");
 
         try {
             InstallReferrerHelper.fetchInstallReferrer(this,this);
@@ -94,6 +112,100 @@ public class BaseActivity extends AppCompatActivity implements InstallReferrerHe
         }
 
 
+
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId("ca-app-pub-7793510975061206/3828788355");
+        //testing unit id
+         //mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+         mHandler = new Handler(Looper.getMainLooper());
+
+        scheduler = Executors.newSingleThreadScheduledExecutor();
+        scheduler.scheduleAtFixedRate(new Runnable() {
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        if (mInterstitialAd.isLoaded() && mInterstitialAd != null) {
+                           // mInterstitialAd.show();
+                        } else {
+                            Log.d("TAG"," Interstitial not loaded");
+                        }
+                        loadAd();
+                    }
+                });
+            }
+        }, 30, 30, TimeUnit.SECONDS);
+
+
+        displayAd = new Runnable() {
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        if (mInterstitialAd != null && mInterstitialAd.isLoaded()) {
+
+                        } else {
+                            // Toast.makeText(DashBoardActivity.this,"Ad did not load",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
+        };
+
+        displayInterstitial();
+
+        mInterstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                // Code to be executed when an ad finishes loading.
+                mInterstitialAd.show();
+            }
+
+            @Override
+            public void onAdFailedToLoad(int errorCode) {
+                // Code to be executed when an ad request fails.
+                Log.d("AdError",String.valueOf(errorCode));
+            }
+
+            @Override
+            public void onAdOpened() {
+                // Code to be executed when the ad is displayed.
+            }
+
+            @Override
+            public void onAdLeftApplication() {
+                // Code to be executed when the user has left the app.
+            }
+
+            @Override
+            public void onAdClosed() {
+                // Code to be executed when when the interstitial ad is closed.
+                // loadAd();
+            }
+        });
+
+
+
+
+    }
+
+
+
+
+    private void loadAd() {
+        AdRequest request = new AdRequest.Builder()
+//                .addTestDevice("918DB44296FAF473DC4180E450381834")
+//                .addTestDevice("33BE2250B43518CCDA7DE426D04EE231")
+//                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .build();
+
+        mInterstitialAd.loadAd(request);
+
+
+
+    }
+
+    //Call displayInterstitial() once you are ready to display the ad.
+    public void displayInterstitial() {
+        mHandler.postDelayed(displayAd, 1);
     }
 
     @Override
@@ -186,6 +298,20 @@ public class BaseActivity extends AppCompatActivity implements InstallReferrerHe
         return toolbar;
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        try {
+            if(scheduler != null){
+                scheduler.shutdownNow();
+                scheduler = null;
+            }
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+
+
+    }
     /**
      * @return the layout id associated to the layout used in the activity.
      */
@@ -256,28 +382,40 @@ public class BaseActivity extends AppCompatActivity implements InstallReferrerHe
 
         navigationView = (NavigationView) findViewById(R.id.navigation);
 
+
+
         View headerView  =  (View)navigationView.getHeaderView(0);
 
         TextView headerUserName = (TextView)headerView.findViewById(R.id.tv_header_username);
         TextView referralCode = (TextView)headerView.findViewById(R.id.tv_header_referal_code);
         TextView header = (TextView)headerView.findViewById(R.id.tv_header_name);
-
-
+        RelativeLayout headerRewards = (RelativeLayout)headerView.findViewById(R.id.LL_rewards);
+        textRewards = headerView.findViewById(R.id.tv_reward_points);
         try {
             if (PrefUtils.getInstance(BaseActivity.this).getUserLogin()) {
+
                 headerUserName.setText(PrefUtils.getInstance(BaseActivity.this).getStringValue(PrefUtils.USERNAME_KEY, ""));
                 referralCode.setText(PrefUtils.getInstance(BaseActivity.this).getStringValue(REFERRAL_ID_KEY, "") +  "  (Referral code)");
                 headerUserName.setVisibility(View.VISIBLE);
                 referralCode.setVisibility(View.VISIBLE);
                 header.setVisibility(View.GONE);
 
+                String totalInstalltion = String.valueOf(PrefUtils.getInstance(this).getIntValue(PrefUtils.REWARD_POINTS, 0));
+
+                textRewards.setText(totalInstalltion);
+                headerRewards.setVisibility(View.VISIBLE);
+
+                getUserPoints(PrefUtils.getInstance(BaseActivity.this).getStringValue(REFERRAL_ID_KEY, ""));
+
+
             }else{
+                headerRewards.setVisibility(View.GONE);
                 headerUserName.setVisibility(View.GONE);
                 referralCode.setVisibility(View.GONE);
                 header.setVisibility(View.VISIBLE);
             }
         }catch (Exception ex){
-
+            ex.printStackTrace();
         }
 
         expandableList= (ExpandableListView) findViewById(R.id.navigationmenu);
@@ -288,9 +426,8 @@ public class BaseActivity extends AppCompatActivity implements InstallReferrerHe
         }
 
         prepareListData();
-        mMenuAdapter = new ExpandableMenuAdapter(this,listDataHeader, listDataChild, expandableList);
+        mMenuAdapter = new ExpandableMenuAdapter(this,listDataHeader,listDataChild,expandableList);
 
-        // setting list_item_complaint adapter
         expandableList.setAdapter(mMenuAdapter);
 
 
@@ -338,8 +475,6 @@ public class BaseActivity extends AppCompatActivity implements InstallReferrerHe
 
         }
 
-
-
         switch (pos){
             case 0:
                 drawerLayout.closeDrawers();
@@ -351,17 +486,18 @@ public class BaseActivity extends AppCompatActivity implements InstallReferrerHe
                 drawerLayout.closeDrawers();
                 Intent intent1 = new Intent(this,WebviewActivty.class);
                 intent1.putExtra("url", WebViewURLS.ABOUT_US);
+               // intent1.putExtra("lang","none");
                 startActivity(intent1);
                 break;
+//            case 2:
+//                drawerLayout.closeDrawers();
+//                Intent intent2 = new Intent(this,WebviewActivty.class);
+//
+//                intent2.putExtra("url",WebViewURLS.REGISTRATION);
+//                startActivity(intent2);
+//                break;
+
             case 2:
-                drawerLayout.closeDrawers();
-                Intent intent2 = new Intent(this,WebviewActivty.class);
-
-                intent2.putExtra("url",WebViewURLS.REGISTRATION);
-                startActivity(intent2);
-                break;
-
-            case 3:
                 drawerLayout.closeDrawers();
                 if(PrefUtils.getInstance(BaseActivity.this).getUserLogin()){
                     Intent intent3 = new Intent(this,ComplaintsList.class);
@@ -372,7 +508,7 @@ public class BaseActivity extends AppCompatActivity implements InstallReferrerHe
                 }
                 break;
 
-            case 4:
+            case 3:
                 drawerLayout.closeDrawers();
                 Intent intent3 = new Intent(this,WebviewActivty.class);
                 intent3.putExtra("url",WebViewURLS.TRACK_APPLICATION);
@@ -407,13 +543,23 @@ public class BaseActivity extends AppCompatActivity implements InstallReferrerHe
 //                            }
 //                        }).show();
 //                break;
-            case 6:
+            case 5:
                 if (drawerLayout.isDrawerOpen(Gravity.START)) {
                     drawerLayout.closeDrawer(Gravity.START);
                 }
 
                 Intent intentReferralCode = new Intent(BaseActivity.this,ReferralActivity.class);
                 startActivity(intentReferralCode);
+
+                break;
+
+            case 6:
+                if (drawerLayout.isDrawerOpen(Gravity.START)) {
+                    drawerLayout.closeDrawer(Gravity.START);
+                }
+
+                Intent frgmentContainer = new Intent(BaseActivity.this,FragmentContainerActivity.class);
+                startActivity(frgmentContainer);
 
                 break;
         }
@@ -429,27 +575,44 @@ public class BaseActivity extends AppCompatActivity implements InstallReferrerHe
         switch (pos){
             case 0:
                 //for gujarati.
+                if(drawerLayout.isDrawerOpen(Gravity.START)){
+                    drawerLayout.closeDrawer(Gravity.START);
+                }
                 mImageViewLogo.setImageResource(R.mipmap.ic_launcher_round);
                 LocaleChanger.setLocale(BaseApp.SUPPORTED_LOCALES.get(0));
-                ActivityRecreationHelper.recreate(BaseActivity.this, true);
+                restartApp();
+                //ActivityRecreationHelper.recreate(BaseActivity.this, true);
                 break;
             case 1:
                 //for hindi.
+                if(drawerLayout.isDrawerOpen(Gravity.START)){
+                    drawerLayout.closeDrawer(Gravity.START);
+                }
                 mImageViewLogo.setImageResource(R.mipmap.ic_launcher_hindi_round);
                 LocaleChanger.setLocale(BaseApp.SUPPORTED_LOCALES.get(1));
-                ActivityRecreationHelper.recreate(BaseActivity.this, true);
+                restartApp();
+                //ActivityRecreationHelper.recreate(BaseActivity.this, true);
                 break;
             case 2:
                 //for english.
+                if(drawerLayout.isDrawerOpen(Gravity.START)){
+                    drawerLayout.closeDrawer(Gravity.START);
+                }
                 mImageViewLogo.setImageResource(R.mipmap.ic_launcher_eng_round);
                 LocaleChanger.setLocale(BaseApp.SUPPORTED_LOCALES.get(2));
-                ActivityRecreationHelper.recreate(BaseActivity.this, true);
+                restartApp();
+                //ActivityRecreationHelper.recreate(BaseActivity.this, true);
                 break;
         }
 
     }
 
 
+    private void restartApp(){
+        Intent dashboardintent = new Intent(BaseActivity.this,DashBoardActivity.class);
+        startActivity(dashboardintent);
+        finishAffinity();
+    }
 
 
     @Override
@@ -468,53 +631,43 @@ public class BaseActivity extends AppCompatActivity implements InstallReferrerHe
         listDataHeader = new ArrayList<ExpandabelModel>();
         listDataChild = new HashMap<ExpandabelModel, List<ChildListModel>>();
 
-        // Adding data header
-
         ExpandabelModel expandabelModel = new ExpandabelModel();
         expandabelModel.setName(getString(R.string.home));
         expandabelModel.setDrawable_id(ContextCompat.getDrawable(BaseActivity.this,R.drawable.ic_home));
-
 
         ExpandabelModel expandabelModel1 = new ExpandabelModel();
         expandabelModel1.setName(getString(R.string.about));
         expandabelModel1.setDrawable_id(ContextCompat.getDrawable(BaseActivity.this,R.drawable.ic_about_us));
 
-
-        ExpandabelModel expandabelModel3 = new ExpandabelModel();
-        expandabelModel3.setName(getString(R.string.registration));
-        expandabelModel3.setDrawable_id(ContextCompat.getDrawable(BaseActivity.this,R.drawable.ic_registration));
+        ExpandabelModel expandabelModel4 = new ExpandabelModel();
+        expandabelModel4.setName(getString(R.string.my_complaints_requests));
+        expandabelModel4.setDrawable_id(ContextCompat.getDrawable(BaseActivity.this,R.drawable.ic_complaints));
 
         ExpandabelModel expandabelModel5 = new ExpandabelModel();
         expandabelModel5.setName(getString(R.string.track_app));
         expandabelModel5.setDrawable_id(ContextCompat.getDrawable(BaseActivity.this,R.drawable.ic_track));
 
-        ExpandabelModel expandabelModel4 = new ExpandabelModel();
-        expandabelModel4.setName(getString(R.string.my_complaints_requests));
-        expandabelModel4.setDrawable_id(ContextCompat.getDrawable(BaseActivity.this,R.drawable.ic_complaints));
-
-//        ExpandabelModel expandabelModel5 = new ExpandabelModel();
-//        expandabelModel5.setName(getString(R.string.logout));
-//        expandabelModel5.setDrawable_id(ContextCompat.getDrawable(BaseActivity.this,R.drawable.ic_logout));
-
-
         ExpandabelModel expandabelModel6 = new ExpandabelModel();
         expandabelModel6.setName(getString(R.string.choose_language));
         expandabelModel6.setDrawable_id(ContextCompat.getDrawable(BaseActivity.this,R.drawable.ic_language));
-
 
         ExpandabelModel expandabelModel7 = new ExpandabelModel();
         expandabelModel7.setName(getString(R.string.referral));
         expandabelModel7.setDrawable_id(ContextCompat.getDrawable(BaseActivity.this,R.drawable.ic_share));
 
-
+        ExpandabelModel expandabelModel8 = new ExpandabelModel();
+        expandabelModel8.setName(getString(R.string.top_referral_users));
+        expandabelModel8.setDrawable_id(ContextCompat.getDrawable(BaseActivity.this,R.drawable.ic_cup));
 
         listDataHeader.add(expandabelModel);
         listDataHeader.add(expandabelModel1);
-        listDataHeader.add(expandabelModel3);
+       // listDataHeader.add(expandabelModel3);
         listDataHeader.add(expandabelModel4);
         listDataHeader.add(expandabelModel5);
         listDataHeader.add(expandabelModel6);
         listDataHeader.add(expandabelModel7);
+        listDataHeader.add(expandabelModel8);
+
 
         String language = localeSharedPrefs.getString(KEY_LANGUAGE, "");
 
@@ -545,7 +698,7 @@ public class BaseActivity extends AppCompatActivity implements InstallReferrerHe
         heading1.add(childListModel1);
         heading1.add(childListModel2);
 
-        listDataChild.put(listDataHeader.get(5),heading1);
+        listDataChild.put(listDataHeader.get(4),heading1);
 
     }
 
@@ -603,18 +756,7 @@ public class BaseActivity extends AppCompatActivity implements InstallReferrerHe
 
     }
 
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        if (drawerToggle.onOptionsItemSelected(item))
-//            return true;
-////
-////        int id = item.getItemId();
-//
-////        if (id == R.id.action_settings) {
-////            return true;
-////        }
-//        return super.onOptionsItemSelected(item);
-//    }
+
 
 
     private void sendDeviceIdWithToken(final String token,String referralCode) {
@@ -631,18 +773,19 @@ public class BaseActivity extends AppCompatActivity implements InstallReferrerHe
                 AppUtils.dismissDialog();
                 if (registrationModel == null) {
                     AppUtils.ping(getApplicationContext(),getString(R.string.something_wrong));
-
                     return;
                 }
+
                 if (registrationModel.getSuccess() == null) {
                     AppUtils.ping(getApplicationContext(), getString(R.string.something_wrong));
                     return;
                 }
+
                 if (registrationModel.getSuccess().equalsIgnoreCase("false")) {
                     AppUtils.ping(getApplicationContext(), getString(R.string.something_wrong));
-
                     return;
                 }
+
                 if (registrationModel.getSuccess().equalsIgnoreCase("True")) {
                     PrefUtils.getInstance(BaseActivity.this).setIsFirstTime(true);
                     return;
@@ -675,6 +818,56 @@ public class BaseActivity extends AppCompatActivity implements InstallReferrerHe
         return map;
     }
 
+
+    private void getUserPoints(String referralCode) {
+        // sending fcm token to server
+
+        if (!AppUtils.isNetworkConnected(this)) {
+            AppUtils.ping(getApplicationContext(),getResources().getString(R.string.internet_error));
+            return;
+        }
+
+        ApiHandler.getApiService().getUserPoint(setUserPointsParam(referralCode),new retrofit.Callback<RefferalUserListModel>() {
+            @Override
+            public void success(RefferalUserListModel registrationModel, Response response) {
+                AppUtils.dismissDialog();
+                if (registrationModel == null) {
+                    AppUtils.ping(getApplicationContext(),getString(R.string.something_wrong));
+                    return;
+                }
+
+                if (registrationModel.getSuccess() == null) {
+                    AppUtils.ping(getApplicationContext(), getString(R.string.something_wrong));
+                    return;
+                }
+
+                if (registrationModel.getSuccess().equalsIgnoreCase("false")) {
+                    AppUtils.ping(getApplicationContext(), getString(R.string.something_wrong));
+                    return;
+                }
+
+                if (registrationModel.getSuccess().equalsIgnoreCase("True")) {
+                    textRewards.setText(String.valueOf(registrationModel.getFinalArray1().get(0).getTotalInstalltion()));
+                    return;
+                }
+
+            }
+            @Override
+            public void failure(RetrofitError error) {
+                AppUtils.dismissDialog();
+                error.printStackTrace();
+                AppUtils.ping(getApplicationContext(), getString(R.string.something_wrong));
+            }
+        });
+
+
+    }
+
+    private Map<String, String> setUserPointsParam(String referralCode) {
+        Map<String, String> map = new HashMap<>();
+        map.put("ReferralID",referralCode);
+        return map;
+    }
 
 
 
