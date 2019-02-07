@@ -95,8 +95,6 @@ public class BaseApp extends Application implements Application.ActivityLifecycl
         //mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
         mHandler = new Handler(Looper.getMainLooper());
 
-
-
         scheduler = Executors.newSingleThreadScheduledExecutor();
         scheduler.scheduleAtFixedRate(new Runnable() {
             public void run() {
@@ -113,7 +111,6 @@ public class BaseApp extends Application implements Application.ActivityLifecycl
             }
         }, 0, 30, TimeUnit.SECONDS);
 
-
         mInterstitialAd.setAdListener(new AdListener() {
             @Override
             public void onAdLoaded() {
@@ -121,6 +118,9 @@ public class BaseApp extends Application implements Application.ActivityLifecycl
                 // Code to be executed when an ad finishes loading.
                 mInterstitialAd.show();
             }
+
+
+
 
             @Override
             public void onAdFailedToLoad(int errorCode) {
