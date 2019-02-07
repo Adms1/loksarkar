@@ -95,6 +95,8 @@ public class BaseApp extends Application implements Application.ActivityLifecycl
         //mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
         mHandler = new Handler(Looper.getMainLooper());
 
+
+
         scheduler = Executors.newSingleThreadScheduledExecutor();
         scheduler.scheduleAtFixedRate(new Runnable() {
             public void run() {
