@@ -81,7 +81,7 @@ public class BaseApp extends Application implements Application.ActivityLifecycl
         Log.d("fcmtoken", token);
 
         /// LocaleChanger.setLocale(SUPPORTED_LOCALES.get(2));
-        MobileAds.initialize(this, "ca-app-pub-7793510975061206~8275052408");
+        MobileAds.initialize(this,"ca-app-pub-7793510975061206~8275052408");
 
         try {
             InstallReferrerHelper.fetchInstallReferrer(this, this);
@@ -94,6 +94,8 @@ public class BaseApp extends Application implements Application.ActivityLifecycl
         //testing unit id
         //mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
         mHandler = new Handler(Looper.getMainLooper());
+
+
 
         scheduler = Executors.newSingleThreadScheduledExecutor();
         scheduler.scheduleAtFixedRate(new Runnable() {
@@ -111,16 +113,28 @@ public class BaseApp extends Application implements Application.ActivityLifecycl
             }
         }, 0, 30, TimeUnit.SECONDS);
 
+
+
+    }
+
+    private void loadAd() {
+        AdRequest request = new AdRequest.Builder()
+//                .addTestDevice("918DB44296FAF473DC4180E450381834")
+//                .addTestDevice("33BE2250B43518CCDA7DE426D04EE231")
+//                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+//        .addTestDevice(AppUtils.getDeviceId(this))
+                .build();
+
+        mInterstitialAd.loadAd(request);
+
+
         mInterstitialAd.setAdListener(new AdListener() {
             @Override
             public void onAdLoaded() {
-                displayInterstitial();
+                //displayInterstitial();
                 // Code to be executed when an ad finishes loading.
                 mInterstitialAd.show();
             }
-
-
-
 
             @Override
             public void onAdFailedToLoad(int errorCode) {
@@ -144,17 +158,6 @@ public class BaseApp extends Application implements Application.ActivityLifecycl
                 // loadAd();
             }
         });
-    }
-
-    private void loadAd() {
-        AdRequest request = new AdRequest.Builder()
-//                .addTestDevice("918DB44296FAF473DC4180E450381834")
-//                .addTestDevice("33BE2250B43518CCDA7DE426D04EE231")
-//                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-//        .addTestDevice(AppUtils.getDeviceId(this))
-                .build();
-
-        mInterstitialAd.loadAd(request);
 
 
     }
@@ -287,10 +290,7 @@ public class BaseApp extends Application implements Application.ActivityLifecycl
 
     @Override
     public void onActivityResumed(Activity activity) {
-
         try {
-
-
             if (scheduler == null) {
                 scheduler = Executors.newSingleThreadScheduledExecutor();
                 scheduler.scheduleAtFixedRate(new Runnable() {
@@ -307,6 +307,8 @@ public class BaseApp extends Application implements Application.ActivityLifecycl
                         });
                     }
                 }, 30, 30, TimeUnit.SECONDS);
+
+
             }
         } catch (Exception ex) {
             ex.printStackTrace();
