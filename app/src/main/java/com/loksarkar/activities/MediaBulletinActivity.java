@@ -3,18 +3,14 @@ package com.loksarkar.activities;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.LinearLayout;
 
 import com.loksarkar.R;
-import com.loksarkar.base.BaseApp;
 import com.loksarkar.constants.AppConstants;
-import com.loksarkar.localeutils.LocaleChanger;
 
 public class MediaBulletinActivity extends BaseActivity {
 
@@ -32,7 +28,7 @@ public class MediaBulletinActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_media_bulletin2);
 
-        final Intent intentMediaList = new Intent(MediaBulletinActivity.this,MediaBulletinListActivity.class);
+        final Intent intentMediaList = new Intent(MediaBulletinActivity.this, MediaBulletinListActivity.class);
 
         findViewById(R.id.view_click).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,7 +40,7 @@ public class MediaBulletinActivity extends BaseActivity {
 //                    ex.printStackTrace();
 //                }
                 AppConstants.typeId = category_socialMedia;
-                intentMediaList.putExtra("category_type",category_socialMedia);
+                intentMediaList.putExtra("category_type", category_socialMedia);
                 startActivity(intentMediaList);
             }
         });
@@ -54,10 +50,10 @@ public class MediaBulletinActivity extends BaseActivity {
             public void onClick(View v) {
 
                 AppConstants.typeId = category_mediaCoverage;
-                intentMediaList.putExtra("category_type",category_mediaCoverage);
+                intentMediaList.putExtra("category_type", category_mediaCoverage);
                 startActivity(intentMediaList);
 
-               // showDialog();
+                // showDialog();
             }
         });
 
@@ -65,10 +61,10 @@ public class MediaBulletinActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
 
-               // showDialog();
+                // showDialog();
                 AppConstants.typeId = category_video;
 
-                intentMediaList.putExtra("category_type",category_video);
+                intentMediaList.putExtra("category_type", category_video);
                 startActivity(intentMediaList);
             }
         });
@@ -76,8 +72,8 @@ public class MediaBulletinActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 //LocaleChanger.setLocale(BaseApp.SUPPORTED_LOCALES.get(2));
-               Intent intentMediaRegitration = new Intent(MediaBulletinActivity.this,MediaRegistration.class);
-               startActivity(intentMediaRegitration);
+                Intent intentMediaRegitration = new Intent(MediaBulletinActivity.this, MediaRegistration.class);
+                startActivity(intentMediaRegitration);
             }
         });
 
@@ -86,7 +82,7 @@ public class MediaBulletinActivity extends BaseActivity {
             public void onClick(View v) {
                 //LocaleChanger.setLocale(BaseApp.SUPPORTED_LOCALES.get(2));
                 AppConstants.typeId = category_news;
-                intentMediaList.putExtra("category_type",category_news);
+                intentMediaList.putExtra("category_type", category_news);
                 startActivity(intentMediaList);
             }
         });
@@ -94,12 +90,12 @@ public class MediaBulletinActivity extends BaseActivity {
 
     }
 
-    private void showDialog(){
+    private void showDialog() {
         dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_comming_soon);
 
-        LinearLayout llOk = (LinearLayout)dialog.findViewById(R.id.LL_ok);
+        LinearLayout llOk = (LinearLayout) dialog.findViewById(R.id.LL_ok);
         llOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,7 +103,7 @@ public class MediaBulletinActivity extends BaseActivity {
             }
         });
 
-        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.setCancelable(false);
         dialog.setCanceledOnTouchOutside(false);

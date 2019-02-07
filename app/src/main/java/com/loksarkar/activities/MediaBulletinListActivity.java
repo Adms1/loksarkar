@@ -1,8 +1,5 @@
 package com.loksarkar.activities;
 
-import android.content.Intent;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,17 +9,12 @@ import android.view.View;
 import com.loksarkar.R;
 import com.loksarkar.adapters.MediaBulletinAdapter;
 import com.loksarkar.api.ApiHandler;
-import com.loksarkar.base.BaseApp;
 import com.loksarkar.constants.AppConstants;
 import com.loksarkar.listener.CallbackHandler;
-import com.loksarkar.listener.EndlessRecyclerViewScrollListener;
-import com.loksarkar.localeutils.LocaleChanger;
-import com.loksarkar.models.LoginModel;
 import com.loksarkar.models.MediaBulletinModel;
 import com.loksarkar.ui.RotateLoaderDialog;
 import com.loksarkar.utils.AppUtils;
 import com.loksarkar.utils.MockServer;
-import com.loksarkar.utils.PrefUtils;
 
 import java.util.HashMap;
 import java.util.List;
@@ -43,11 +35,11 @@ public class MediaBulletinListActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_media_bulletin_list);
-        mRvList = (RecyclerView)findViewById(R.id.rv_list);
+        mRvList = (RecyclerView) findViewById(R.id.rv_list);
 
         try {
             type = getIntent().getStringExtra("category_type");
-        }catch (Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
 
@@ -59,11 +51,11 @@ public class MediaBulletinListActivity extends BaseActivity {
     private void callGetMediaListApi() {
 
         if (!AppUtils.isNetworkConnected(MediaBulletinListActivity.this)) {
-            AppUtils.notify(MediaBulletinListActivity.this,getResources().getString(R.string.internet_error), getResources().getString(R.string.internet_connection_error));
+            AppUtils.notify(MediaBulletinListActivity.this, getResources().getString(R.string.internet_error), getResources().getString(R.string.internet_connection_error));
             return;
         }
         rotateLoaderDialog.showLoader();
-        ApiHandler.getApiService().getMediaBulletin(setType(AppConstants.typeId),new retrofit.Callback<MediaBulletinModel>() {
+        ApiHandler.getApiService().getMediaBulletin(setType(AppConstants.typeId), new retrofit.Callback<MediaBulletinModel>() {
             @Override
             public void success(MediaBulletinModel mediaBulletinModel, Response response) {
                 AppUtils.dismissDialog();
@@ -87,15 +79,15 @@ public class MediaBulletinListActivity extends BaseActivity {
                 if (mediaBulletinModel.getSuccess().equalsIgnoreCase("True")) {
                     rotateLoaderDialog.dismissLoader();
 
-                    if(mediaBulletinModel.getFinalArray() != null){
-                        if(mediaBulletinModel.getFinalArray().size() > 0){
+                    if (mediaBulletinModel.getFinalArray() != null) {
+                        if (mediaBulletinModel.getFinalArray().size() > 0) {
 
                             mRvList.setVisibility(View.VISIBLE);
                             findViewById(R.id.tv_empty).setVisibility(View.GONE);
 
-                            server = new MockServer(1,mediaBulletinModel.getFinalArray().size());
+                            server = new MockServer(1, mediaBulletinModel.getFinalArray().size());
 
-                            mediaBulletinAdapter = new MediaBulletinAdapter(mediaBulletinModel.getFinalArray(),MediaBulletinListActivity.this,type);
+                            mediaBulletinAdapter = new MediaBulletinAdapter(mediaBulletinModel.getFinalArray(), MediaBulletinListActivity.this, type);
                             mRvList.setLayoutManager(new LinearLayoutManager(MediaBulletinListActivity.this));
                             mRvList.setAdapter(mediaBulletinAdapter);
                             mRvList.setItemAnimator(new DefaultItemAnimator());
@@ -111,11 +103,11 @@ public class MediaBulletinListActivity extends BaseActivity {
 //                                    return !mediaBulletinAdapter.isRefreshing() && !server.lastPageReached();
 //                                }
 //                            });
-                        }else{
+                        } else {
                             mRvList.setVisibility(View.GONE);
                             findViewById(R.id.tv_empty).setVisibility(View.VISIBLE);
                         }
-                    }else{
+                    } else {
                         mRvList.setVisibility(View.GONE);
                         findViewById(R.id.tv_empty).setVisibility(View.VISIBLE);
                     }
@@ -138,7 +130,7 @@ public class MediaBulletinListActivity extends BaseActivity {
 
     private Map<String, String> setType(String type) {
         Map<String, String> map = new HashMap<>();
-        map.put("Type",type);
+        map.put("Type", type);
         return map;
     }
 
@@ -151,7 +143,6 @@ public class MediaBulletinListActivity extends BaseActivity {
             }
         });
     }
-
 
 
 }

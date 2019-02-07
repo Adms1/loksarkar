@@ -7,8 +7,6 @@ import android.view.View;
 
 import com.loksarkar.R;
 import com.loksarkar.adapters.UserListTypeAdapter;
-import com.loksarkar.base.BaseApp;
-import com.loksarkar.localeutils.LocaleChanger;
 import com.loksarkar.models.UserListModel;
 
 import java.util.ArrayList;
@@ -26,9 +24,8 @@ public class RegistrationListActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration_list);
 
-        recyclerView = (RecyclerView)findViewById(R.id.rv_users_list);
-        recyclerView.setLayoutManager(new GridLayoutManager(this,2));
-
+        recyclerView = (RecyclerView) findViewById(R.id.rv_users_list);
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
 
         try {
@@ -37,7 +34,6 @@ public class RegistrationListActivity extends BaseActivity {
             e.printStackTrace();
         }
     }
-
 
 
     private void setData() throws Exception {
@@ -140,20 +136,17 @@ public class RegistrationListActivity extends BaseActivity {
         dataList.add(dashBoardModel16);
 
 
-        userListTypeAdapter = new UserListTypeAdapter(this,dataList);
+        userListTypeAdapter = new UserListTypeAdapter(this, dataList);
         recyclerView.setAdapter(userListTypeAdapter);
     }
 
 
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
         super.onBackPressed();
         //LocaleChanger.setLocale(BaseApp.SUPPORTED_LOCALES.get(2));
 
     }
-
-
-
 
 
 }
