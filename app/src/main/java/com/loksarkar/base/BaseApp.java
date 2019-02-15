@@ -112,6 +112,7 @@ public class BaseApp extends Application implements Application.ActivityLifecycl
         }, 0, 30, TimeUnit.SECONDS);
     }
 
+
     private void loadAd() {
         AdRequest request = new AdRequest.Builder()
                 .addTestDevice("918DB44296FAF473DC4180E450381834")
