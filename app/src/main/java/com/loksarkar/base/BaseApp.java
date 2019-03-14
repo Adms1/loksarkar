@@ -117,7 +117,7 @@ public class BaseApp extends Application implements Application.ActivityLifecycl
         AdRequest request = new AdRequest.Builder()
                 .addTestDevice("918DB44296FAF473DC4180E450381834")
                 .addTestDevice("33BE2250B43518CCDA7DE426D04EE231")
-                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+//                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
 //        .addTestDevice(AppUtils.getDeviceId(this))
                 .build();
 
@@ -140,6 +140,7 @@ public class BaseApp extends Application implements Application.ActivityLifecycl
             @Override
             public void onAdOpened() {
                 // Code to be executed when the ad is displayed.
+
             }
 
             @Override
@@ -153,8 +154,6 @@ public class BaseApp extends Application implements Application.ActivityLifecycl
                 // loadAd();
             }
         });
-
-
     }
 
     private void sendDeviceIdWithToken(final String token, String referralCode) {

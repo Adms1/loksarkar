@@ -7,6 +7,8 @@ import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
+
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.loksarkar.R;
@@ -42,6 +44,9 @@ public class AppFirebaseMessagingService extends FirebaseMessagingService implem
     public void onNewToken(String refreshedToken) {
         super.onNewToken(refreshedToken);
         Log.d("refreshtoken",refreshedToken);
+
+        FirebaseMessaging.getInstance().subscribeToTopic("all");
+
         storeRegIdInPref(refreshedToken);
 
         try {
