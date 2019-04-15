@@ -3,6 +3,7 @@ package com.loksarkar.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MediaBulletinModel {
@@ -11,9 +12,15 @@ public class MediaBulletinModel {
     @SerializedName("Success")
     @Expose
     private String success;
+    @SerializedName("TotalPage")
+    @Expose
+    private int totalcont;
+    @SerializedName("TotalRow")
+    @Expose
+    private int totalrow;
     @SerializedName("FinalArray")
     @Expose
-    private List<FinalArray> finalArray = null;
+    private ArrayList<FinalArray> finalArray = null;
 
     public String getSuccess() {
         return success;
@@ -23,16 +30,29 @@ public class MediaBulletinModel {
         this.success = success;
     }
 
-    public List<FinalArray> getFinalArray() {
+    public ArrayList<FinalArray> getFinalArray() {
         return finalArray;
     }
 
-    public void setFinalArray(List<FinalArray> finalArray) {
+    public void setFinalArray(ArrayList<FinalArray> finalArray) {
         this.finalArray = finalArray;
     }
 
+    public int getTotalcont() {
+        return totalcont;
+    }
 
+    public void setTotalcont(int totalcont) {
+        this.totalcont = totalcont;
+    }
 
+    public int getTotalrow() {
+        return totalrow;
+    }
+
+    public void setTotalrow(int totalrow) {
+        this.totalrow = totalrow;
+    }
 
     public static class FinalArray {
 

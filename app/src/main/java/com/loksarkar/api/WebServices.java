@@ -87,7 +87,7 @@ public interface WebServices {
 
 
     @FormUrlEncoded
-    @POST("/GetMediaBulletin")
+    @POST("/GetMediaBulletinNew")
     public void getMediaBulletin(@FieldMap Map<String, String> map, Callback<MediaBulletinModel> callback);
 
     @FormUrlEncoded

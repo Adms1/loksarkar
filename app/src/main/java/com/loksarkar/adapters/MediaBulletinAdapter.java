@@ -13,22 +13,22 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.loksarkar.R;
-import com.loksarkar.activities.DashBoardActivity;
 import com.loksarkar.activities.MediaDetailActivity;
-import com.loksarkar.activities.WebviewActivty;
 import com.loksarkar.constants.AppConstants;
 import com.loksarkar.models.MediaBulletinModel;
+
+import java.util.ArrayList;
 import java.util.List;
 
 
-public class MediaBulletinAdapter extends EndlessRecyclerViewAdapter<String, RecyclerView.ViewHolder, MediaBulletinAdapter.FooterViewHolder>  {
+public class MediaBulletinAdapter extends EndlessRecyclerViewAdapter<String, RecyclerView.ViewHolder, MediaBulletinAdapter.FooterViewHolder> {
 
     private Context context;
     private List<MediaBulletinModel.FinalArray> mDataList;
     private String category;
 
-    public MediaBulletinAdapter(List<MediaBulletinModel.FinalArray> mDataList, Context context,String category) {
-        super(mDataList,context);
+    public MediaBulletinAdapter(List<MediaBulletinModel.FinalArray> mDataList, Context context, String category) {
+        super(mDataList, context);
         this.context = context;
         this.mDataList = mDataList;
         this.category = category;
@@ -58,7 +58,6 @@ public class MediaBulletinAdapter extends EndlessRecyclerViewAdapter<String, Rec
     @Override
     public void onBindDataViewHolder(RecyclerView.ViewHolder holder, final int position) {
 
-
         switch (holder.getItemViewType()) {
             case 101:
                 ImageViewHolder holder1 = (ImageViewHolder) holder;
@@ -67,37 +66,36 @@ public class MediaBulletinAdapter extends EndlessRecyclerViewAdapter<String, Rec
 
                 holder1.cardView.setOnClickListener(new View.OnClickListener() {
 
-                        @Override
-                        public void onClick (View v){
-                         try {
-                             if (!AppConstants.typeId.equalsIgnoreCase("News")) {
-                                 Intent intentMediaDetail = new Intent(context, MediaDetailActivity.class);
-                                 intentMediaDetail.putExtra("blog_id", mDataList.get(position).getPKBulletinID());
-                                 context.startActivity(intentMediaDetail);
-                             } else {
-                                 Intent intent = new Intent(Intent.ACTION_VIEW);
-                                 intent.setData(Uri.parse(mDataList.get(position).getBulletinDescription()));
-                                 String title = "Open Via";
-                                 Intent chooser = Intent.createChooser(intent, title);
-                                 context.startActivity(chooser);
-                             }
-                         }catch (Exception ex){
-                             ex.printStackTrace();
-                         }
+                    @Override
+                    public void onClick(View v) {
+                        try {
+                            if (!AppConstants.typeId.equalsIgnoreCase("News")) {
+                                Intent intentMediaDetail = new Intent(context, MediaDetailActivity.class);
+                                intentMediaDetail.putExtra("blog_id", mDataList.get(position).getPKBulletinID());
+                                context.startActivity(intentMediaDetail);
+                            } else {
+                                Intent intent = new Intent(Intent.ACTION_VIEW);
+                                intent.setData(Uri.parse(mDataList.get(position).getBulletinDescription()));
+                                String title = "Open Via";
+                                Intent chooser = Intent.createChooser(intent, title);
+                                context.startActivity(chooser);
+                            }
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                        }
                     }
 
                 });
 
 
                 if (mDataList.get(position).getFileType().equalsIgnoreCase("Image")) {
-                        holder1.frameImageContainer.setVisibility(View.VISIBLE);
-                        holder1.backImage.setVisibility(View.VISIBLE);
-                        Glide.with(context).load(mDataList.get(position).getBulletinFileName()).into(holder1.backImage);
+                    holder1.frameImageContainer.setVisibility(View.VISIBLE);
+                    holder1.backImage.setVisibility(View.VISIBLE);
+                    Glide.with(context).load(mDataList.get(position).getBulletinFileName()).into(holder1.backImage);
                 } else {
                     holder1.backImage.setVisibility(View.GONE);
                     holder1.frameImageContainer.setVisibility(View.GONE);
                 }
-
 
 
                 break;
@@ -113,7 +111,7 @@ public class MediaBulletinAdapter extends EndlessRecyclerViewAdapter<String, Rec
                     @Override
                     public void onClick(View v) {
                         Intent intentMediaDetail = new Intent(context, MediaDetailActivity.class);
-                        intentMediaDetail.putExtra("blog_id",mDataList.get(position).getPKBulletinID());
+                        intentMediaDetail.putExtra("blog_id", mDataList.get(position).getPKBulletinID());
                         context.startActivity(intentMediaDetail);
                     }
                 });
@@ -128,12 +126,12 @@ public class MediaBulletinAdapter extends EndlessRecyclerViewAdapter<String, Rec
                 holder3.cardView.setOnClickListener(new View.OnClickListener() {
 
                     @Override
-                    public void onClick (View v){
+                    public void onClick(View v) {
                         try {
                             Intent intent = new Intent(Intent.ACTION_VIEW);
                             intent.setData(Uri.parse(mDataList.get(position).getBulletinDescription()));
                             String title = "Open Via";
-                            Intent chooser = Intent.createChooser(intent,title);
+                            Intent chooser = Intent.createChooser(intent, title);
                             context.startActivity(chooser);
 
 //                            Intent intentDashboard = new Intent(context,WebviewActivty.class);
@@ -142,7 +140,7 @@ public class MediaBulletinAdapter extends EndlessRecyclerViewAdapter<String, Rec
 //                            context.startActivity(intentDashboard);
 
 
-                        }catch (Exception ex){
+                        } catch (Exception ex) {
                             ex.printStackTrace();
                         }
                     }
@@ -169,29 +167,29 @@ public class MediaBulletinAdapter extends EndlessRecyclerViewAdapter<String, Rec
     public void onBindFooterViewHolder(MediaBulletinAdapter.FooterViewHolder holder, int position) {
         holder.textView.setText("Loading from item " + String.valueOf(position));
     }
+
     @Override
     public int getItemCount() {
         return mDataList.size();
     }
+
     @Override
     public int getItemViewType(int position) {
 
-        if(category.equalsIgnoreCase("Social Media")){
+        if (category.equalsIgnoreCase("Social Media")) {
             return 101;
-        }
-        else if(category.equalsIgnoreCase("Media Coverage")){
+        } else if (category.equalsIgnoreCase("Media Coverage")) {
             return 101;
-        }
-        else if(category.equalsIgnoreCase("Video")){
+        } else if (category.equalsIgnoreCase("Video")) {
             return 202;
-        }else if(category.equalsIgnoreCase("News")){
+        } else if (category.equalsIgnoreCase("News")) {
             return 203;
         }
         return 0;
     }
 
     public class ImageViewHolder extends RecyclerView.ViewHolder {
-        private TextView tvTitle,tvDate,tvCategory;
+        private TextView tvTitle, tvDate, tvCategory;
         private ImageView backImage;
         private FrameLayout frameImageContainer;
         private CardView cardView;
@@ -200,16 +198,16 @@ public class MediaBulletinAdapter extends EndlessRecyclerViewAdapter<String, Rec
             super(itemView);
             tvTitle = (TextView) itemView.findViewById(R.id.itm_title);
             tvDate = (TextView) itemView.findViewById(R.id.itm_date);
-            tvCategory= (TextView) itemView.findViewById(R.id.categoryLabel);
+            tvCategory = (TextView) itemView.findViewById(R.id.categoryLabel);
             backImage = (ImageView) itemView.findViewById(R.id.img_preview);
-            frameImageContainer = (FrameLayout)itemView.findViewById(R.id.fl_prev_container);
-            cardView = (CardView)itemView.findViewById(R.id.cardPlaceItm);
+            frameImageContainer = (FrameLayout) itemView.findViewById(R.id.fl_prev_container);
+            cardView = (CardView) itemView.findViewById(R.id.cardPlaceItm);
         }
 
     }
 
     public class NewsViewHolder extends RecyclerView.ViewHolder {
-        private TextView tvTitle,tvDate;
+        private TextView tvTitle, tvDate;
         private ImageView backImage;
         private CardView cardView;
 
@@ -218,14 +216,14 @@ public class MediaBulletinAdapter extends EndlessRecyclerViewAdapter<String, Rec
             tvTitle = (TextView) itemView.findViewById(R.id.itm_title);
             tvDate = (TextView) itemView.findViewById(R.id.itm_date);
             backImage = (ImageView) itemView.findViewById(R.id.iv_itempic);
-            cardView  = (CardView)itemView.findViewById(R.id.cardPlaceItm);
+            cardView = (CardView) itemView.findViewById(R.id.cardPlaceItm);
         }
 
     }
 
 
     public class VideoViewHolder extends RecyclerView.ViewHolder {
-        private TextView tvTitle,tvDate,tvCategory;
+        private TextView tvTitle, tvDate, tvCategory;
         private ImageView backImage;
         private FrameLayout frameImageContainer;
         private CardView cardView;
@@ -234,10 +232,10 @@ public class MediaBulletinAdapter extends EndlessRecyclerViewAdapter<String, Rec
             super(itemView);
             tvTitle = (TextView) itemView.findViewById(R.id.itm_title);
             tvDate = (TextView) itemView.findViewById(R.id.itm_date);
-            tvCategory= (TextView) itemView.findViewById(R.id.categoryLabel);
+            tvCategory = (TextView) itemView.findViewById(R.id.categoryLabel);
             backImage = (ImageView) itemView.findViewById(R.id.img_preview);
-            frameImageContainer = (FrameLayout)itemView.findViewById(R.id.fl_prev_container);
-            cardView = (CardView)itemView.findViewById(R.id.cardPlaceItm);
+            frameImageContainer = (FrameLayout) itemView.findViewById(R.id.fl_prev_container);
+            cardView = (CardView) itemView.findViewById(R.id.cardPlaceItm);
         }
 
     }
@@ -250,7 +248,20 @@ public class MediaBulletinAdapter extends EndlessRecyclerViewAdapter<String, Rec
             super(itemView);
             textView = (TextView) itemView.findViewById(R.id.footer_text);
 
+
+
         }
+    }
+
+    public void notifyy(RecyclerView recyclerView) {
+//        if (mDataList != null) {
+//            mDataList.clear();
+//            mDataList.addAll(list);
+//
+//        } else {
+//            mDataList = list;
+//        }
+
     }
 
 }

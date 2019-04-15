@@ -46,8 +46,6 @@ public class DashboardMenuAdapter extends RecyclerView.Adapter<DashboardMenuAdap
     private static SharedPreferences localeSharedPrefs;
     private static final String SP_LOCALE = "LocaleChanger.LocalePersistence";
 
-
-
     public DashboardMenuAdapter(Context context,List<DashBoardModel> dataList,int[] color) {
         this.context = context;
         this.dataList = dataList;
@@ -185,10 +183,6 @@ public class DashboardMenuAdapter extends RecyclerView.Adapter<DashboardMenuAdap
                             AppUtils.notify(context,context.getString(R.string.no_internet_title),context.getString(R.string.no_internet_msg));
                         }
                         break;
-
-
-
-
                 }
 
             }
@@ -203,7 +197,7 @@ public class DashboardMenuAdapter extends RecyclerView.Adapter<DashboardMenuAdap
     }
     @Override
     public void onViewDetachedFromWindow(DashboardMenuAdapter.MyViewHolder holder) {
-        ((DashboardMenuAdapter.MyViewHolder)holder).clearAnimation();
+        holder.clearAnimation();
     }
 
     private void setAnimation(View viewToAnimate, int position) {
@@ -223,10 +217,10 @@ public class DashboardMenuAdapter extends RecyclerView.Adapter<DashboardMenuAdap
 
         public MyViewHolder(View view) {
             super(view);
-            menuName = (TextView) view.findViewById(R.id.tv_menu_item);
-            circleImageView = (ImageView) view.findViewById(R.id.iv_menu);
-            view_Click = (CardView)view.findViewById(R.id.view_click);
-            rootLayout = (RelativeLayout)view.findViewById(R.id.RL_root);
+            menuName = view.findViewById(R.id.tv_menu_item);
+            circleImageView = view.findViewById(R.id.iv_menu);
+            view_Click = view.findViewById(R.id.view_click);
+            rootLayout = view.findViewById(R.id.RL_root);
         }
 
         public void clearAnimation() {

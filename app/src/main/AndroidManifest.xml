@@ -55,9 +55,13 @@
         </provider>
 
 
+        <!--<meta-data-->
+            <!--android:name="com.google.android.gms.ads.APPLICATION_ID"-->
+            <!--android:value="ca-app-pub-7793510975061206~8275052408"/>-->
+
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-7793510975061206~8275052408"/>
+            android:value="ca-app-pub-6257019493504041~7994058131"/>
 
         <activity
             android:name=".activities.SplashActivity"

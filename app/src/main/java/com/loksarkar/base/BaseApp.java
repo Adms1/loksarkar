@@ -81,7 +81,8 @@ public class BaseApp extends Application implements Application.ActivityLifecycl
         Log.d("fcmtoken", token);
 
         /// LocaleChanger.setLocale(SUPPORTED_LOCALES.get(2));
-        MobileAds.initialize(this,"ca-app-pub-7793510975061206~8275052408");
+//        MobileAds.initialize(this,"ca-app-pub-7793510975061206~8275052408");
+        MobileAds.initialize(this,"ca-app-pub-6257019493504041~7994058131");
 
         try {
             InstallReferrerHelper.fetchInstallReferrer(this, this);
@@ -90,8 +91,11 @@ public class BaseApp extends Application implements Application.ActivityLifecycl
         }
 
         mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId("ca-app-pub-7793510975061206/3828788355");
+//        mInterstitialAd.setAdUnitId("ca-app-pub-7793510975061206/3828788355");
+        mInterstitialAd.setAdUnitId("ca-app-pub-6257019493504041/1531633700");
+
         //testing unit id
+//        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
 //        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
         mHandler = new Handler(Looper.getMainLooper());
 
@@ -111,7 +115,6 @@ public class BaseApp extends Application implements Application.ActivityLifecycl
             }
         }, 0, 30, TimeUnit.SECONDS);
     }
-
 
     private void loadAd() {
         AdRequest request = new AdRequest.Builder()
