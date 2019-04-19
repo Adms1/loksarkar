@@ -76,8 +76,6 @@ public class RefferalUserListFragment extends Fragment {
         //Set Thread Policy
 
 
-
-
         callRefferalUserListApi();
 
 

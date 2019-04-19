@@ -3,16 +3,19 @@ package com.loksarkar.activities;
 import android.app.Dialog;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.LinearLayout;
 
+import com.google.android.gms.ads.AdView;
 import com.loksarkar.R;
+import com.loksarkar.utils.PrefUtils;
 
 public class Facility extends BaseActivity {
 
-
+    private AdView mAdView;
     private Dialog dialog;
 
     @Override
@@ -20,6 +23,18 @@ public class Facility extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_facility);
 
+        mAdView = findViewById(R.id.adView);
+        mAdView.loadAd(PrefUtils.showads());
+        mAdView.setVisibility(View.VISIBLE);
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable(){
+
+            @Override
+            public void run() {
+                mAdView.setVisibility(View.VISIBLE);
+
+            }
+        },3000);
 
         findViewById(R.id.iv_airbooking).setOnClickListener(new View.OnClickListener() {
             @Override

@@ -1,123 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.loksarkar.activities.Facility"
-    android:orientation="vertical">
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    tools:context="com.loksarkar.activities.Facility">
 
-
-    <RelativeLayout
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_70sdp">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
 
-
-    <TextView
-        android:id="@+id/txt_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_centerInParent="true"
-        android:text="@string/facility"
-        android:textSize="22sp"
-        android:textColor="@color/black"
-        android:textStyle="bold" />
-
-        <View
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/black"
-            android:layout_below="@+id/txt_title"
-            android:layout_marginTop="@dimen/_2sdp"/>
-
-    </RelativeLayout>
+            android:layout_height="@dimen/_50sdp">
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="@dimen/_5sdp">
+            <TextView
+                android:id="@+id/txt_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:text="@string/facility"
+                android:textColor="@color/black"
+                android:textSize="22sp"
+                android:textStyle="bold" />
 
-        <ImageView
-            android:id="@+id/iv_airbooking"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="@dimen/_100sdp"
-            android:src="@drawable/air_booking"
-            android:scaleType="fitXY"
-            android:layout_margin="@dimen/_5sdp"
-            android:adjustViewBounds="true"
-            />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/txt_title"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:background="@color/black" />
 
-        <ImageView
-            android:id="@+id/iv_railbooking"
+        </RelativeLayout>
 
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="@dimen/_100sdp"
-            android:src="@drawable/railway_booking"
-            android:scaleType="fitXY"
-            android:layout_margin="@dimen/_5sdp"
-            android:adjustViewBounds="true" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/_5sdp">
+
+            <ImageView
+                android:id="@+id/iv_airbooking"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_100sdp"
+                android:layout_margin="@dimen/_5sdp"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/air_booking" />
+
+            <ImageView
+                android:id="@+id/iv_railbooking"
+
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_100sdp"
+                android:layout_margin="@dimen/_5sdp"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/railway_booking" />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/_5sdp">
+
+            <ImageView
+
+                android:id="@+id/iv_busbooking"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_100sdp"
+                android:layout_margin="@dimen/_5sdp"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/bus_booking" />
+
+
+            <ImageView
+                android:id="@+id/iv_hotelbooking"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_100sdp"
+                android:layout_margin="@dimen/_5sdp"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/hotel_booking" />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/_5sdp">
+
+            <ImageView
+
+                android:id="@+id/iv_Other"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_100sdp"
+                android:layout_margin="@dimen/_5sdp"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:src="@drawable/other" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="@dimen/_5sdp">
-
-        <ImageView
-
-        android:id="@+id/iv_busbooking"
-        android:layout_width="0dp"
-        android:layout_weight="1"
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        ads:adSize="LARGE_BANNER"
+        android:layout_width="320dp"
         android:layout_height="@dimen/_100sdp"
-        android:src="@drawable/bus_booking"
-        android:scaleType="fitXY"
-        android:layout_margin="@dimen/_5sdp"
-        android:adjustViewBounds="true" />
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"
+        android:layout_alignParentBottom="true"
+        ads:adUnitId="ca-app-pub-3940256099942544/6300978111" />
 
-
-
-        <ImageView
-            android:id="@+id/iv_hotelbooking"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="@dimen/_100sdp"
-            android:src="@drawable/hotel_booking"
-            android:scaleType="fitXY"
-            android:layout_margin="@dimen/_5sdp"
-            android:adjustViewBounds="true" />
-
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="@dimen/_5sdp">
-
-        <ImageView
-
-            android:id="@+id/iv_Other"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="@dimen/_100sdp"
-            android:src="@drawable/other"
-            android:layout_margin="@dimen/_5sdp"
-            android:adjustViewBounds="true" />
-
-    </LinearLayout>
-
-
-</LinearLayout>
+</RelativeLayout>

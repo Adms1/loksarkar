@@ -11,6 +11,7 @@ import android.support.v7.widget.AppCompatEditText;
 import android.text.TextUtils;
 import android.view.View;
 
+import com.google.android.gms.ads.AdView;
 import com.loksarkar.R;
 import com.loksarkar.api.ApiHandler;
 import com.loksarkar.listener.OnProgressCompleteListener;
@@ -43,16 +44,16 @@ public class SigninActivity extends AppCompatActivity implements OnProgressCompl
         setContentView(R.layout.activity_login);
         mContext = this;
         rotateLoaderDialog = new RotateLoaderDialog(this);
+
         try{
             typeId = getIntent().getStringExtra("blog_id");
         }catch (Exception ex){
             ex.getLocalizedMessage();
         }
-        loginBtn = (AppCompatButton) findViewById(R.id.btnLogin);
+        loginBtn = findViewById(R.id.btnLogin);
         loginBtn.setBackgroundColor(ContextCompat.getColor(this,R.color.btn_color));
-        etUsername = (AppCompatEditText) findViewById(R.id.et_username);
-        etPassword = (AppCompatEditText) findViewById(R.id.et_pswd);
-
+        etUsername = findViewById(R.id.et_username);
+        etPassword = findViewById(R.id.et_pswd);
 
         findViewById(R.id.tv_create_acount).setOnClickListener(new View.OnClickListener() {
             @Override

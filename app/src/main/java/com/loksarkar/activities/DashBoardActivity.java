@@ -31,6 +31,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 import com.google.gson.JsonObject;
@@ -65,16 +66,29 @@ public class DashBoardActivity extends BaseActivity {
     private InterstitialAd mInterstitialAd;
     private Handler mHandler;
     private Runnable displayAd;     // Code to execute to perform this operation
-
+    private AdView mAdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dash_board);
         setMenuClick(true);
-        recyclerView = (RecyclerView) findViewById(R.id.rv_menu_list);
+        recyclerView = findViewById(R.id.rv_menu_list);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
+        mAdView = findViewById(R.id.adView);
+
+        Handler handler = new Handler();
+
+        mAdView.loadAd(PrefUtils.showads());
+        handler.postDelayed(new Runnable(){
+
+            @Override
+            public void run() {
+                mAdView.setVisibility(View.VISIBLE);
+
+            }
+        },3000);
 
         try {
             typeId = getIntent().getStringExtra("blog_id");
@@ -99,6 +113,7 @@ public class DashBoardActivity extends BaseActivity {
                         Intent intentDashboard = new Intent(DashBoardActivity.this, WebviewActivty.class);
                         intentDashboard.putExtra("url", link);
                         intentDashboard.putExtra("lang", "none");
+                        intentDashboard.putExtra("size", "small");
                         startActivity(intentDashboard);
 
 //

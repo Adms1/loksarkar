@@ -80,83 +80,83 @@ public class BaseApp extends Application implements Application.ActivityLifecycl
         String token = pref.getString("regId", "");
         Log.d("fcmtoken", token);
 
-        /// LocaleChanger.setLocale(SUPPORTED_LOCALES.get(2));
-//        MobileAds.initialize(this,"ca-app-pub-7793510975061206~8275052408");
-        MobileAds.initialize(this,"ca-app-pub-6257019493504041~7994058131");
+//        /// LocaleChanger.setLocale(SUPPORTED_LOCALES.get(2));
+////        MobileAds.initialize(this,"ca-app-pub-7793510975061206~8275052408");
+//        MobileAds.initialize(this,"ca-app-pub-3940256099942544~3347511713");
+//
+//        try {
+//            InstallReferrerHelper.fetchInstallReferrer(this, this);
+//        } catch (Exception ex) {
+//            ex.printStackTrace();
+//        }
+//
+//        mInterstitialAd = new InterstitialAd(this);
+////        mInterstitialAd.setAdUnitId("ca-app-pub-7793510975061206/3828788355");
+//        mInterstitialAd.setAdUnitId("ca-app-pub-6257019493504041/1531633700");
+//
+//        //testing unit id
+////        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+//        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/6300978111");
+//        mHandler = new Handler(Looper.getMainLooper());
+//
+//        scheduler = Executors.newSingleThreadScheduledExecutor();
+//        scheduler.scheduleAtFixedRate(new Runnable() {
+//            public void run() {
+//                new Handler(Looper.getMainLooper()).post(new Runnable() {
+//                    public void run() {
+//                        if (mInterstitialAd.isLoaded() && mInterstitialAd != null) {
+//                            //mInterstitialAd.show();
+//                        } else {
+//                            Log.d("TAG", " Interstitial not loaded");
+//                        }
+//                        loadAd();
+//                    }
+//                });
+//            }
+//        }, 0, 30, TimeUnit.SECONDS);
+//    }
 
-        try {
-            InstallReferrerHelper.fetchInstallReferrer(this, this);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-
-        mInterstitialAd = new InterstitialAd(this);
-//        mInterstitialAd.setAdUnitId("ca-app-pub-7793510975061206/3828788355");
-        mInterstitialAd.setAdUnitId("ca-app-pub-6257019493504041/1531633700");
-
-        //testing unit id
-//        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
-//        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
-        mHandler = new Handler(Looper.getMainLooper());
-
-        scheduler = Executors.newSingleThreadScheduledExecutor();
-        scheduler.scheduleAtFixedRate(new Runnable() {
-            public void run() {
-                new Handler(Looper.getMainLooper()).post(new Runnable() {
-                    public void run() {
-                        if (mInterstitialAd.isLoaded() && mInterstitialAd != null) {
-                            //mInterstitialAd.show();
-                        } else {
-                            Log.d("TAG", " Interstitial not loaded");
-                        }
-                        loadAd();
-                    }
-                });
-            }
-        }, 0, 30, TimeUnit.SECONDS);
-    }
-
-    private void loadAd() {
-        AdRequest request = new AdRequest.Builder()
-                .addTestDevice("918DB44296FAF473DC4180E450381834")
-                .addTestDevice("33BE2250B43518CCDA7DE426D04EE231")
-//                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-//        .addTestDevice(AppUtils.getDeviceId(this))
-                .build();
-
-        mInterstitialAd.loadAd(request);
-
-        mInterstitialAd.setAdListener(new AdListener() {
-            @Override
-            public void onAdLoaded() {
-                //displayInterstitial();
-                // Code to be executed when an ad finishes loading.
-                mInterstitialAd.show();
-            }
-
-            @Override
-            public void onAdFailedToLoad(int errorCode) {
-                // Code to be executed when an ad request fails.
-                Log.d("AdError", String.valueOf(errorCode));
-            }
-
-            @Override
-            public void onAdOpened() {
-                // Code to be executed when the ad is displayed.
-
-            }
-
-            @Override
-            public void onAdLeftApplication() {
-                // Code to be executed when the user has left the app.'
-            }
-
-            @Override
-            public void onAdClosed() {
-                // Code to be executed when when the interstitial ad is closed.
-                // loadAd();
-            }
-        });
+//    private void loadAd() {
+//        AdRequest request = new AdRequest.Builder()
+//                .addTestDevice("918DB44296FAF473DC4180E450381834")
+//                .addTestDevice("33BE2250B43518CCDA7DE426D04EE231")
+////                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+////        .addTestDevice(AppUtils.getDeviceId(this))
+//                .build();
+//
+//        mInterstitialAd.loadAd(request);
+//
+//        mInterstitialAd.setAdListener(new AdListener() {
+//            @Override
+//            public void onAdLoaded() {
+//                //displayInterstitial();
+//                // Code to be executed when an ad finishes loading.
+//                mInterstitialAd.show();
+//            }
+//
+//            @Override
+//            public void onAdFailedToLoad(int errorCode) {
+//                // Code to be executed when an ad request fails.
+//                Log.d("AdError", String.valueOf(errorCode));
+//            }
+//
+//            @Override
+//            public void onAdOpened() {
+//                // Code to be executed when the ad is displayed.
+//
+//            }
+//
+//            @Override
+//            public void onAdLeftApplication() {
+//                // Code to be executed when the user has left the app.'
+//            }
+//
+//            @Override
+//            public void onAdClosed() {
+//                // Code to be executed when when the interstitial ad is closed.
+//                // loadAd();
+//            }
+//        });
     }
 
     private void sendDeviceIdWithToken(final String token, String referralCode) {
@@ -287,29 +287,29 @@ public class BaseApp extends Application implements Application.ActivityLifecycl
 
     @Override
     public void onActivityResumed(Activity activity) {
-        try {
-            if (scheduler == null) {
-                scheduler = Executors.newSingleThreadScheduledExecutor();
-                scheduler.scheduleAtFixedRate(new Runnable() {
-                    public void run() {
-                        new Handler(Looper.getMainLooper()).post(new Runnable() {
-                            public void run() {
-                                if (mInterstitialAd.isLoaded() && mInterstitialAd != null) {
-                                    mInterstitialAd.show();
-                                } else {
-                                    Log.d("TAG", " Interstitial not loaded");
-                                }
-                                loadAd();
-                            }
-                        });
-                    }
-                }, 30, 30, TimeUnit.SECONDS);
-
-
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+//        try {
+////            if (scheduler == null) {
+////                scheduler = Executors.newSingleThreadScheduledExecutor();
+////                scheduler.scheduleAtFixedRate(new Runnable() {
+////                    public void run() {
+////                        new Handler(Looper.getMainLooper()).post(new Runnable() {
+////                            public void run() {
+////                                if (mInterstitialAd.isLoaded() && mInterstitialAd != null) {
+////                                    mInterstitialAd.show();
+////                                } else {
+////                                    Log.d("TAG", " Interstitial not loaded");
+////                                }
+//////                                loadAd();
+////                            }
+////                        });
+////                    }
+////                }, 30, 30, TimeUnit.SECONDS);
+//
+//
+//            }
+//        } catch (Exception ex) {
+//            ex.printStackTrace();
+//        }
     }
 
     @Override

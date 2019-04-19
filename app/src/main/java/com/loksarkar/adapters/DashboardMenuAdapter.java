@@ -100,6 +100,7 @@ public class DashboardMenuAdapter extends RecyclerView.Adapter<DashboardMenuAdap
                         if(AppUtils.isNetworkConnected(context)) {
                             Intent intent = new Intent(context, WebviewActivty.class);
                             intent.putExtra("url", WebViewURLS.COMPLAIN_FORUM);
+                            intent.putExtra("size", "");
                            // intent.putExtra("lang","none");
                             if(PrefUtils.getInstance(context).getUserLogin()) {
                                 intent.putExtra("loksevak_code", "l_code");
@@ -118,6 +119,7 @@ public class DashboardMenuAdapter extends RecyclerView.Adapter<DashboardMenuAdap
                         if(AppUtils.isNetworkConnected(context)) {
                             Intent intent1 = new Intent(context,WebviewActivty.class);
                             intent1.putExtra("url", WebViewURLS.REGISTRATION);
+                            intent1.putExtra("size", "");
                             context.startActivity(intent1);
                             //context.startActivity(new Intent(context, CommitteeRegistrationActivity.class));
                         }else{
@@ -130,6 +132,7 @@ public class DashboardMenuAdapter extends RecyclerView.Adapter<DashboardMenuAdap
                         if(AppUtils.isNetworkConnected(context)) {
                             Intent intent2 = new Intent(context, WebviewActivty.class);
                             intent2.putExtra("url", WebViewURLS.USEFUL_INFO);
+                            intent2.putExtra("size", "small");
                             context.startActivity(intent2);
                         }else{
                            AppUtils.notify(context,context.getString(R.string.no_internet_title),context.getString(R.string.no_internet_msg));
@@ -138,6 +141,7 @@ public class DashboardMenuAdapter extends RecyclerView.Adapter<DashboardMenuAdap
                     case 3:
                         Intent intent3 = new Intent(context,Facility.class);
                         //intent2.putExtra("url", WebViewURLS.USEFUL_INFO);
+                        intent3.putExtra("size", "small");
                         context.startActivity(intent3);
                         break;
                     case 4:
@@ -158,6 +162,7 @@ public class DashboardMenuAdapter extends RecyclerView.Adapter<DashboardMenuAdap
                         if(AppUtils.isNetworkConnected(context)) {
                             Intent intent6 = new Intent(context,WebviewActivty.class);
                             intent6.putExtra("url", WebViewURLS.VOICE_OF_PEOPLE);
+                            intent6.putExtra("size", "large");
                             context.startActivity(intent6);
                         }else{
                             AppUtils.notify(context,context.getString(R.string.no_internet_title),context.getString(R.string.no_internet_msg));
@@ -168,6 +173,7 @@ public class DashboardMenuAdapter extends RecyclerView.Adapter<DashboardMenuAdap
                         if(AppUtils.isNetworkConnected(context)) {
                             Intent intent6 = new Intent(context,WebviewActivty.class);
                             intent6.putExtra("url", WebViewURLS.SUGGESTION);
+                            intent6.putExtra("size", "");
                             context.startActivity(intent6);
                         }else{
                             AppUtils.notify(context,context.getString(R.string.no_internet_title),context.getString(R.string.no_internet_msg));
@@ -178,6 +184,7 @@ public class DashboardMenuAdapter extends RecyclerView.Adapter<DashboardMenuAdap
                         if(AppUtils.isNetworkConnected(context)) {
                             Intent intent7 = new Intent(context,WebviewActivty.class);
                             intent7.putExtra("url", WebViewURLS.JOIN_LOKSAR);
+                            intent7.putExtra("size", "");
                             context.startActivity(intent7);
                         }else{
                             AppUtils.notify(context,context.getString(R.string.no_internet_title),context.getString(R.string.no_internet_msg));

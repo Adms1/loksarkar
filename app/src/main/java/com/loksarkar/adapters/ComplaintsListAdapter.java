@@ -115,6 +115,7 @@ public class ComplaintsListAdapter extends RecyclerView.Adapter<ComplaintsListAd
                     Intent intent = new Intent(context, WebviewActivty.class);
                     intent.putExtra("url", complaintsModel.getURL());
                     intent.putExtra("lang", "none");
+                    intent.putExtra("size", "small");
                     context.startActivity(intent);
                 } else {
                     AppUtils.notify(context, context.getString(R.string.no_internet_title), context.getString(R.string.no_internet_msg));

@@ -468,6 +468,7 @@ public class BaseActivity extends AppCompatActivity {
                 drawerLayout.closeDrawers();
                 Intent intent1 = new Intent(this, WebviewActivty.class);
                 intent1.putExtra("url", WebViewURLS.ABOUT_US);
+                intent1.putExtra("size", "small");
                 // intent1.putExtra("lang","none");
                 startActivity(intent1);
                 break;
@@ -495,6 +496,7 @@ public class BaseActivity extends AppCompatActivity {
                 Intent intent3 = new Intent(this, WebviewActivty.class);
                 intent3.putExtra("url", WebViewURLS.TRACK_APPLICATION);
                 intent3.putExtra("lang", "none");
+                intent3.putExtra("size", "small");
                 startActivity(intent3);
                 break;
 
@@ -608,8 +610,8 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     private void prepareListData() {
-        listDataHeader = new ArrayList<ExpandabelModel>();
-        listDataChild = new HashMap<ExpandabelModel, List<ChildListModel>>();
+        listDataHeader = new ArrayList<>();
+        listDataChild = new HashMap<>();
 
         ExpandabelModel expandabelModel = new ExpandabelModel();
         expandabelModel.setName(getString(R.string.home));

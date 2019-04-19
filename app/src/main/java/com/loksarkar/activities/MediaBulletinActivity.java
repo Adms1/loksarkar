@@ -9,8 +9,10 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.LinearLayout;
 
+import com.google.android.gms.ads.AdView;
 import com.loksarkar.R;
 import com.loksarkar.constants.AppConstants;
+import com.loksarkar.utils.PrefUtils;
 
 public class MediaBulletinActivity extends BaseActivity {
 
@@ -21,7 +23,6 @@ public class MediaBulletinActivity extends BaseActivity {
     private String category_news = "News";
 
     private Dialog dialog;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

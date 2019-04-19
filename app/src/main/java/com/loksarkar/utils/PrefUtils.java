@@ -3,6 +3,8 @@ package com.loksarkar.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.google.android.gms.ads.AdRequest;
+
 public class PrefUtils {
 
     private static PrefUtils mSharedPreferenceUtils;
@@ -195,7 +197,14 @@ public class PrefUtils {
         }
     }
 
+    public static AdRequest showads(){
 
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice("918DB44296FAF473DC4180E450381834")
+                .addTestDevice("33BE2250B43518CCDA7DE426D04EE231").build();
+
+        return adRequest;
+    }
 
     public void clear() {
         mSharedPreferencesEditor.clear().commit();
