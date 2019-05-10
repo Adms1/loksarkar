@@ -103,7 +103,9 @@ public class WebviewActivty extends BaseActivity implements AdvancedWebView.List
         mAdView1 = findViewById(R.id.adView1);
 
         mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+//        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+
+        mInterstitialAd.setAdUnitId("ca-app-pub-7708242320218497/3180011857");
 
         if (intent.getStringExtra("size").equalsIgnoreCase("small")) {
             mAdView1.setVisibility(View.GONE);

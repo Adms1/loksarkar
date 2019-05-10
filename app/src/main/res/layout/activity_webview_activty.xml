@@ -64,7 +64,7 @@
             android:layout_height="@dimen/_100sdp"
             android:layout_centerHorizontal="true"
             android:visibility="gone"
-            ads:adUnitId="ca-app-pub-3940256099942544/6300978111" />
+            ads:adUnitId="ca-app-pub-7708242320218497/7866551692" />
 
         <com.google.android.gms.ads.AdView
             android:id="@+id/adView1"
@@ -74,7 +74,7 @@
             android:layout_marginBottom="10dp"
             ads:adSize="MEDIUM_RECTANGLE"
             android:visibility="gone"
-            ads:adUnitId="ca-app-pub-3940256099942544/6300978111" />
+            ads:adUnitId="ca-app-pub-7708242320218497/3180011857" />
 
     </RelativeLayout>
 
