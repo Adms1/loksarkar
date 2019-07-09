@@ -9,10 +9,10 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.LinearLayout;
 
-import com.google.android.gms.ads.AdView;
 import com.loksarkar.R;
 import com.loksarkar.constants.AppConstants;
-import com.loksarkar.utils.PrefUtils;
+
+//import com.google.android.gms.ads.AdView;
 
 public class MediaBulletinActivity extends BaseActivity {
 

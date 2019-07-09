@@ -1,53 +1,36 @@
 package com.loksarkar.activities;
 
-import android.Manifest;
-import android.annotation.TargetApi;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.TypedArray;
 import android.net.Uri;
-import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Looper;
-import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.view.ContextThemeWrapper;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.View;
-import android.webkit.WebView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.InterstitialAd;
-import com.google.android.gms.ads.MobileAds;
-import com.google.gson.JsonObject;
+import com.loksarkar.R;
 import com.loksarkar.adapters.DashboardMenuAdapter;
 import com.loksarkar.api.DeviceVersionAsyncTask;
-import com.loksarkar.constants.WebViewURLS;
 import com.loksarkar.models.DashBoardModel;
-import com.loksarkar.R;
 import com.loksarkar.models.DeviceVersionModel;
 import com.loksarkar.utils.AppUtils;
-import com.loksarkar.utils.PrefUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Pattern;
+
+//import com.google.android.gms.ads.AdListener;
+//import com.google.android.gms.ads.AdRequest;
+//import com.google.android.gms.ads.AdView;
+//import com.google.android.gms.ads.InterstitialAd;
+//import com.google.android.gms.ads.MobileAds;
 
 public class DashBoardActivity extends BaseActivity {
 
@@ -63,10 +46,10 @@ public class DashBoardActivity extends BaseActivity {
     private DeviceVersionAsyncTask deviceVersionAsyncTask = null;
     private DeviceVersionModel deviceVersionModel;
     private boolean isVersionCodeUpdated = false;
-    private InterstitialAd mInterstitialAd;
+    //    private InterstitialAd mInterstitialAd;
     private Handler mHandler;
     private Runnable displayAd;     // Code to execute to perform this operation
-    private AdView mAdView;
+//    private AdView mAdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,19 +59,19 @@ public class DashBoardActivity extends BaseActivity {
         recyclerView = findViewById(R.id.rv_menu_list);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
-        mAdView = findViewById(R.id.adView);
+//        mAdView = findViewById(R.id.adView);
 
         Handler handler = new Handler();
 
-        mAdView.loadAd(PrefUtils.showads());
-        handler.postDelayed(new Runnable(){
-
-            @Override
-            public void run() {
-                mAdView.setVisibility(View.VISIBLE);
-
-            }
-        },3000);
+//        mAdView.loadAd(PrefUtils.showads());
+//        handler.postDelayed(new Runnable(){
+//
+//            @Override
+//            public void run() {
+//                mAdView.setVisibility(View.VISIBLE);
+//
+//            }
+//        },3000);
 
         try {
             typeId = getIntent().getStringExtra("blog_id");

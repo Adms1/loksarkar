@@ -2,8 +2,8 @@ package com.loksarkar.activities;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatTextView;
 import android.view.MenuItem;
@@ -70,7 +70,7 @@ public class ReferralActivity extends AppCompatActivity {
 //                            .addControlParameter("$android_deeplink_path", "custom/path/*")
 //                           // .addControlParameter("$ios_url", "http://example.com/ios")
 //                            .setDuration(100);
-                    AppUtils.sendReferral(ReferralActivity.this,loksevakCode);
+                    AppUtils.sendReferral(ReferralActivity.this, loksevakCode, getString(R.string.share_app));
 
                 } else {
                     Intent intentLogin = new Intent(ReferralActivity.this,SigninActivity.class);

@@ -17,7 +17,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.CancellationSignal;
 import android.os.Environment;
-import android.os.Handler;
 import android.os.ParcelFileDescriptor;
 import android.print.PageRange;
 import android.print.PrintAttributes;
@@ -41,10 +40,6 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.InterstitialAd;
 import com.loksarkar.R;
 import com.loksarkar.api.ApiHandler;
 import com.loksarkar.constants.WebViewURLS;
@@ -69,6 +64,11 @@ import retrofit.client.Response;
 
 import static android.media.MediaFormat.KEY_LANGUAGE;
 
+//import com.google.android.gms.ads.AdListener;
+//import com.google.android.gms.ads.AdRequest;
+//import com.google.android.gms.ads.AdView;
+//import com.google.android.gms.ads.InterstitialAd;
+
 public class WebviewActivty extends BaseActivity implements AdvancedWebView.Listener, PermissionUtils.ReqPermissionCallback {
 
     private static final String SP_LOCALE = "LocaleChanger.LocalePersistence";
@@ -86,8 +86,8 @@ public class WebviewActivty extends BaseActivity implements AdvancedWebView.List
     private Intent intent;
     private String complaintNo = "";
     private AdvancedWebView previewWebview;
-    private AdView mAdView, mAdView1;
-    private InterstitialAd mInterstitialAd;
+//    private AdView mAdView, mAdView1;
+//    private InterstitialAd mInterstitialAd;
 
     @SuppressLint("JavascriptInterface")
     @Override
@@ -99,52 +99,52 @@ public class WebviewActivty extends BaseActivity implements AdvancedWebView.List
         rotateLoaderDialog.showLoader();
         intent = this.getIntent();
 
-        mAdView = findViewById(R.id.adView);
-        mAdView1 = findViewById(R.id.adView1);
-
-        mInterstitialAd = new InterstitialAd(this);
+//        mAdView = findViewById(R.id.adView);
+//        mAdView1 = findViewById(R.id.adView1);
+//
+//        mInterstitialAd = new InterstitialAd(this);
 //        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
 
-        mInterstitialAd.setAdUnitId("ca-app-pub-7708242320218497/3180011857");
+//        mInterstitialAd.setAdUnitId("ca-app-pub-7708242320218497/3180011857");
 
-        if (intent.getStringExtra("size").equalsIgnoreCase("small")) {
-            mAdView1.setVisibility(View.GONE);
-            mAdView.loadAd(PrefUtils.showads());
-
-            Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-
-                @Override
-                public void run() {
-                    mAdView.setVisibility(View.VISIBLE);
-
-                }
-            }, 5000);
-
-        } else if (intent.getStringExtra("size").equalsIgnoreCase("large")) {
-            mAdView.setVisibility(View.GONE);
-            mAdView1.loadAd(PrefUtils.showads());
-
-            Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-
-                @Override
-                public void run() {
-                    mAdView1.setVisibility(View.VISIBLE);
-
-                }
-            }, 5000);
-        } else if (intent.getStringExtra("size").equalsIgnoreCase("")) {
-            mAdView1.setVisibility(View.GONE);
-            mAdView.setVisibility(View.GONE);
-            mInterstitialAd.loadAd(new AdRequest.Builder().build());
-
-            mInterstitialAd.setAdListener(new AdListener(){
-                public void onAdLoaded(){
-                    mInterstitialAd.show();
-                }
-            });
-        }
+//        if (intent.getStringExtra("size").equalsIgnoreCase("small")) {
+//            mAdView1.setVisibility(View.GONE);
+//            mAdView.loadAd(PrefUtils.showads());
+//
+//            Handler handler = new Handler();
+//            handler.postDelayed(new Runnable() {
+//
+//                @Override
+//                public void run() {
+//                    mAdView.setVisibility(View.VISIBLE);
+//
+//                }
+//            }, 5000);
+//
+//        } else if (intent.getStringExtra("size").equalsIgnoreCase("large")) {
+//            mAdView.setVisibility(View.GONE);
+//            mAdView1.loadAd(PrefUtils.showads());
+//
+//            Handler handler = new Handler();
+//            handler.postDelayed(new Runnable() {
+//
+//                @Override
+//                public void run() {
+//                    mAdView1.setVisibility(View.VISIBLE);
+//
+//                }
+//            }, 5000);
+//        } else if (intent.getStringExtra("size").equalsIgnoreCase("")) {
+//            mAdView1.setVisibility(View.GONE);
+//            mAdView.setVisibility(View.GONE);
+//            mInterstitialAd.loadAd(new AdRequest.Builder().build());
+//
+//            mInterstitialAd.setAdListener(new AdListener(){
+//                public void onAdLoaded(){
+//                    mInterstitialAd.show();
+//                }
+//            });
+//        }
 
         mWebview = findViewById(R.id.webview);
         progressBar = findViewById(R.id.loader);
@@ -272,11 +272,11 @@ public class WebviewActivty extends BaseActivity implements AdvancedWebView.List
             e.printStackTrace();
         }
 
-        mInterstitialAd.setAdListener(new AdListener(){
-            public void onAdLoaded(){
-                mInterstitialAd.show();
-            }
-        });
+//        mInterstitialAd.setAdListener(new AdListener(){
+//            public void onAdLoaded(){
+//                mInterstitialAd.show();
+//            }
+//        });
 
         mWebview.setDownloadListener(new DownloadListener() {
             @Override

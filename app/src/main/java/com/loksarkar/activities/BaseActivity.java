@@ -17,8 +17,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -30,7 +28,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.google.android.gms.ads.InterstitialAd;
 import com.loksarkar.R;
 import com.loksarkar.adapters.ExpandableMenuAdapter;
 import com.loksarkar.api.ApiHandler;
@@ -41,9 +38,7 @@ import com.loksarkar.localeutils.utils.ActivityRecreationHelper;
 import com.loksarkar.models.ChildListModel;
 import com.loksarkar.models.ExpandabelModel;
 import com.loksarkar.models.RefferalUserListModel;
-import com.loksarkar.models.RegistrationModel;
 import com.loksarkar.utils.AppUtils;
-import com.loksarkar.utils.InstallReferrerHelper;
 import com.loksarkar.utils.PrefUtils;
 
 import java.util.ArrayList;
@@ -56,6 +51,8 @@ import retrofit.client.Response;
 
 import static android.media.MediaFormat.KEY_LANGUAGE;
 import static com.loksarkar.utils.PrefUtils.REFERRAL_ID_KEY;
+
+//import com.google.android.gms.ads.InterstitialAd;
 
 public class BaseActivity extends AppCompatActivity {
 
@@ -78,7 +75,7 @@ public class BaseActivity extends AppCompatActivity {
     //private BranchUniversalObject branchUniversalObject;
     private Bundle activityArguments;
     private TextView textRewards;
-    private InterstitialAd mInterstitialAd;
+    //    private InterstitialAd mInterstitialAd;
     private Handler mHandler;
     private Runnable displayAd;
 //    private ScheduledExecutorService scheduler;

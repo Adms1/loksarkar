@@ -51,6 +51,17 @@ public class NotificationDataModel {
         @SerializedName("FileType")
         @Expose
         private String fileType;
+        @SerializedName("Link")
+        @Expose
+        private String sharelink;
+
+        public String getSharelink() {
+            return sharelink;
+        }
+
+        public void setSharelink(String sharelink) {
+            this.sharelink = sharelink;
+        }
 
         public String getDate() {
             return date;

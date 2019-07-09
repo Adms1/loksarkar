@@ -6,19 +6,13 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Looper;
 import android.os.StrictMode;
 import android.os.SystemClock;
 import android.support.multidex.MultiDex;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.InterstitialAd;
-import com.google.android.gms.ads.MobileAds;
 import com.loksarkar.R;
-import com.loksarkar.activities.BaseActivity;
 import com.loksarkar.api.ApiHandler;
 import com.loksarkar.localeutils.LocaleChanger;
 import com.loksarkar.models.RegistrationModel;
@@ -32,12 +26,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import retrofit.RetrofitError;
 import retrofit.client.Response;
+
+//import com.google.android.gms.ads.AdListener;
+//import com.google.android.gms.ads.AdRequest;
+//import com.google.android.gms.ads.InterstitialAd;
+//import com.google.android.gms.ads.MobileAds;
 
 
 public class BaseApp extends Application implements Application.ActivityLifecycleCallbacks, InstallReferrerHelper.InstallReferrerCallback {
@@ -47,7 +45,7 @@ public class BaseApp extends Application implements Application.ActivityLifecycl
             new Locale("hi", "IN"),
             new Locale("en", "US"));
     public ScheduledExecutorService scheduler;
-    private InterstitialAd mInterstitialAd;
+    //    private InterstitialAd mInterstitialAd;
     private Handler mHandler;
     private Runnable displayAd;
 

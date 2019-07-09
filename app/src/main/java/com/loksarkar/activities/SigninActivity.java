@@ -3,15 +3,14 @@ package com.loksarkar.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatEditText;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.google.android.gms.ads.AdView;
 import com.loksarkar.R;
 import com.loksarkar.api.ApiHandler;
 import com.loksarkar.listener.OnProgressCompleteListener;
@@ -27,6 +26,8 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 import static com.loksarkar.constants.AppConstants.NOTIFICATION_MSG;
+
+//import com.google.android.gms.ads.AdView;
 
 public class SigninActivity extends AppCompatActivity implements OnProgressCompleteListener{
 

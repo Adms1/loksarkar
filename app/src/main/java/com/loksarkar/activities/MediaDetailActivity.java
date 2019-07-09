@@ -3,28 +3,27 @@ package com.loksarkar.activities;
 import android.Manifest;
 import android.app.DownloadManager;
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import com.bumptech.glide.Glide;
 import com.loksarkar.R;
 import com.loksarkar.api.ApiHandler;
+import com.loksarkar.models.NotificationDataModel;
+import com.loksarkar.ui.RotateLoaderDialog;
 import com.loksarkar.ui.easyvideoplayer.EasyVideoCallback;
 import com.loksarkar.ui.easyvideoplayer.EasyVideoPlayer;
 import com.loksarkar.ui.easyvideoplayer.EasyVideoProgressCallback;
-import com.loksarkar.models.NotificationDataModel;
-import com.loksarkar.ui.RotateLoaderDialog;
 import com.loksarkar.utils.AppUtils;
 import com.loksarkar.utils.PermissionUtils;
 
@@ -43,8 +42,8 @@ public class MediaDetailActivity extends AppCompatActivity implements EasyVideoP
     private String typeId = "";
     private Toolbar toolbar;
     private TextView tvContentTitle,tvContent,tvDate;
-    private FloatingActionButton mSharebtn;
-    private String Url = "";
+    private FloatingActionButton mDownloadbutton, mSharebtn;
+    private String Url = "", sharelink = "";
     private EasyVideoPlayer easyVideoPlayer;
     private PermissionUtils.ReqPermissionCallback reqPermissionCallback;
     private RelativeLayout rlBackImage;
@@ -57,7 +56,8 @@ public class MediaDetailActivity extends AppCompatActivity implements EasyVideoP
         setContentView(R.layout.activity_media_bulletin);
         rotateLoaderDialog = new RotateLoaderDialog(this);
         toolbar = (Toolbar)findViewById(R.id.toolbar);
-        mSharebtn = (FloatingActionButton)findViewById(R.id.action_share);
+        mDownloadbutton = (FloatingActionButton) findViewById(R.id.media_action_download);
+        mSharebtn = (FloatingActionButton) findViewById(R.id.media_action_share);
         rlBackImage = (RelativeLayout)findViewById(R.id.RL_back);
 
         easyVideoPlayer = (EasyVideoPlayer)findViewById(R.id.evp);
@@ -68,7 +68,8 @@ public class MediaDetailActivity extends AppCompatActivity implements EasyVideoP
         easyVideoPlayer.setCallback(this);
        //mVideoView = (TextureVideoView) findViewById(R.id.evp);
 
-       mSharebtn.setVisibility(View.GONE);
+        mDownloadbutton.setVisibility(View.GONE);
+        mSharebtn.setVisibility(View.GONE);
 
        setSupportActionBar(toolbar);
 
@@ -93,7 +94,7 @@ public class MediaDetailActivity extends AppCompatActivity implements EasyVideoP
         callNotificationDetailApi();
 
 
-        mSharebtn.setOnClickListener(new View.OnClickListener() {
+        mDownloadbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(PermissionUtils.hasPermission(MediaDetailActivity.this,Manifest.permission.WRITE_EXTERNAL_STORAGE)){
@@ -105,6 +106,21 @@ public class MediaDetailActivity extends AppCompatActivity implements EasyVideoP
             }
         });
 
+        mSharebtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                String shareCode = PrefUtils.getInstance(MediaDetailActivity.this).getStringValue(PrefUtils.REFERRAL_ID_KEY, "");
+
+//                    LinkProperties linkProperties = new LinkProperties()
+//                            .addTag("Tag1")
+//                            .setChannel("Loksarkar_Channel")
+//                            .setFeature("loksarkar_sharing_feature")
+//                            .addControlParameter("$android_deeplink_path", "custom/path/*")
+//                           // .addControlParameter("$ios_url", "http://example.com/ios")
+//                            .setDuration(100);
+                AppUtils.sendReferral(MediaDetailActivity.this, sharelink, "");
+            }
+        });
 
     }
 
@@ -204,6 +220,7 @@ public class MediaDetailActivity extends AppCompatActivity implements EasyVideoP
                 }
                 if (notificationDataModel.getSuccess().equalsIgnoreCase("True")) {
                     rotateLoaderDialog.dismissLoader();
+                    mDownloadbutton.setVisibility(View.VISIBLE);
                     mSharebtn.setVisibility(View.VISIBLE);
 
 
@@ -223,6 +240,7 @@ public class MediaDetailActivity extends AppCompatActivity implements EasyVideoP
                        // mVideoView.setVisibility(View.GONE);
 
                         Url = notificationDataModel.getFinalAry().get(0).getFilePath();
+                        sharelink = notificationDataModel.getFinalAry().get(0).getSharelink();
 
                         Glide.with(MediaDetailActivity.this).asBitmap().load(notificationDataModel.getFinalAry().get(0).getFilePath()).into(backImage);
                     }
@@ -234,6 +252,7 @@ public class MediaDetailActivity extends AppCompatActivity implements EasyVideoP
                        // mVideoView.setVisibility(View.VISIBLE);
 
                         Url = notificationDataModel.getFinalAry().get(0).getFilePath();
+                        sharelink = notificationDataModel.getFinalAry().get(0).getSharelink();
 
                         initVideoView(notificationDataModel.getFinalAry().get(0).getFilePath());
 

@@ -9,6 +9,7 @@ import com.loksarkar.models.NotificationDataModel;
 import com.loksarkar.models.OTPModel;
 import com.loksarkar.models.RefferalUserListModel;
 import com.loksarkar.models.RegistrationModel;
+
 import java.util.Map;
 
 import okhttp3.MultipartBody;
@@ -84,7 +85,6 @@ public interface WebServices {
     @FormUrlEncoded
     @POST("/RegisterDevice")
     public void registerDevice(@FieldMap Map<String, String> map, Callback<RegistrationModel> callback);
-
 
     @FormUrlEncoded
     @POST("/GetMediaBulletinNew")
