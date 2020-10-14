@@ -210,12 +210,10 @@ public class AppUtils {
        return android_id == null ? "" :android_id;
     }
 
-
    public static int dp2px(Context context, float dp) {
         float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.getResources().getDisplayMetrics());
         return Math.round(px);
     }
-
 
     @TargetApi(21)
    public static class ShadowOutline extends ViewOutlineProvider {
